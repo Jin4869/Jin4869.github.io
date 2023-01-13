@@ -1,0 +1,932 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/3.png">
+  <link rel="icon" href="/img/3.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#88A3C3">
+  <meta name="author" content="不想长大的小孩">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="函数依赖，范式，求闭包，等价与最小覆盖，求最小依赖集，模式分解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CH6 关系数据理论">
+<meta property="og:url" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="函数依赖，范式，求闭包，等价与最小覆盖，求最小依赖集，模式分解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718706867902.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718718543485.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718722127099.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718731711350.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718733465879.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718726837430.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718728492261.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718729190952.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718730468843.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718730707856.jpg">
+<meta property="article:published_time" content="2022-12-24T09:32:33.000Z">
+<meta property="article:modified_time" content="2023-01-13T10:09:41.373Z">
+<meta property="article:author" content="不想长大的小孩">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="关系数据">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/assets/16718706867902.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>CH6 关系数据理论 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jin4869.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>APTX</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CH6 关系数据理论"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-24 17:32" pubdate>
+          2022年12月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CH6 关系数据理论</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="规范化">6.1 规范化</h1>
+<h2 id="函数依赖">6.1.1 函数依赖</h2>
+<p>（R(U)是属性集 U 上的关系模式，X，Y 是 U 的子集）<strong>X 函数确定 Y 或 Y 函数依赖于 X</strong>，记作<span class="math inline">\(X\to Y\)</span></p>
+<blockquote>
+<p>只能根据语义来确定一个函数依赖，例如：姓名-&gt;年龄这个函数依赖只有在该部门没有同名人的条件下成立，如果允许有同名人，则年龄就不再函数依赖于姓名</p>
+<p>一些术语和记号：</p>
+</blockquote>
+<ul>
+<li><span class="math inline">\(X\to Y\)</span>，但<span class="math inline">\(Y\nsubseteq X\)</span>，则称<span class="math inline">\(X\to Y\)</span>是<strong>非平凡</strong>的函数依赖，反之称为平凡的函数依赖
+<ul>
+<li><blockquote>
+<p>平凡依赖是必然成立的，我们总是讨论非平凡的函数依赖</p>
+</blockquote></li>
+</ul></li>
+<li>若<span class="math inline">\(X \to Y\)</span>，则称 X 是<strong>决定因素</strong></li>
+<li>若<span class="math inline">\(X \to Y\)</span>，<span class="math inline">\(Y \to X\)</span>，则记作<span class="math inline">\(X \leftarrow \to Y\)</span></li>
+<li>若 Y 不函数依赖于 X，记作<span class="math inline">\(X \nrightarrow Y\)</span></li>
+<li><strong>完全函数依赖：</strong> Y 依赖于 X 但是不依赖于 X 的任何一个真子集，记作<span class="math inline">\(X \to^F Y\)</span></li>
+<li><strong>部分函数依赖：</strong> Y 对 X 的子集依赖，记作<span class="math inline">\(X\to ^PY\)</span></li>
+<li><strong>传递函数依赖：</strong> <span class="math inline">\(X \to Y(Y \nsubseteq X), Y\nrightarrow X, Y \to Z,Z \nsubseteq Y\)</span>
+<ul>
+<li><blockquote>
+<p>这里加上条件<span class="math inline">\(Y \nrightarrow X\)</span>，因为如果<span class="math inline">\(Y\to X\)</span>，则<span class="math inline">\(X\leftarrow \to Y\)</span>，实际上就是<span class="math inline">\(X \to ^{直接} Y\)</span>，是直接函数依赖而不是传递函数依赖</p>
+</blockquote></li>
+</ul></li>
+</ul>
+<h2 id="码">6.1.2 码</h2>
+<ul>
+<li><strong>候选码：</strong> 设 K 为 R(U,F)中的属性或属性集合，若 U 对 K 完全函数依赖，则 K 为 R 的候选码</li>
+<li><strong>超码：</strong> U 部分依赖于 K。<strong>候选码是最小的超码</strong></li>
+<li><strong>主码</strong>：若候选码多余一个，则选定其中的一个为主码</li>
+<li><strong>主属性：</strong> 包含在任何一个候选码中的属性</li>
+<li><strong>全码</strong>：整个属性组是码</li>
+<li><strong>外码</strong>：关系模式 R 中属性或属性组<strong>X 并非 R 的码</strong>，但<strong>X 是另外一个关系模式的码</strong>，则称 X 是 R 的外码</li>
+</ul>
+<h2 id="范式">6.1.3 范式</h2>
+<h3 id="nf">6.1.3.1 2NF</h3>
+<p>每一个非主属性完全函数依赖于（不部分依赖于）任何一个候选码</p>
+<h3 id="nf-1">6.1.3.2 3NF</h3>
+<p>每一个非主属性既不不传递依赖于码，也不部分依赖于码</p>
+<h3 id="bcnf">6.1.3.3 BCNF</h3>
+<p>每一个决定因素都包含码</p>
+<p><strong>若 3NF 只有唯一候选吗，则一定为 BCNF</strong></p>
+<p><strong>全主属性一定可达 3NF，全码一定可达 BCNF</strong></p>
+<h3 id="多值依赖">6.1.3.4 多值依赖</h3>
+<p>R(U)是属性集 U 上的一个关系模式，X，Y，Z 是 U 的子集，并且 U=X+Y+Z，如果<strong>一个 X 的值决定一组 Y 的值</strong>，则<strong>多值依赖</strong><span class="math inline">\(X\to\to Y\)</span>成立</p>
+<ul>
+<li><strong>平凡多值依赖：</strong> Z 为空集，即 U=X+Y，且多值依赖<span class="math inline">\(X\to\to Y\)</span>成立</li>
+<li><strong>非平凡多值依赖：</strong> Z 非空</li>
+</ul>
+<p>函数依赖可以看作是多值依赖的特殊情况</p>
+<blockquote>
+<p>多值依赖<span class="math inline">\(X\to\to Y\)</span>若在 R(U)上成立，不能断言对于任何<span class="math inline">\(Y&#39;\subset Y\)</span>有<span class="math inline">\(X\to\to Y&#39;\)</span>成立</p>
+</blockquote>
+<h3 id="nf-2">6.1.3.5 4NF</h3>
+<p>不允许有非平凡且非函数依赖的多值依赖</p>
+<p>4NF 所允许的非平凡的多值依赖实际上就是函数依赖</p>
+<p><strong>若一个关系模式为 4NF，则必为 BCNF</strong></p>
+<p><strong>4NF 中：</strong></p>
+<ul>
+<li>非平凡的多值依赖
+<ul>
+<li>x 含码 -&gt; 多值依赖也是函数依赖</li>
+</ul></li>
+<li>平凡的多值依赖
+<ul>
+<li>x 含码 -&gt; 是函数依赖</li>
+<li>x 不含码 -&gt; 不是函数依赖</li>
+</ul></li>
+</ul>
+<p><img src="assets/16718706867902.jpg" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="例题判断范式">6.1.3.6 例题：判断范式</h3>
+<p><img src="assets/16718718543485.jpg" srcset="/img/loading.gif" lazyload /></p>
+<h1 id="数据依赖的公理系统-armstrong-公理系统">6.2 数据依赖的公理系统 armstrong 公理系统</h1>
+<p><strong>F 逻辑蕴涵<span class="math inline">\(X \to Y\)</span></strong>:关系模式 R&lt;U, F&gt;中，函数依赖<span class="math inline">\(X\to Y\)</span>成立</p>
+<ul>
+<li>有效性：由 F 出发依据公理推出的每个函数依赖一定在<span class="math inline">\(F^+\)</span>中</li>
+<li>完备性：<span class="math inline">\(F^+\)</span>中每个函数依赖一定可以由 F 出发根据公理推导出来</li>
+</ul>
+<h2 id="推理规则">6.2.1 推理规则</h2>
+<p>对 R&lt;U, F&gt;有以下推理规则：</p>
+<ul>
+<li><strong>自反律：</strong>
+<ul>
+<li>若<span class="math inline">\(Y \subseteq X \subseteq U\)</span>，则<span class="math inline">\(X \to Y\)</span>为 <span class="math inline">\(F\)</span> 所蕴涵</li>
+<li>子集对全集一定有平凡函数依赖</li>
+<li>自反律得到的函数依赖均是平凡的函数依赖，自反律的使用并不依赖于 F</li>
+</ul></li>
+<li><strong>增广律：</strong>
+<ul>
+<li>若<span class="math inline">\(X \to Y\)</span>为 <span class="math inline">\(F\)</span> 所蕴涵，且<span class="math inline">\(Z \subseteq U\)</span>，则 <span class="math inline">\(XZ \to YZ\)</span> 为 <span class="math inline">\(F\)</span> 所蕴涵</li>
+<li>左右各加了一个属性</li>
+</ul></li>
+<li><strong>传递律：</strong>
+<ul>
+<li>若<span class="math inline">\(X \to Y\)</span>及<span class="math inline">\(Y \to X\)</span> 为 <span class="math inline">\(F\)</span> 所蕴涵，则<span class="math inline">\(X \to Z\)</span>为 F 所蕴涵</li>
+<li>如果<span class="math inline">\(Y \to X, X\to Y\)</span>，则符合传递律但不符合传递函数依赖</li>
+</ul></li>
+<li><strong>合并规则</strong>
+<ul>
+<li>由<span class="math inline">\(X\to Y\)</span>,<span class="math inline">\(X \to Z\)</span>，有<span class="math inline">\(X \to YZ\)</span></li>
+</ul></li>
+<li><strong>伪传递规则</strong>
+<ul>
+<li>由<span class="math inline">\(X \to Y\)</span>, <span class="math inline">\(WY \to Z\)</span>，有<span class="math inline">\(XW \to Z\)</span></li>
+</ul></li>
+<li><strong>分解规则</strong>
+<ul>
+<li>由<span class="math inline">\(X \to Y\)</span>,<span class="math inline">\(Z \subseteq Y\)</span>，有<span class="math inline">\(X \to Z\)</span></li>
+</ul></li>
+</ul>
+<h2 id="闭包">6.2.2 闭包</h2>
+<p><span class="math inline">\(F^+\)</span>：F 的闭包，F 所逻辑蕴含的函数依赖的全体</p>
+<h3 id="求闭包的步骤">6.2.2.1 求闭包的步骤</h3>
+<ol type="1">
+<li>所有空集依赖</li>
+<li>自身依赖，然后增广律扩充</li>
+<li>原本关系增光扩充</li>
+</ol>
+<p><span class="math inline">\(X^+_F\)</span>：属性集 X 关于函数依赖集 F 的闭包（左边全是 X 的函数依赖）</p>
+<blockquote>
+<p>求候选码：一组属性集的闭包是全集</p>
+</blockquote>
+<h3 id="求属性集-x-闭包的算法">6.2.2.2 求属性集 X 闭包的算法</h3>
+<ol type="1">
+<li>令<span class="math inline">\(X^0 = X\)</span>，<span class="math inline">\(i=0\)</span></li>
+<li>求 B，此时 B 为函数依赖中左边为<span class="math inline">\(X^i\)</span>的函数依赖的右边部分的集合</li>
+<li><span class="math inline">\(X^{i+1} = B \cup X^i\)</span></li>
+<li>判断<span class="math inline">\(X^{i+1} = X^i\)</span></li>
+<li>如果相等或等于 U，则<span class="math inline">\(X^i\)</span>就是<span class="math inline">\(X^+_F\)</span>，算法终止</li>
+<li>若否，则<span class="math inline">\(i = i+1\)</span>，返回第二步（就是把 B 合并进去了）</li>
+</ol>
+<blockquote>
+<p>不在函数依赖右边出现的属性一定是候选码组成部分</p>
+</blockquote>
+<h3 id="等价与最小覆盖">6.2.2.3 等价与最小覆盖</h3>
+<ul>
+<li><strong>函数依赖集等价</strong>
+<ul>
+<li>如果<span class="math inline">\(G^+ = F^+\)</span>，就说函数依赖集 F 覆盖 G（F 是 G 的覆盖，或 G 是 F 的覆盖），或 F 与 G 等价</li>
+</ul></li>
+<li><strong>最小依赖集/最小覆盖</strong><span class="math inline">\(F_m\)</span>
+<ul>
+<li>F 中任一函数依赖的右部仅含有一个属性</li>
+<li>不存在冗余的函数依赖</li>
+<li>函数依赖左部要尽可能简（不能再用子集替代）</li>
+</ul></li>
+</ul>
+<h3 id="求最小依赖集的方法">6.2.2.4 求最小依赖集的方法</h3>
+<ol type="1">
+<li>判断右边，分解右端</li>
+<li>去冗余函数依赖</li>
+<li>判断左边，左边如果有多属性值，用子集代替之后判断是否保持函数依赖</li>
+</ol>
+<blockquote>
+<p><span class="math inline">\(F_m不一定是唯一的\)</span></p>
+<p><strong>例：</strong></p>
+</blockquote>
+<p><img src="assets/16718722127099.jpg" srcset="/img/loading.gif" lazyload /></p>
+<h1 id="模式分解">6.3 模式分解</h1>
+<p><strong>投影：</strong> 函数依赖集合 <span class="math inline">\(\\{ X \to Y|X\to Y\in F^+ \wedge XY\subseteq U_i\\}\)</span> 的一个覆盖 <span class="math inline">\(F_i\)</span> 叫做 <span class="math inline">\(F\)</span> 在属性 <span class="math inline">\(U_i\)</span> 上的投影</p>
+<ul>
+<li><strong>无损连接性</strong> 保证不丢失信息</li>
+<li><strong>保持函数依赖性</strong> 减轻或解决各种异常情况</li>
+</ul>
+<h2 id="题型-1判断是否保持函数依赖和无损连接性">题型 1:判断是否保持函数依赖和无损连接性</h2>
+<p><strong>例一</strong> <img src="assets/16718731711350.jpg" srcset="/img/loading.gif" lazyload /></p>
+<hr />
+<p><strong>例二</strong> （有隐藏的函数依赖，注意判断）</p>
+<p><img src="assets/16718733465879.jpg" srcset="/img/loading.gif" lazyload /></p>
+<h2 id="题型-2模式分解">题型 2:模式分解</h2>
+<p><strong>判断是否需要分解的理由（一般是分解到 3NF）</strong></p>
+<p>范式太低，会存在插入、修改、删除数据的异常</p>
+<h3 id="分解为-3nf">1:分解为 3NF</h3>
+<p><img src="assets/16718726837430.jpg" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="分解为-bcnf">2:分解为 BCNF</h3>
+<p><strong>例一</strong></p>
+<p><img src="assets/16718728492261.jpg" srcset="/img/loading.gif" lazyload /></p>
+<hr />
+<p><strong>例二</strong> （损失了函数依赖）</p>
+<p><img src="assets/16718729190952.jpg" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="分解为-4nf">3:分解为 4NF</h3>
+<p><strong>例一</strong></p>
+<p><img src="assets/16718730468843.jpg" srcset="/img/loading.gif" lazyload /></p>
+<hr />
+<p><strong>例二</strong> （损失函数依赖）</p>
+<p><img src="assets/16718730707856.jpg" srcset="/img/loading.gif" lazyload /></p>
+<h2 id="总结">6.3.1 总结</h2>
+<ul>
+<li>若要求分解具有<strong>无损连接性</strong>，模式分解一定可达 4NF（函数依赖范畴一定可达 BCNF）</li>
+<li>若要求分解保持<strong>函数依赖</strong>，模式分解一定可达 3NF，不一定可达 BCNF</li>
+<li>若要求分解<strong>既保持函数依赖又具有无损连接性</strong>，模式分解一定可达 3NF，不一定可达 BCNF</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+      
+        <a href="/tags/%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE/">#关系数据</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CH6 关系数据理论</div>
+      <div>https://jin4869.github.io/2022/12/24/数据库第六章-关系数据理论/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>不想长大的小孩</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%83%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" title="CH7 数据库设计">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CH7 数据库设计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0-SQL/" title="CH3 SQL">
+                        <span class="hidden-mobile">CH3 SQL</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
