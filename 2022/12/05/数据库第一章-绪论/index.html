@@ -23,15 +23,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="数据库系统概述；数据库；数据模型：概念模型；数据库系统模式：三级模式结构，二级映象功能">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jin4869.github.io/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700603684573.jpg">
-<meta property="og:image" content="https://jin4869.github.io/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700710079279.jpg">
-<meta property="og:image" content="https://jin4869.github.io/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700725337253.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16700603684573.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16700710079279.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16700725337253.jpg">
 <meta property="article:published_time" content="2022-12-05T06:50:06.000Z">
-<meta property="article:modified_time" content="2023-01-13T10:50:44.600Z">
+<meta property="article:modified_time" content="2023-01-14T08:59:25.792Z">
 <meta property="article:author" content="不想长大的小孩">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jin4869.github.io/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700603684573.jpg">
+<meta name="twitter:image" content="https://jin4869.github.io/img/post/16700603684573.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -76,6 +76,7 @@
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
 
 
 
@@ -173,7 +174,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
             <i class="iconfont icon-pen"></i>
-            <span>随笔</span>
+            <span>留言板</span>
           </a>
         </li>
              
@@ -253,7 +254,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.9k 字
+          3.1k 字
         
       </span>
     
@@ -265,7 +266,7 @@
         
         
           <!-- compatible with older versions-->
-          25 分钟
+          26 分钟
         
       </span>
     
@@ -313,21 +314,21 @@
               <div class="markdown-body">
                 
                 <h1>第一章 绪论</h1>
-<h2 id="数据库系统概述">数据库系统概述</h2>
-<h3 id="数据">数据</h3>
+<h2 id="1-1-数据库系统概述">1.1 数据库系统概述</h2>
+<h3 id="1-1-1-数据">1.1.1 数据</h3>
 <ul>
 <li><strong>数据</strong>是<u>数据库中存储的基本对象</u>，描述事物的符号记录称为数据，有多种表现形式</li>
 <li><strong>特点：</strong> <u>数据的含义称为数据的语义</u>，数据与其语义是不可分的，信息是对数据语义的解释</li>
 </ul>
-<h3 id="数据处理与管理的区别">数据处理与管理的区别</h3>
+<h3 id="1-1-2-数据处理与管理的区别">1.1.2 数据处理与管理的区别</h3>
 <p><strong>数据处理：</strong> 从某些已知的数据推导加工新的数据<br>
 <strong>数据管理：</strong> 对数据收集、整理、组织、存储、维护、检索、传送等操作</p>
-<h3 id="数据库">数据库</h3>
-<p><strong>数据库</strong>是<strong>长期存储在计算机内、有组织的、可共享的大量数据的集合。</strong> 数据库中的数据按一定的数据模型组织、描述和储存，具有<u>较小的冗余度，较高的数据独立性和易扩展性</u>（降低更新维护的代价），并可为各种用户共享。</p>
-<h3 id="数据库管理系统-系统软件">数据库管理系统 - 系统软件</h3>
+<h3 id="1-1-3-数据库">1.1.3 数据库</h3>
+<p>  <strong>数据库</strong>是<strong>长期存储在计算机内、有组织的、可共享的大量数据的集合。</strong> 数据库中的数据按一定的数据模型组织、描述和储存，具有<u>较小的冗余度，较高的数据独立性和易扩展性</u>（降低更新维护的代价），并可为各种用户共享。</p>
+<h3 id="1-1-4-数据库管理系统-系统软件">1.1.4 数据库管理系统 - 系统软件</h3>
 <p><strong>是位于用户与操作系统之间的一层数据管理软件</strong></p>
 <p>与操作系统一样是计算机的基础软件</p>
-<h4 id="功能">功能</h4>
+<h4 id="1-1-4-1-功能">1.1.4.1 功能</h4>
 <ul>
 <li><strong>数据定义功能：</strong> 提供数据定义语言（DDL），定义数据库中的数据对象</li>
 <li><strong>数据组织、存储和管理：</strong> 基本目标是<u>提高存储空间利用率和方便存取</u>，提供多种存取方法（索引查找，hash 查找，顺序查找）来提高存取效率</li>
@@ -335,9 +336,9 @@
 <li><strong>数据库的事务管理和运行管理：</strong> 在建立、运用和维护的时候统一管理和控制，保证事务的正确运行，发生故障后的系统恢复</li>
 <li><strong>数据库的建立和维护功能：</strong> 初始数据的输入、转换功能，数据库的转储、恢复功能，数据库的重组织功能和性能监视、分析功能等。</li>
 </ul>
-<h3 id="数据库系统-应用系统">数据库系统 - 应用系统</h3>
+<h3 id="1-1-5-数据库系统-应用系统">1.1.5 数据库系统 - 应用系统</h3>
 <p><strong>数据库</strong>是<u>由数据库、数据库管理系统（及其应用开发工具）、应用程序和数据库管理员（DBA）组成</u>的<strong>存储、管理、处理和维护数据</strong>的系统</p>
-<h3 id="数据管理技术等产生和发展">数据管理技术等产生和发展</h3>
+<h3 id="1-1-6-数据管理技术等产生和发展">1.1.6 数据管理技术等产生和发展</h3>
 <p>三个阶段</p>
 <table>
 <thead>
@@ -393,7 +394,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="数据库系统特点">数据库系统特点</h3>
+<h3 id="1-1-7-数据库系统特点">1.1.7 数据库系统特点</h3>
 <ul>
 <li><strong>数据结构化：</strong>
 <ul>
@@ -455,14 +456,14 @@
 </ul>
 </li>
 </ul>
-<h4 id="数据库系统的优势">数据库系统的优势</h4>
+<h4 id="1-1-7-1-数据库系统的优势">1.1.7.1 数据库系统的优势</h4>
 <p>使信息系统从以加工数据的程序为中心转向围绕共享的数据库为中心的阶段</p>
 <ul>
 <li>提高了数据的利用率和相容性</li>
 <li>简化应用程序的研制和维护</li>
 <li>便于数据的集中管理</li>
 </ul>
-<h2 id="数据模型">数据模型</h2>
+<h2 id="1-2-数据模型">1.2 数据模型</h2>
 <p><u>数据模型是对现实世界数据特征的抽象</u>，现实世界用数据模型来抽象、表示和处理。</p>
 <p><strong>数据模型是数据库系统的核心和基础</strong></p>
 <p>根据模型应用的不同目的划分：</p>
@@ -473,9 +474,9 @@
 </ul>
 </li>
 <li><strong>逻辑模型和物理模型</strong> - <strong>逻辑模型：</strong> 按计算机系统的观点对数据建模，主要用于数据库管理系统的实现 - <strong>物理模型：</strong> 数据最底层的抽象，具体是现实数据库管理系统的任务<br>
-<img src="assets/16700603684573.jpg" srcset="/img/loading.gif" lazyload alt=""></li>
+<img src="/img/post/16700603684573.jpg" srcset="/img/loading.gif" lazyload alt=""></li>
 </ul>
-<h3 id="概念模型">概念模型</h3>
+<h3 id="1-2-1-概念模型">1.2.1 概念模型</h3>
 <p>信息世界中的基本概念：</p>
 <ul>
 <li><strong>实体</strong>
@@ -519,9 +520,9 @@
 </ul>
 </li>
 </ul>
-<h4 id="表示方法">表示方法</h4>
+<h4 id="1-2-1-1-表示方法">1.2.1.1 表示方法</h4>
 <p>E-R 图</p>
-<h3 id="数据模型组成要素（背）">数据模型组成要素（背）</h3>
+<h3 id="1-2-2-数据模型组成要素（背）">1.2.2 数据模型组成要素（背）</h3>
 <ul>
 <li><strong>数据结构</strong>
 <ul>
@@ -543,7 +544,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="常用的数据模型">常用的数据模型</h3>
+<h3 id="1-2-3-常用的数据模型">1.2.3 常用的数据模型</h3>
 <ul>
 <li>非关系模型
 <ul>
@@ -566,7 +567,7 @@
 <li>关系模型</li>
 <li>面向对象数据模型</li>
 </ul>
-<h4 id="关系模型">关系模型</h4>
+<h4 id="1-2-3-1-关系模型">1.2.3.1 关系模型</h4>
 <p>数据结构：</p>
 <ul>
 <li><strong>关系：</strong> 一个关系对应通常说的一张表</li>
@@ -587,30 +588,30 @@
 <li>存取路径对用户透明，所以具有更高的数据独立性、更好的安全保密性</li>
 <li>查询效率往往不如格式化数据模型，增加了开发数据库管理系统的难度</li>
 </ul>
-<h2 id="数据库系统模式">数据库系统模式</h2>
-<h3 id="三级模式结构">三级模式结构</h3>
-<p><img src="assets/16700710079279.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
-<h4 id="模式">模式</h4>
+<h2 id="1-3-数据库系统模式">1.3 数据库系统模式</h2>
+<h3 id="1-3-1-三级模式结构">1.3.1 三级模式结构</h3>
+<p><img src="/img/post/16700710079279.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="1-3-1-1-模式">1.3.1.1 模式</h4>
 <p>也称逻辑模式，是数据库中全体数据的逻辑结构和特征的描述，是所有用户的公共数据视图</p>
 <p>实际上是数据库数据在逻辑集上的视图</p>
 <p><strong>一个数据库只有一个模式</strong></p>
 <p>提供<strong>模式数据定义语言（模式 DDL）</strong> 来严格地定义模式，定义逻辑结构，联系，安全性，完整性要求</p>
-<h4 id="外模式">外模式</h4>
+<h4 id="1-3-1-2-外模式">1.3.1.2 外模式</h4>
 <p>面向具体应用</p>
 <p>也称子模式或用户模式，是数据库用户能够看见和使用的<strong>局部数据结构和特征的描述</strong>，<u>是数据库用户的数据视图，是与某一应用有关的数据的逻辑表示</u></p>
 <p>通常是模式的子集，一个数据库可以有多个外模式。结构、类型、长度、保密级别等都可以不同</p>
 <p>是保证数据库安全性的一个有力措施</p>
-<p>提供<strong>外模式数据定义语言（外模式 DLL）</strong> 来严格定义外模式</p>
-<h4 id="内模式">内模式</h4>
+<p>提供<strong>外模式数据定义语言（外模式 DDL）</strong> 来严格定义外模式</p>
+<h4 id="1-3-1-3-内模式">1.3.1.3 内模式</h4>
 <p>也称存储模式</p>
 <p><strong>一个数据库只有一个内模式</strong></p>
 <p>是数据<strong>物理结构和存储方式的描述</strong>，是数据在数据库内部的<u>组织方式</u></p>
-<h3 id="二级映像功能">二级映像功能</h3>
-<p><img src="assets/16700725337253.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
-<h4 id="外模式-模式映像-逻辑独立性">外模式/模式映像 -&gt; 逻辑独立性</h4>
+<h3 id="1-3-2-二级映像功能">1.3.2 二级映像功能</h3>
+<p><img src="/img/post/16700725337253.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="1-3-2-1-外模式-模式映像-逻辑独立性">1.3.2.1 外模式/模式映像 -&gt; 逻辑独立性</h4>
 <p><strong>视图级抽象</strong></p>
 <p>描述的是数据的局部逻辑结构</p>
-<h4 id="模式-内模式映像-物理独立性">模式/内模式映像 -&gt; 物理独立性</h4>
+<h4 id="1-3-2-2-模式-内模式映像-物理独立性">1.3.2.2 模式/内模式映像 -&gt; 物理独立性</h4>
 <p>模式 - 概念级抽象<br>
 内模式 - 物理级抽象</p>
 
@@ -713,6 +714,12 @@
                   <article class="post-next col-6">
                     
                     
+                      <a href="/2022/12/01/python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5%E5%A4%8D%E4%B9%A0/" title="python爬虫实践复习">
+                        <span class="hidden-mobile">python爬虫实践复习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
                   </article>
                 </div>
               
@@ -729,7 +736,7 @@
   Fluid.utils.loadComments('#valine', function() {
     Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
       var options = Object.assign(
-        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
         {
           el: "#valine",
           path: window.location.pathname

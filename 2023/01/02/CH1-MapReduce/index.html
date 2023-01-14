@@ -1,0 +1,1000 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/3.png">
+  <link rel="icon" href="/img/3.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#88A3C3">
+  <meta name="author" content="不想长大的小孩">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="MapReduce模型简介，体系结构，工作流程，具体应用WordCount">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CH1 MapReduce">
+<meta property="og:url" content="https://jin4869.github.io/2023/01/02/CH1-MapReduce/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MapReduce模型简介，体系结构，工作流程，具体应用WordCount">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16725573612825.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16725602617571.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726437220279.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726442845971.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726445928848.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726447180147.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726456897140.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726461067379.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726462640067.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726634063597.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726637985775.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726639107191.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726639869410.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726641613758.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16726654057820.jpg">
+<meta property="article:published_time" content="2023-01-02T13:48:57.000Z">
+<meta property="article:modified_time" content="2023-01-14T14:11:36.036Z">
+<meta property="article:author" content="不想长大的小孩">
+<meta property="article:tag" content="MapReduce">
+<meta property="article:tag" content="大数据计算">
+<meta property="article:tag" content="大数据">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jin4869.github.io/img/post/16725573612825.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>CH1 MapReduce - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jin4869.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav
+  id="navbar"
+  class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>APTX</strong>
+    </a>
+
+    <iframe
+      style="opacity: 0.5"
+      frameborder="no"
+      border="0"
+      marginwidth="0"
+      marginheight="0"
+      width="280"
+      height="52"
+      src="//music.163.com/outchain/player?type=0&id=8051474154&auto=0&height=32"
+    ></iframe>
+
+    <button
+      id="navbar-toggler-btn"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="iconfont icon-home-fill"></i>
+            <span>首页</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/archives/">
+            <i class="iconfont icon-archive-fill"></i>
+            <span>归档</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/categories/">
+            <i class="iconfont icon-category-fill"></i>
+            <span>分类</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/tags/">
+            <i class="iconfont icon-tags-fill"></i>
+            <span>标签</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
+            <i class="iconfont icon-pen"></i>
+            <span>留言板</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="iconfont icon-user-fill"></i>
+            <span>关于</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/links/">
+            <i class="iconfont icon-link-fill"></i>
+            <span>友链</span>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="search-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            data-toggle="modal"
+            data-target="#modalSearch"
+            aria-label="Search"
+          >
+            <i class="iconfont icon-search"></i>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="color-toggle-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            aria-label="Color Toggle"
+          >
+            <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CH1 MapReduce"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-02 21:48" pubdate>
+          2023年1月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CH1 MapReduce</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>CH1 MapReduce</h1>
+<h2 id="1-1-概述">1.1 概述</h2>
+<h3 id="1-1-1-分布式并行编程">1.1.1 分布式并行编程</h3>
+<p><strong>MapReduce 比较传统并行计算框架</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>传统并行计算框架</th>
+<th>MapReduce</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>集群架构/容错性</td>
+<td>共享式（共享内存/共享存储），容错性差</td>
+<td>非共享式，容错性好</td>
+</tr>
+<tr>
+<td>硬件/价格/扩展性</td>
+<td>刀片服务器、高速网、SAN、价格贵、扩展性差</td>
+<td>普通 PC 机，<strong>便宜</strong>，<strong>扩展性好</strong></td>
+</tr>
+<tr>
+<td>编程/学习难度</td>
+<td>what-how，难</td>
+<td>what，简单</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>实时、细粒度计算、计算密集型（计算量大）</td>
+<td>批处理、非实时、数据密集型（数据量大）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-1-2-MapReduce-模型简介">1.1.2 MapReduce 模型简介</h3>
+<ul>
+<li>编程容易</li>
+<li><strong>分而治之</strong></li>
+<li><strong>计算向数据靠拢</strong>（因为移动数据需要大量的网络传输开销）</li>
+<li>采用<strong>Master/Slave 架构</strong>
+<ul>
+<li>一个 Master，若干个 Slave，Master 运行 JobTracker，Slave 运行 TaskTracker</li>
+<li>Master 控制 Slave 上<strong>任务的执行</strong>，<strong>故障的修复</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="1-2-MapReduce-体系结构">1.2 MapReduce 体系结构</h2>
+<h3 id="1-2-1-MapReduce-v1-体系结构">1.2.1 MapReduce v1 体系结构</h3>
+<p><img src="/img/post/16725573612825.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<ul>
+<li><strong>Client</strong> 客户端
+<ul>
+<li>用户编写的 MapReduce 程序通过 Client 提交到 JobTracker 端（一般通过命令行提交）</li>
+<li>用户可通过 Client 提供的一些接口查看作业运行状态</li>
+</ul>
+</li>
+<li><strong>JobTracker</strong>
+<ul>
+<li>负责<strong>资源监控和作业调度</strong></li>
+<li><strong>监控所有 TaskTracker 与 Job 健康状况</strong>，一旦发现失败，就将相应的任务转移到其他节点</li>
+<li><strong>跟踪任务的执行进度、资源使用量等信息</strong>，并将这些信息告诉<strong>任务调度器（TaskScheduler）</strong>，调度器会在资源出现空闲时选择合适的任务去使用这些资源</li>
+</ul>
+</li>
+<li><strong>TaskTracker</strong>
+<ul>
+<li><strong>监控 Task 运行的情况</strong></li>
+<li><strong>周期性</strong>通过“心跳”将本节点上<strong>资源的使用情况</strong>和<strong>任务的运行进度</strong>汇报给<strong>JobTracker</strong>，同时接收 JobTracker 发送过来的命令并执行相应的操作（启动新任务、杀死任务等）</li>
+<li><strong>使用“slot”等量划分本节点上的资源量</strong>（CPU、内存等）。一个 Task 获取到一个 slot 后才有机会运行，Hadoop 调度就是将各个 TaskTracker 上的空闲 slot 分配给 Task 使用。</li>
+<li>slot 分为<strong>Map slot</strong>和<strong>Reduce slot</strong>，分别给 MapTask 和 ReduceTask 使用</li>
+</ul>
+</li>
+<li><strong>Task</strong>
+<ul>
+<li>分为 Map Task 和 Reduce Task，均由 TaskTracker 启动</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-2-MapReduce-v2-的体系结构">1.2.2 MapReduce v2 的体系结构</h3>
+<p><strong>Yarn</strong></p>
+<p>主要思想是将 MRv1 版 JobTracker 的两大功能——<strong>资源管理</strong>和<strong>任务调度</strong>，拆分成两个独立的进程：<strong>全局资源管理进程 ResourceManager</strong>和<strong>任务管理进程 ApplicationMaster</strong></p>
+<ul>
+<li>依旧是<strong>master/slave</strong>结构</li>
+<li>主进程<strong>ResourceManager</strong>是整个集群资源<strong>仲裁中心</strong></li>
+<li>从进程<strong>NodeManager</strong>管理本机资源</li>
+</ul>
+<p><img src="/img/post/16725602617571.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>Yarn 在执行时包含以下独立实体：</p>
+<ul>
+<li><strong>Client</strong>
+<ul>
+<li>客户端，负责<strong>向集群提交作业</strong></li>
+</ul>
+</li>
+<li><strong>ResourceManager</strong>
+<ul>
+<li>集群主进程，仲裁中心，负责<strong>集群资源管理</strong>和<strong>任务调度</strong></li>
+<li>处理客户端作业提交请求</li>
+<li>启动或监控 ApplicationMaster</li>
+<li>监控 NodeManager</li>
+<li>资源的分配与调度</li>
+</ul>
+</li>
+<li><strong>Scheduler</strong>
+<ul>
+<li>资源仲裁模块</li>
+</ul>
+</li>
+<li><strong>ApplicationManager</strong>
+<ul>
+<li><strong>选定，启动和监管</strong>ApplicationMaster</li>
+</ul>
+</li>
+<li><strong>NodeManager</strong>
+<ul>
+<li>集群从进程，<strong>管理和监视 Containers</strong>，执行具体任务</li>
+<li>单个节点上的资源管理和任务管理</li>
+<li>处理来自 ResourceManager 的命令</li>
+<li>处理来自 ApplicationMaster 的命令</li>
+</ul>
+</li>
+<li><strong>Container</strong>
+<ul>
+<li><strong>本机资源集合体</strong>，如某 Container 为 4 个 CPU，8GB 内存</li>
+<li>YARN 会为每个任务分配一个 Container，且该任务只能使用该 Container 中描述的资源</li>
+<li>对任务运行环境进行抽象，封装 CPU、内存等多维度的资源以及运行环境变量、启动命令等任务运行相关信息</li>
+</ul>
+</li>
+<li><strong>ApplicationMaster</strong>
+<ul>
+<li><strong>任务执行和监管中心</strong></li>
+<li>每个应用有一个，负责应用程序整个生命周期的管理，负责协调来自 ResourceManager 的资源，并通过 NodeManager 监视容器的执行和资源的使用</li>
+<li>负责数据的切分</li>
+<li>为应用程序申请资源并分配给内部的任务</li>
+<li>任务的监控与容错</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/post/16726437220279.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<ol>
+<li><strong>作业提交</strong>：Client 端向主进程 ResourceManager 的 ApplicationManager 模块提交任务（1），ApplicationManager 按某种策略选中某 NodeManager 的某 Container 来执行此应用程序的 ApplicationMaster（2）</li>
+<li><strong>任务分配</strong>：ApplicationMaster 向 Scheduler 申请资源（3），Scheduler 根据所有 NodeManager 发送过来的资源信息（4）和集群制定的调度策略以 Container 为单位给 Application Master 分配计算资源（5）</li>
+<li><strong>任务执行</strong>：ApplicationMaster 向选定的 NodeManager 发送任务信息（包括程序代码、数据位置等信息），通知选中的 NodeManager，让其启动本 NM 管理的 Container 计算任务（6）</li>
+<li><strong>进度和状态更新</strong>：处于计算状态的 Container 向其所在 NodeManager 汇报计算进度，NodeManager 则通过心跳包，将这些信息再汇报给 ApplicationMaster，ApplicationMaster 则根据汇总过来的信息，给出任务进度</li>
+<li><strong>任务完成</strong>：所有任务完成后，信息一层层向上汇报到 ApplicationMaster，ApplicationMaster 再将结束信息汇报的 ApplicationManager 模块，ApplicationManager 通知客户端任务结束</li>
+</ol>
+<p><img src="/img/post/16726442845971.jpg" srcset="/img/loading.gif" lazyload alt=""><br>
+<strong>Yarn 的优势</strong>：<br>
+Yarn 的设计大大减轻了 ResourceManager 的资源消耗，并且 ApplicationMaster 可以分布于集群中任意一台机器，设计上更加优美</p>
+<h2 id="1-3-MapReduce-工作流程">1.3 MapReduce 工作流程</h2>
+<h3 id="1-3-1-工作流程概述">1.3.1 工作流程概述</h3>
+<p><img src="/img/post/16726445928848.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<ul>
+<li>不同 Map 任务不会进行通信，不同 Reduce 任务之间不会发生任何信息交换</li>
+<li>具有相同 key 的&lt;k,v&gt;会被发送到同一个 reduce 任务处理</li>
+<li>用户不能显式地从一台机器向另一台机器发送消息</li>
+</ul>
+<h3 id="1-3-2-MapReduce-各个执行阶段">1.3.2 MapReduce 各个执行阶段</h3>
+<p><img src="/img/post/16726447180147.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<ol>
+<li>使用 InputFormat 模块做 Map 前的<strong>预处理</strong>；</li>
+<li>将输入文件切分为逻辑上的多个<strong>InputSplit</strong>（InputSplit 是 MapReduce 对文件进行处理和运算的输入单位，只是一个逻辑概念，<strong>没有对文件进行实际切割</strong>，只记录了要处理的数据的位置和长度）</li>
+<li>通过 RecordReader（RR）根据 InputSplit 中的信息来处理 InputSplit 的具体信息，<strong>加载数据并转换为适合 Map 任务读取的键值对</strong>，输入给 Map 任务</li>
+<li>Map 任务根据用户自定义的映射规则，输出一系列的&lt;key,value&gt;作为中间结果</li>
+<li><strong>shuffle</strong>：对 Map 的输出进行一定的<strong>分区</strong>、<strong>排序</strong>、<strong>合并</strong>、<strong>归并</strong>等操作，得到&lt;key,value-list&gt;形式的中间结果</li>
+<li>Reduce 从多个 Map 读取数据，以一系列&lt;key,value-list&gt;中间结果作为输入，执行用户定义的逻辑，输出结果给<strong>OutputFormat</strong>模块（抽象类，下面有很多扩展的子类）</li>
+<li>OutputFormat 模块会<strong>验证</strong>输出目录是否已经存在以及输出结果类型是否符合配置文件中的配置类型，如果都满足，就输出 Reduce 的结果到分布式文件系统</li>
+</ol>
+<p><strong>关于 split</strong></p>
+<p><img src="/img/post/16726456897140.jpg" srcset="/img/loading.gif" lazyload alt=""><br>
+HDFS 以固定大小的 block 为基本单位存储数据，MapReduce 处理单位是 split。split 是个逻辑概念，划分方法完全由用户决定</p>
+<p><strong>Map 任务的数量</strong>：Hadoop 为每个 split 创建一个 Map 任务，split 的多少决定了 Map 任务的数量</p>
+<p><strong>Reduce 任务的数量</strong>：最优的 Reduce 任务个数取决于集群中可用的 reduce 任务槽（slot）的数目，通常设置比 reduce 任务槽数目稍微少一些的 Reduce 任务个数（这样可以预留一些系统资源处理可能发生的错误）</p>
+<h3 id="1-3-3-Shuffle-过程详解">1.3.3 Shuffle 过程详解</h3>
+<p><img src="/img/post/16726461067379.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="1-3-3-1-Map-端的-shuffle-过程">1.3.3.1 Map 端的 shuffle 过程</h4>
+<p><img src="/img/post/16726462640067.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<ul>
+<li>
+<p>每个 Map 任务分配一个缓存，MapReduce 默认 100MB 缓存</p>
+</li>
+<li>
+<p>设置<strong>溢写比例</strong>0.8（缓冲区数据/缓冲区大小）</p>
+</li>
+<li>
+<p>分区默认采用哈希函数（对 Map 输出的 key 作 hash 取模，模为 reduce 任务数）</p>
+</li>
+<li>
+<p>排序后可以合并，合并不能改变最终的结果；合并用来缩减中间节点的数据量，可选的操作（可做可不做）</p>
+</li>
+<li>
+<p>在 Map 任务全部结束之前进行归并</p>
+</li>
+<li>
+<p>归并得到一个大的文件（索引文件和数据文件），<strong>放在本地磁盘</strong>（同样经过分区与排序）</p>
+</li>
+<li>
+<p>文件归并时，如果溢写文件数量大于预定值（默认是 3）则可以再次启动 Combiner，少于 3 不需要</p>
+</li>
+<li>
+<p><strong>JobTracker</strong>会一直<strong>监测 Map 任务</strong>的执行，并通知 Reduce 任务来领取任务</p>
+</li>
+</ul>
+<blockquote>
+<p>合并和归并的区别：<br>
+两个键值对&lt;“a”,1&gt;和&lt;“a”,1&gt;，合并得到&lt;“a”,2&gt;（计算），归并得到&lt;“a”,&lt;1,1&gt;&gt;（聚合）</p>
+</blockquote>
+<p><strong>Shuffle</strong>（混洗）：输出到 Reducer 的数据为 Mapper 阶段经过排序的输出结果。在 shuffle 阶段框架将通过 HTTP 从恰当的 Mapper 的分区中取得数据</p>
+<p><strong>Sort</strong>（排序）：该阶段框架将对输入到 Reducer 的数据通过 key（不同的 Mapper 可能输出相同的 key）进行分组。<strong>混洗和排序阶段是同时进行</strong>；map 的输出数据被获取时会进行合并</p>
+<p><strong>Partition</strong>（分区）：Partitioner 对 map 输出的中间值的 key（Reducer 之前）进行分区。分区采用的默认方法是对 key 取 hashcode。分区数等于 job 的 reduce 任务数，根据中间结果的<strong>key 将数据传输到对应的 reduce 任务</strong>。HashPartitioner 是默认的分区器</p>
+<h4 id="1-3-3-2-Reduce-端的-Shuffle-过程">1.3.3.2 Reduce 端的 Shuffle 过程</h4>
+<ul>
+<li>通过 RPC 向 JobTracker<strong>询问 Map 任务是否已经完成</strong>，若完成则领取数据</li>
+<li>Reduce 领取数据<strong>先放入缓存</strong>，<u>来自不同 Map 机器</u>，先归并再合并写入磁盘</li>
+<li>多个溢写文件归并成一个或多个大文件，文件中的键值对是<strong>排序</strong>的</li>
+</ul>
+<p><img src="/img/post/16726634063597.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<h2 id="1-4-实例分析：WordCount">1.4 实例分析：WordCount</h2>
+<p><img src="/img/post/16726637985775.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<h3 id="1-4-1-编写-Map-处理逻辑">1.4.1 编写 Map 处理逻辑</h3>
+<p>输入类型：&lt;Object, Text&gt;<br>
+输出类型：&lt;Text, IntWritable&gt;</p>
+<p><img src="/img/post/16726639107191.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<h3 id="1-4-2-编写-Reduce-处理逻辑">1.4.2 编写 Reduce 处理逻辑</h3>
+<ul>
+<li>Reduce 阶段任务：对输入的数字序列进行求和</li>
+</ul>
+<p><img src="/img/post/16726639869410.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<h3 id="1-4-3-编写-main-方法">1.4.3 编写 main 方法</h3>
+<p>驱动整个作业</p>
+<p><img src="/img/post/16726641613758.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<h2 id="1-5-MapReduce-具体应用">1.5 MapReduce 具体应用</h2>
+<p>应用于关系代数运算（选择、投影、并、交、差、连接），分组与聚合运算</p>
+<table>
+<thead>
+<tr>
+<th>关系代数运算</th>
+<th>Map 函数</th>
+<th>Reduce 函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选择运算</td>
+<td>对每个元组 t，满足条件则输出键值对&lt;t,t&gt;</td>
+<td>恒等式，对输入不做任何变换</td>
+</tr>
+<tr>
+<td>投影运算</td>
+<td>剔除元组 t 中不属于投影后的字段得到 t’，输出键值对&lt;t’,t’&gt;</td>
+<td>把属性值完全相同的元组合并起来得到&lt;t’,&lt;t’,t’,…&gt;&gt;，剔除后只得到一个&lt;t’,t’&gt;</td>
+</tr>
+<tr>
+<td>求并集</td>
+<td>将两个关系的元组转换成键值对&lt;t,t&gt;</td>
+<td>剔除冗余数据</td>
+</tr>
+<tr>
+<td>求交集</td>
+<td>将两个关系的元组转换成键值对&lt;t,t&gt;</td>
+<td>如果 t 有两个相同值与它关联则输出一个元组&lt;t,t&gt;，如果只有一个值，则输出空值（NULL）</td>
+</tr>
+<tr>
+<td>求差集 R-S</td>
+<td>记录元组的信息以及该元组来自哪个关系（R 或 S）</td>
+<td>按键值相同的 t 合并后，如果与键 t 相关联的值如果只有 R（说明该元组只属于 R，不属于 S），就输出元组，其他情况均输出空值</td>
+</tr>
+</tbody>
+</table>
+<p><strong>自然连接</strong></p>
+<p><img src="/img/post/16726654057820.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/" class="category-chain-item">大数据计算</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MapReduce/">#MapReduce</a>
+      
+        <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/">#大数据计算</a>
+      
+        <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">#大数据</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CH1 MapReduce</div>
+      <div>https://jin4869.github.io/2023/01/02/CH1-MapReduce/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>不想长大的小孩</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/02/CH2-Scala-%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" title="CH2 Scala 语言基础">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CH2 Scala 语言基础</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" title="CH9 并发控制">
+                        <span class="hidden-mobile">CH9 并发控制</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  <div class="footer-content"> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div>
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+   
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+ <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script> <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> <script  src="/js/events.js" ></script> <script  src="/js/plugins.js" ></script> 
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+   <script  src="/js/img-lazyload.js" ></script>     
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>    
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
+ 
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":175,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
+</html>

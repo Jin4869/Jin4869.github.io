@@ -24,7 +24,7 @@
 <meta property="og:description" content="实体完整性，参照完整性，用户定义完整性，完整性约束命名子句">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-05T14:51:31.000Z">
-<meta property="article:modified_time" content="2023-01-13T10:09:05.691Z">
+<meta property="article:modified_time" content="2023-01-14T09:04:46.122Z">
 <meta property="article:author" content="不想长大的小孩">
 <meta property="article:tag" content="数据库">
 <meta property="article:tag" content="SQL语言">
@@ -73,6 +73,7 @@
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
 
 
 
@@ -170,7 +171,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
             <i class="iconfont icon-pen"></i>
-            <span>随笔</span>
+            <span>留言板</span>
           </a>
         </li>
              
@@ -262,7 +263,7 @@
         
         
           <!-- compatible with older versions-->
-          19 分钟
+          20 分钟
         
       </span>
     
@@ -309,7 +310,7 @@
             
               <div class="markdown-body">
                 
-                <h1>数据库完整性</h1>
+                <h1>第五章 数据库完整性</h1>
 <p>数据库完整性指数据的<strong>正确性、相容性</strong>和<strong>有效性</strong></p>
 <p>为维护数据库的完整性，数据库管理系统需实现如下功能：</p>
 <ul>
@@ -317,21 +318,21 @@
 <li>提供完整性检查方法</li>
 <li>进行违约处理</li>
 </ul>
-<h2 id="实体完整性">实体完整性</h2>
-<h3 id="定义实体完整性">定义实体完整性</h3>
+<h2 id="5-1-实体完整性">5.1 实体完整性</h2>
+<h3 id="5-1-1-定义实体完整性">5.1.1 定义实体完整性</h3>
 <p>在 CREATE TABLE 中用<strong>PRIMARY KEY</strong>定义</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql">Sno <span class="hljs-type">CHAR</span>(<span class="hljs-number">9</span>) <span class="hljs-keyword">PRIMARY</span> KEY     <span class="hljs-comment">/*在列级定义主码*/</span><br><br><span class="hljs-keyword">PRIMARY</span> KEY(Sno)            <span class="hljs-comment">/*在表级定义主码*/</span><br><br><span class="hljs-keyword">PRIMARY</span> KEY(Sno,Cno)        <span class="hljs-comment">/*多个属性构成的码只能在表级定义*/</span><br></code></pre></td></tr></table></figure>
-<h3 id="实体完整性检查">实体完整性检查</h3>
+<h3 id="5-1-2-实体完整性检查">5.1.2 实体完整性检查</h3>
 <ul>
 <li>检查主码值是否唯一，不唯一则拒绝插入或修改</li>
 <li>检查主码的各个属性是否为空，有一个为空就拒绝插入或修改</li>
 </ul>
-<h2 id="参照完整性">参照完整性</h2>
+<h2 id="5-2-参照完整性">5.2 参照完整性</h2>
 <p>增删改都可能破坏参照完整性</p>
-<h3 id="定义参照完整性">定义参照完整性</h3>
+<h3 id="5-2-1-定义参照完整性">5.2.1 定义参照完整性</h3>
 <p>在 CREATE TABLE 中用<strong>FOREIGN KEY</strong>短语定义哪些列为外码，用<strong>REFERENCES</strong>短语指明这些外码参照哪些表的主码</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> SC<br>    (Sno <span class="hljs-type">CHAR</span>(<span class="hljs-number">9</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>     Cno <span class="hljs-type">CHAR</span>(<span class="hljs-number">4</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>     Grade <span class="hljs-type">SMALLINT</span>,<br>     <span class="hljs-keyword">PRIMARY</span> KEY(Sno,Cno),                      <span class="hljs-comment">/*表级定义实体完整性*/</span><br>     <span class="hljs-keyword">FOREIGN</span> KEY(Sno) <span class="hljs-keyword">REFERENCES</span> Student(Sno),  <span class="hljs-comment">/*表级定义参照完整性*/</span><br>     <span class="hljs-keyword">FOREIGN</span> KEY(Cno) <span class="hljs-keyword">REFERENCES</span> Course(Cno)    <span class="hljs-comment">/*表级定义参照完整性*/</span><br>    );<br></code></pre></td></tr></table></figure>
-<h3 id="参照完整性检查和违约处理">参照完整性检查和违约处理</h3>
+<h3 id="5-2-2-参照完整性检查和违约处理">5.2.2 参照完整性检查和违约处理</h3>
 <table>
 <thead>
 <tr>
@@ -365,29 +366,29 @@
 </table>
 <p><strong>显式说明参照完整性的违约处理示例：</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> SC<br>    (Sno <span class="hljs-type">CHAR</span>(<span class="hljs-number">9</span>),<br>     Cno <span class="hljs-type">CHAR</span>(<span class="hljs-number">4</span>),<br>     Grade <span class="hljs-type">SMALLINT</span>,<br>     <span class="hljs-keyword">PRIMARY</span> KEY(Sno, Cno),     <span class="hljs-comment">/*在表级定义实体完整性，Sno，Cno都不能取空值*/</span><br>     <span class="hljs-keyword">FOREIGN</span> KEY(Sno) <span class="hljs-keyword">REFERENCES</span> Student(Sno)   <span class="hljs-comment">/*表级定义参照完整性*/</span><br>        <span class="hljs-keyword">ON</span> <span class="hljs-keyword">DELETE</span> CASCADE<br>                        <span class="hljs-comment">/*当删除Student表中的元组时，级联删除SC表中相应的元组*/</span><br>        <span class="hljs-keyword">ON</span> <span class="hljs-keyword">UPDATE</span> CASCADE<br>                        <span class="hljs-comment">/*当更新Student表中的元组时，级联更新SC表中相应的元组*/</span><br>     <span class="hljs-keyword">FOREIGN</span> KEY(Cno) <span class="hljs-keyword">REFERENCES</span> Course(Cno)<br>        <span class="hljs-keyword">ON</span> <span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">NO</span> ACTION<br>                        <span class="hljs-comment">/*当删除Course表中的元组造成SC表不一致时，拒绝删除*/</span><br>        <span class="hljs-keyword">ON</span> <span class="hljs-keyword">UPDATE</span> CASCADE<br>                        <span class="hljs-comment">/*当更新Course表中的元组时，级联更新SC表中相应的元组*/</span><br>    );<br></code></pre></td></tr></table></figure>
-<h2 id="用户定义的完整性">用户定义的完整性</h2>
-<h3 id="属性上的约束条件">属性上的约束条件</h3>
+<h2 id="5-3-用户定义的完整性">5.3 用户定义的完整性</h2>
+<h3 id="5-3-1-属性上的约束条件">5.3.1 属性上的约束条件</h3>
 <ul>
 <li>列值非空(NOT NULL)</li>
 <li>列值唯一(UNIQUE)</li>
 <li>检查列值是否满足一个条件表达式（CHECK 语句）<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*性别属性Ssex只允许取‘男’或‘女’*/</span><br>Ssex <span class="hljs-type">CHAR</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">CHECK</span>(Ssex <span class="hljs-keyword">In</span>(<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;女&#x27;</span>))<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="元组上的约束条件">元组上的约束条件</h3>
+<h3 id="5-3-2-元组上的约束条件">5.3.2 元组上的约束条件</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*当性别为男时，其名字不能以Ms.开头*/</span><br><span class="hljs-keyword">CHECK</span>(Ssex<span class="hljs-operator">=</span><span class="hljs-string">&#x27;女&#x27;</span> <span class="hljs-keyword">OR</span> Sname <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;Ms.%&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<h2 id="完整性约束命名子句">完整性约束命名子句</h2>
-<h3 id="定义完整性约束命名子句">定义完整性约束命名子句</h3>
+<h2 id="5-4-完整性约束命名子句">5.4 完整性约束命名子句</h2>
+<h3 id="5-4-1-定义完整性约束命名子句">5.4.1 定义完整性约束命名子句</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CONSTRAINT</span> <span class="hljs-operator">&lt;</span>完整性约束条件名<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>完整性约束条件<span class="hljs-operator">&gt;</span><br></code></pre></td></tr></table></figure>
 <p>例：建立学生登记表 Student，要求学号在 9000 ～ 99999 之间，姓名不能取空值，年龄小于 30，性别只能是“男”或“女”</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Student<br>    (Sno <span class="hljs-type">NUMERIC</span>(<span class="hljs-number">6</span>)<br>        <span class="hljs-keyword">CONSTRAINT</span> C1 <span class="hljs-keyword">CHECK</span>(Sno <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">90000</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">99999</span>)),<br>     Sname <span class="hljs-type">CHAR</span>(<span class="hljs-number">20</span>)<br>        <span class="hljs-keyword">CONSTRAINT</span> C2 <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>     Sage <span class="hljs-type">NUMERIC</span>(<span class="hljs-number">3</span>)<br>        <span class="hljs-keyword">CONSTRAINT</span> C3 <span class="hljs-keyword">CHECK</span>(Sage<span class="hljs-operator">&lt;</span><span class="hljs-number">30</span>),<br>     Ssex <span class="hljs-type">CHAR</span>(<span class="hljs-number">2</span>)<br>        <span class="hljs-keyword">CONSTRAINT</span> C4 <span class="hljs-keyword">CHECK</span> (Ssex <span class="hljs-keyword">IN</span>(<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;女&#x27;</span>))，<br>     <span class="hljs-keyword">CONSTRAINT</span> StudentKey <span class="hljs-keyword">PRIMARY</span> KEY(Sno)<br></code></pre></td></tr></table></figure>
-<h3 id="修改表中的完整性限制">修改表中的完整性限制</h3>
+<h3 id="5-4-2-修改表中的完整性限制">5.4.2 修改表中的完整性限制</h3>
 <p>使用<code>ALTER TABLE</code>修改表中的完整性限制</p>
 <p>例：去掉上例 Student 表中对性别的限制</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> Student<br>    <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">CONSTRAINT</span> C4;<br></code></pre></td></tr></table></figure>
 <p>修改约束条件需要先<code>DROP</code>原来的约束条件再<code>ADD</code>新约束条件</p>
-<h2 id="触发器">触发器</h2>
+<h2 id="5-5-触发器">5.5 触发器</h2>
 <p>又叫作事件-条件-动作规则</p>
-<h3 id="创建">创建</h3>
+<h3 id="5-5-1-创建">5.5.1 创建</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> <span class="hljs-operator">&lt;</span>触发器名<span class="hljs-operator">&gt;</span><br>&#123;BEFORE<span class="hljs-operator">|</span>AFTER&#125; <span class="hljs-operator">&lt;</span>触发器事件<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">ON</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span> <span class="hljs-comment">/*指明触发器激活的时间是在执行触发事件前或后*/</span><br><span class="hljs-keyword">REFERENCING</span> <span class="hljs-keyword">NEW</span><span class="hljs-operator">|</span><span class="hljs-keyword">OLD</span> <span class="hljs-type">ROW</span> <span class="hljs-keyword">AS</span> <span class="hljs-operator">&lt;</span>变量<span class="hljs-operator">&gt;</span>   <span class="hljs-comment">/*REFERENCING指出引用的变量*/</span><br><span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span>&#123;<span class="hljs-type">ROW</span><span class="hljs-operator">|</span>STATEMENT&#125;            <span class="hljs-comment">/*定义触发器类型，行级触发器或语句级触发器*/</span><br>[<span class="hljs-keyword">WHEN</span> <span class="hljs-operator">&lt;</span>触发条件<span class="hljs-operator">&gt;</span>] <span class="hljs-operator">&lt;</span>触发动作体<span class="hljs-operator">&gt;</span>        <span class="hljs-comment">/*触发条件为真时才触发动作体*/</span><br></code></pre></td></tr></table></figure>
 <p>同一表上多个触发器激活时遵循如下的执行顺序：</p>
 <ol>
@@ -395,7 +396,7 @@
 <li>激活触发器的 SQL 语句</li>
 <li>执行该表上的 AFTER 触发器</li>
 </ol>
-<h3 id="删除">删除</h3>
+<h3 id="5-5-2-删除">5.5.2 删除</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TRIGGER</span> <span class="hljs-operator">&lt;</span>触发器名<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">ON</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span>;<br></code></pre></td></tr></table></figure>
 
                 
@@ -521,7 +522,7 @@
   Fluid.utils.loadComments('#valine', function() {
     Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
       var options = Object.assign(
-        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
         {
           el: "#valine",
           path: window.location.pathname

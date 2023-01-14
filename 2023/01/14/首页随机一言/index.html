@@ -16,21 +16,21 @@
   <meta name="author" content="不想长大的小孩">
   <meta name="keywords" content="">
   
-    <meta name="description" content="效果 如首页所示，每一次刷新是一句随机一言 具体操作 在主题配置_config.yml中找到首页副标题的设置slogan-api，按照图片所示输入  然后就实现了！ api 接口说明：  https:&#x2F;&#x2F;v1.hitokoto.cn&#x2F;，从 7 种分类中随机选取 https:&#x2F;&#x2F;v1.hitokoto.cn&#x2F;?c&#x3D;b，从 b 类选取 https:&#x2F;&#x2F;v1.hitokoto.cn&#x2F;?c&#x3D;b&amp;c">
+    <meta name="description" content="效果:如首页所示，每一次刷新是一句随机一言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="首页随机一言">
 <meta property="og:url" content="https://jin4869.github.io/2023/01/14/%E9%A6%96%E9%A1%B5%E9%9A%8F%E6%9C%BA%E4%B8%80%E8%A8%80/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="效果 如首页所示，每一次刷新是一句随机一言 具体操作 在主题配置_config.yml中找到首页副标题的设置slogan-api，按照图片所示输入  然后就实现了！ api 接口说明：  https:&#x2F;&#x2F;v1.hitokoto.cn&#x2F;，从 7 种分类中随机选取 https:&#x2F;&#x2F;v1.hitokoto.cn&#x2F;?c&#x3D;b，从 b 类选取 https:&#x2F;&#x2F;v1.hitokoto.cn&#x2F;?c&#x3D;b&amp;c">
+<meta property="og:description" content="效果:如首页所示，每一次刷新是一句随机一言">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jin4869.github.io/2023/01/14/%E9%A6%96%E9%A1%B5%E9%9A%8F%E6%9C%BA%E4%B8%80%E8%A8%80/assets/2023-01-14-15-43-21.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2023-01-14-15-43-21.png">
 <meta property="article:published_time" content="2023-01-14T07:37:34.000Z">
-<meta property="article:modified_time" content="2023-01-14T07:51:42.934Z">
+<meta property="article:modified_time" content="2023-01-14T13:38:42.417Z">
 <meta property="article:author" content="不想长大的小孩">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="API">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jin4869.github.io/2023/01/14/%E9%A6%96%E9%A1%B5%E9%9A%8F%E6%9C%BA%E4%B8%80%E8%A8%80/assets/2023-01-14-15-43-21.png">
+<meta name="twitter:image" content="https://jin4869.github.io/img/post/2023-01-14-15-43-21.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -75,6 +75,7 @@
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
 
 
 
@@ -172,7 +173,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
             <i class="iconfont icon-pen"></i>
-            <span>随笔</span>
+            <span>留言板</span>
           </a>
         </li>
              
@@ -311,11 +312,11 @@
             
               <div class="markdown-body">
                 
-                <h1>效果</h1>
+                <h2 id="效果">效果</h2>
 <p>如首页所示，每一次刷新是一句随机一言</p>
-<h1>具体操作</h1>
+<h2 id="具体操作">具体操作</h2>
 <p>在主题配置<code>_config.yml</code>中找到首页副标题的设置<code>slogan-api</code>，按照图片所示输入</p>
-<p><img src="assets/2023-01-14-15-43-21.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/img/post/2023-01-14-15-43-21.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>然后就实现了！</p>
 <p>api 接口说明：</p>
 <ul>
@@ -400,7 +401,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/hexo/" class="category-chain-item">hexo</a>
+  <a href="/categories/hexo-fluid/" class="category-chain-item">hexo-fluid</a>
   
   
 
@@ -474,6 +475,12 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2023/01/14/%E7%95%99%E8%A8%80%E6%9D%BF%E7%9A%84%E5%88%B6%E4%BD%9C/" title="留言板的制作">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">留言板的制作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
@@ -500,7 +507,7 @@
   Fluid.utils.loadComments('#valine', function() {
     Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
       var options = Object.assign(
-        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
         {
           el: "#valine",
           path: window.location.pathname

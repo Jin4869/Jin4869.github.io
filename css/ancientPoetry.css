@@ -1,0 +1,82 @@
+/*诗*/
+.poem-wrap {
+  position: relative;
+  width: 730px;
+  max-width: 80%;
+  border: 2px solid #797979;
+  border-top: none;
+  text-align: center;
+  margin: 80px auto;
+  font-family: HongLeiXingShuJianTi;
+}
+
+.poem-wrap h {
+  font-size: 32px;
+  font-style: oblique;
+  position: relative;
+  margin-top: -40px;
+  display: inline-block;
+  letter-spacing: 4px;
+  color: #797979;
+  font-family: KaiTi;
+}
+
+.poem-wrap p {
+  width: 70%;
+  margin: auto;
+  line-height: 40px;
+  color: #797979;
+}
+
+.poem-wrap p#poem {
+  font-size: 32px;
+  margin: 15px auto;
+}
+
+.poem-wrap p#info {
+  font-size: 22px;
+  margin: 15px auto;
+  font-family: KaiTi;
+}
+
+.poem-border {
+  position: absolute;
+  height: 2px;
+  width: 27%;
+  background-color: #797979;
+}
+
+.poem-right {
+  right: 0;
+}
+
+.poem-left {
+  left: 0;
+}
+
+@media (max-width: 685px) {
+  .poem-border {
+    width: 18%;
+  }
+}
+
+@media (max-width: 500px) {
+  .poem-wrap {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    border-top: 2px solid #797979;
+  }
+
+  .poem-wrap h {
+    margin: 20px 6px;
+  }
+
+  .poem-border {
+    display: none;
+  }
+}
+
+@font-face {
+  font-family: HongLeiXingShuJianTi;
+  src: url("/font/HongLeiXingShuJianTi-2.otf");
+}

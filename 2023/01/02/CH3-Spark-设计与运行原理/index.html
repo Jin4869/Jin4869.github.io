@@ -1,0 +1,862 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/3.png">
+  <link rel="icon" href="/img/3.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#88A3C3">
+  <meta name="author" content="不想长大的小孩">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="spark简介，Spark和Hadoop对比，Spark运行架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CH3 Spark 设计与运行原理">
+<meta property="og:url" content="https://jin4869.github.io/2023/01/02/CH3-Spark-%E8%AE%BE%E8%AE%A1%E4%B8%8E%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="spark简介，Spark和Hadoop对比，Spark运行架构">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16728104096104.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16728122560998.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16728128249337.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16728134333402.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16728136402960.jpg">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16728140033545.jpg">
+<meta property="article:published_time" content="2023-01-02T13:53:47.000Z">
+<meta property="article:modified_time" content="2023-01-14T14:11:41.019Z">
+<meta property="article:author" content="不想长大的小孩">
+<meta property="article:tag" content="spark">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jin4869.github.io/img/post/16728104096104.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>CH3 Spark 设计与运行原理 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jin4869.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav
+  id="navbar"
+  class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>APTX</strong>
+    </a>
+
+    <iframe
+      style="opacity: 0.5"
+      frameborder="no"
+      border="0"
+      marginwidth="0"
+      marginheight="0"
+      width="280"
+      height="52"
+      src="//music.163.com/outchain/player?type=0&id=8051474154&auto=0&height=32"
+    ></iframe>
+
+    <button
+      id="navbar-toggler-btn"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="iconfont icon-home-fill"></i>
+            <span>首页</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/archives/">
+            <i class="iconfont icon-archive-fill"></i>
+            <span>归档</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/categories/">
+            <i class="iconfont icon-category-fill"></i>
+            <span>分类</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/tags/">
+            <i class="iconfont icon-tags-fill"></i>
+            <span>标签</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
+            <i class="iconfont icon-pen"></i>
+            <span>留言板</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="iconfont icon-user-fill"></i>
+            <span>关于</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/links/">
+            <i class="iconfont icon-link-fill"></i>
+            <span>友链</span>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="search-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            data-toggle="modal"
+            data-target="#modalSearch"
+            aria-label="Search"
+          >
+            <i class="iconfont icon-search"></i>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="color-toggle-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            aria-label="Color Toggle"
+          >
+            <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CH3 Spark 设计与运行原理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-02 21:53" pubdate>
+          2023年1月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CH3 Spark 设计与运行原理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>CH3 Spark 设计与运行原理</h1>
+<h2 id="3-1-Spark-概述">3.1 Spark 概述</h2>
+<h3 id="3-1-1-Spark-简介">3.1.1 Spark 简介</h3>
+<p>特点：</p>
+<ul>
+<li>运行速度快：支持循环数据流与内存计算</li>
+<li>容易使用：Scala、Java、Python 和 R 语言进行编程，可以通过 Spark Shell 进行交互式编程</li>
+<li>通用性：提供了完整而强大的技术栈，包括 SQL 查询、流式计算、机器学习和图算法组件</li>
+<li>运行模式多样</li>
+</ul>
+<h3 id="3-1-2-Scala-简介">3.1.2 Scala 简介</h3>
+<p>是一门现代的多范式编程语言，运行于 Java 平台（JVM，Java 虚拟机），并兼容现有的 Java 程序</p>
+<p>特点：</p>
+<ul>
+<li>强大的并发性，支持函数式编程，可以更好的支持分布式系统</li>
+<li>语法简洁，提供优雅的 API</li>
+<li>兼容 Java，运行速度快</li>
+</ul>
+<h3 id="3-1-3-Spark-与-Hadoop-对比">3.1.3 Spark 与 Hadoop 对比</h3>
+<p>Hadoop 的 MapReduce 计算框架延迟高，只适用于离线批处理应用（批量计算），存在如下缺点</p>
+<ul>
+<li>表达能力有限</li>
+<li>磁盘 IO 开销大</li>
+<li>延迟高
+<ul>
+<li>任务之间的衔接涉及 IO 开销</li>
+<li>在前一个任务完成之前，其他任务就无法开始，难以胜任复杂、多阶段的计算任务</li>
+</ul>
+</li>
+</ul>
+<p>相比于 Hadoop MapReduce，Spark 具有如下优点</p>
+<ul>
+<li>Spark 的计算模式也属于 MapReduce，但不局限于 Map 和 Reduce 操作，还提供了多种数据集操作类型</li>
+<li>Spark 提供了内存计算，可将中间结果放到内存中，对于迭代运算效率更高</li>
+<li>Spark 基于 DAG 的任务调度执行机制，优于 Hadoop MapReduce 的迭代执行机制</li>
+</ul>
+<p>使用 Hadoop 进行迭代计算非常耗资源<br>
+Spark 将数据载入内存后，之后的迭代计算都可以直接使用内存中的中间结果作运算，避免了从磁盘中频繁读取数据</p>
+<h2 id="3-2-Spark-生态系统">3.2 Spark 生态系统</h2>
+<ul>
+<li>Spark 既能提供内存计算框架，也可以支持 SQL 即时查询、实时流式计算、机器学习和图计算等</li>
+<li>Spark 可以部署在资源管理器 YARN 之上，提供一站式的大数据解决方案</li>
+</ul>
+<p><strong>Spark 提供的生态系统能同时支持批处理、交互式查询和流数据处理</strong></p>
+<table>
+<thead>
+<tr>
+<th>应用场景</th>
+<th>时间跨度</th>
+<th>其他框架</th>
+<th>Spark 生态系统中的组件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>复杂的批量数据处理</td>
+<td>小时级</td>
+<td>MapReduce、Hive</td>
+<td>Spark</td>
+</tr>
+<tr>
+<td>基于历史数据的交互式查询</td>
+<td>分钟级、秒级</td>
+<td>Impala、Dremel、Drill</td>
+<td>Spark SQL</td>
+</tr>
+<tr>
+<td>基于实时数据流的数据处理</td>
+<td>毫秒、秒级</td>
+<td>Storm、S4</td>
+<td>Spark Streaming</td>
+</tr>
+<tr>
+<td>基于历史数据的数据挖掘</td>
+<td>-</td>
+<td>Mahout</td>
+<td>MLlib</td>
+</tr>
+<tr>
+<td>图结构数据的处理</td>
+<td>-</td>
+<td>Pregel、Hama</td>
+<td>GraphX</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-3-Spark-运行架构">3.3 Spark 运行架构</h2>
+<h3 id="3-3-1-基本概念">3.3.1 基本概念</h3>
+<ul>
+<li><strong>RDD</strong>：弹性分布式数据集的简称，是分布式内存的一个抽象概念，提供了一种高度受限的共享内存模型</li>
+<li><strong>DAG</strong>：有向无环图的简称，反应 RDD 之间的依赖关系</li>
+<li><strong>Executor</strong>：是运行在工作阶段（WorkerNode）的一个进程，负责运行 Task</li>
+<li><strong>Application</strong>：用户编写的 Spark 应用程序</li>
+<li><strong>Task</strong>：运行在 Executor 上的工作单元</li>
+<li><strong>Job</strong>：一个 Job 包含多个 RDD 及作用于相应 RDD 上的各种操作</li>
+<li><strong>Stage</strong>：Job 的基本调度单位。一个 Job 会分为多组 Task，每组 Task 被称为 Stage，或者也被称为 TaskSet，代表了一组关联的、相互之间没有 Shuffle 依赖关系的任务组成的任务集</li>
+</ul>
+<h3 id="3-3-2-架构设计">3.3.2 架构设计</h3>
+<p>Spark 运行架构包括<strong>集群资源管理器</strong>（Cluster Manager）、运行作业任务的<strong>工作节点</strong>（Worker Node）、每个应用的<strong>任务控制节点</strong>（Driver）和每个工作节点上<strong>负责具体任务的执行进程</strong>（Executor）</p>
+<p><img src="/img/post/16728104096104.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<ul>
+<li>一个 Application 由一个 Driver 和若干个 Job 构成，一个 Job 由多个 Stage 构成，一个 Stage 由多个没有 Shuffle 关系的 Task 组成</li>
+<li>当执行一个 Application 时，Driver 会向集群管理器<strong>申请资源</strong>，<strong>启动 Executor</strong>，并向 Executor 发送应用程序和文件，然后在 Executor 上<strong>执行 Task</strong>，运行结束后，执行结果会返回给 Driver，或者写到 HDFS 或者其他数据库中</li>
+</ul>
+<h3 id="3-3-3-Spark-运行基本流程">3.3.3 Spark 运行基本流程</h3>
+<ol>
+<li>为应用构建基本运行环境，即由 Driver 创建一个 SparkContext，进行资源的申请、任务分配和监控</li>
+<li>资源管理器为 Executor 分配资源，并启动 Executor 进程</li>
+<li>SparkContext 根据 RDD 的依赖关系构建 DAG 图，DAG 图提交给 DAGScheduler 解析成 Stage，然后把一个个 TaskSet 提交给底层调度器 TaskScheduler 处理；Executor 向 SparkContext 申请 Task，Task Scheduler 将 Task 发放给 Executor 运行并提供应用程序代码</li>
+<li>Task 在 Executor 上运行，把执行结果反馈给 TaskScheduler，然后反馈给 DAGScheduler，运行完毕后写入数据并释放所有资源</li>
+</ol>
+<p><img src="/img/post/16728122560998.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>特点：</p>
+<ul>
+<li>每个 Application 都有自己专属的 Executor 进程，并且该进程在 Application 运行期间一直驻留。Executor 进程以多线程的方式运行 Task</li>
+<li>Spark 运行过程与资源管理器无关，只要能够获取 Executor 进程并保持通信即可</li>
+<li>Executor 有 BlockManager 存储模块</li>
+<li>Task 采用了数据本地性和推测执行等优化机制</li>
+</ul>
+<h3 id="3-3-4-RDD-运行原理">3.3.4 RDD 运行原理</h3>
+<p>一个 RDD 就是一个分布式对象集合，提供给你了一种高度受限的共享内存模型，<strong>即 RDD 是只读的记录分区的集合，不能直接修改</strong>。</p>
+<p>执行过程：（这一系列处理称为一个 Lineage（血缘关系））</p>
+<ul>
+<li>RDD 读入外部数据源进行创建</li>
+<li>RDD 经过一系列的转换（Transformation）操作，每一次都会产生不同的 RDD，供给下一个转换操作使用</li>
+<li>最后一个 RDD 经过“动作”操作进行转换，并输出到外部数据源</li>
+</ul>
+<p><img src="/img/post/16728128249337.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>优点：<strong>惰性调用</strong>、<strong>管道化</strong>、避免同步等待、不需要保存中间结果、每次操作变得简单</p>
+<blockquote>
+<p>惰性调用：对于转换操作，只记录 RDD 之间的生成与依赖关系，只在执行“动作”操作时，才出发真正的计算<br>
+管道化：一个操作得到的结果，无需中间存储，直接管道式流转到下一个操作</p>
+</blockquote>
+<p><strong>RDD 之间的依赖关系————Shuffle 操作</strong></p>
+<p><img src="/img/post/16728134333402.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><strong>RDD 之间的依赖关系————窄依赖和宽依赖</strong></p>
+<p><strong>窄依赖</strong>表现为一个父 RDD 的分区对应于一个子 RDD 的分区，或多个父 RDD 的分区对应于一个子 RDD 的分区</p>
+<p><strong>宽依赖</strong>则表现为存在一个父 RDD 的一个分区对应一个子 RDD 的多个分区</p>
+<p><img src="/img/post/16728136402960.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>窄依赖对于作业的优化很有利，宽依赖无法优化</p>
+<p>窄依赖可以实现“流水线”优化，宽依赖无法实现“流水线”优化</p>
+<h4 id="3-3-4-1-RDD-运行过程">3.3.4.1 RDD 运行过程</h4>
+<ol>
+<li>创建 RDD 对象</li>
+<li>SparkContext 负责计算 RDD 之间的依赖关系，构建 DAG</li>
+<li>DAGScheduler 负责把 DAG 图分解成多个 Stage，每个 Stage 中包含了多个 Task，每个 Task 会被 TaskScheduler 分发给各个 WorkerNode 上的 Executor 去执行</li>
+</ol>
+<p><img src="/img/post/16728140033545.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/" class="category-chain-item">大数据计算</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/spark/">#spark</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CH3 Spark 设计与运行原理</div>
+      <div>https://jin4869.github.io/2023/01/02/CH3-Spark-设计与运行原理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>不想长大的小孩</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/03/CH4-RDD-%E7%BC%96%E7%A8%8B/" title="CH4 RDD 编程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CH4 RDD 编程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/02/CH2-Scala-%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" title="CH2 Scala 语言基础">
+                        <span class="hidden-mobile">CH2 Scala 语言基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  <div class="footer-content"> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div>
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+   
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+ <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script> <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> <script  src="/js/events.js" ></script> <script  src="/js/plugins.js" ></script> 
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+   <script  src="/js/img-lazyload.js" ></script>     
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>    
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
+ 
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":175,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
+</html>

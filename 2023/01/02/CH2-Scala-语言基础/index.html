@@ -1,0 +1,891 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/3.png">
+  <link rel="icon" href="/img/3.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#88A3C3">
+  <meta name="author" content="不想长大的小孩">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="使用scala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CH2 Scala 语言基础">
+<meta property="og:url" content="https://jin4869.github.io/2023/01/02/CH2-Scala-%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="使用scala">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jin4869.github.io/img/post/16727201095688.jpg">
+<meta property="article:published_time" content="2023-01-02T13:51:15.000Z">
+<meta property="article:modified_time" content="2023-01-14T14:11:38.902Z">
+<meta property="article:author" content="不想长大的小孩">
+<meta property="article:tag" content="大数据计算">
+<meta property="article:tag" content="Scala">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jin4869.github.io/img/post/16727201095688.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>CH2 Scala 语言基础 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jin4869.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav
+  id="navbar"
+  class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>APTX</strong>
+    </a>
+
+    <iframe
+      style="opacity: 0.5"
+      frameborder="no"
+      border="0"
+      marginwidth="0"
+      marginheight="0"
+      width="280"
+      height="52"
+      src="//music.163.com/outchain/player?type=0&id=8051474154&auto=0&height=32"
+    ></iframe>
+
+    <button
+      id="navbar-toggler-btn"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="iconfont icon-home-fill"></i>
+            <span>首页</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/archives/">
+            <i class="iconfont icon-archive-fill"></i>
+            <span>归档</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/categories/">
+            <i class="iconfont icon-category-fill"></i>
+            <span>分类</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/tags/">
+            <i class="iconfont icon-tags-fill"></i>
+            <span>标签</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
+            <i class="iconfont icon-pen"></i>
+            <span>留言板</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="iconfont icon-user-fill"></i>
+            <span>关于</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/links/">
+            <i class="iconfont icon-link-fill"></i>
+            <span>友链</span>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="search-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            data-toggle="modal"
+            data-target="#modalSearch"
+            aria-label="Search"
+          >
+            <i class="iconfont icon-search"></i>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="color-toggle-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            aria-label="Color Toggle"
+          >
+            <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CH2 Scala 语言基础"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-02 21:51" pubdate>
+          2023年1月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          9.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          77 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CH2 Scala 语言基础</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>CH2 Scala 语言基础</h1>
+<h2 id="2-1-Scala-语言概述">2.1 Scala 语言概述</h2>
+<p>Scala 是一门纯粹的面向对象的语言。每个值都是对象，每个操作都是方法调用。对象的数据类型以及行为由类和特质描述。</p>
+<p>也是一门函数式语言。每个函数都是一个值，并且和其他类型（如整数、字符串等）的值处于同一地位。</p>
+<p><strong>启动 scala</strong></p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><span class="hljs-variable">$ </span>scala<br></code></pre></td></tr></table></figure>
+<p><strong>退出 scala</strong></p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cos">scala&gt; :<span class="hljs-keyword">quit</span><br></code></pre></td></tr></table></figure>
+<p><strong>在 scala 解释器中运行脚本文件</strong></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">scala</span>&gt; :load /usr/<span class="hljs-keyword">local</span>/<span class="hljs-keyword">scala</span>/mycode/<span class="hljs-keyword">Test</span>.<span class="hljs-keyword">scala</span><br></code></pre></td></tr></table></figure>
+<p><strong>通过编译打包的方式运行 Scala 程序</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ cd <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/scala/my</span>code<br>$ scalac HelloWorld.scala<br></code></pre></td></tr></table></figure>
+<p>使用 Scala 或者 java 命令运行字节码文件</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><span class="hljs-variable">$ </span>scala -classpath .HelloWorld<br></code></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-variable">$ </span>java -classpath .<span class="hljs-symbol">:/usr/local/scala/lib/scala-library</span>.jar <span class="hljs-title class_">HelloWorld</span><br></code></pre></td></tr></table></figure>
+<h2 id="2-2-Scala-基础">2.2 Scala 基础</h2>
+<h3 id="2-2-1-基本数据类型和变量">2.2.1 基本数据类型和变量</h3>
+<p><strong>基本数据类型</strong></p>
+<p>（注意首字母大写）</p>
+<p>和 Java 不同的是，在 Scala 中，这些<strong>类型都是“类”</strong>，并且都是包 scala 的成员，比如，Int 的全名是 scala.Int。对于字符串，Scala 用 java.lang.String 类来表示字符串<br>
+<img src="/img/post/16727201095688.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><strong>字面量</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> i = <span class="hljs-number">123</span>     <span class="hljs-comment">//123，整数字面量</span><br><span class="hljs-keyword">val</span> i = <span class="hljs-number">3.14</span>    <span class="hljs-comment">//3.14，浮点数字面量</span><br><span class="hljs-keyword">val</span> i = <span class="hljs-literal">true</span>    <span class="hljs-comment">//true，布尔型字面量</span><br><span class="hljs-keyword">val</span> i = &#x27;<span class="hljs-type">A</span>&#x27;     <span class="hljs-comment">//&#x27;A&#x27;，字符字面量</span><br><span class="hljs-keyword">val</span> i = <span class="hljs-string">&quot;Hello&quot;</span> <span class="hljs-comment">//&quot;Hello&quot;，字符串字面量</span><br></code></pre></td></tr></table></figure>
+<p><strong>操作符</strong><br>
+优先级：算数运算符 &gt; 关系运算符 &gt; 逻辑运算符 &gt; 赋值运算符</p>
+<ul>
+<li>算术运算符：加（+）、减（-）、乘（*）、除（/）、余数（%）；</li>
+<li>关系运算符：大于（&gt;）、小于(&lt;) 、等于（==）不等于（!=）、大于等于（&gt;=）、小于等于(&lt;=)</li>
+<li>逻辑运算符：逻辑与(&amp;&amp;)、逻辑或(||)、逻辑非(!)；</li>
+<li>位运算符：按位与(＆)、按位或(|)、按位异或(^)、按位取反(~)等</li>
+<li>赋值运算符：=及其与其它运算符结合的扩展赋值运算符，例如+=、<br>
+%</li>
+</ul>
+<p><strong>变量</strong></p>
+<ul>
+<li>val：不可变的，声明时必须被初始化，初始化后不能再赋值</li>
+<li>var：可变的，声明时需要进行初始化，初始化后还可以再次赋值</li>
+</ul>
+<p>根据初始值可以省略具体的数据类型</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> myStr = <span class="hljs-string">&quot;Hello World&quot;</span><br></code></pre></td></tr></table></figure>
+<p>也可以显式声明变量的类型</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> myStr2:<span class="hljs-type">String</span> = <span class="hljs-string">&quot;Hello World&quot;</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-2-2-输入输出">2.2.2 输入输出</h3>
+<p><strong>控制台输入输出语句</strong></p>
+<p>控制台读入数据：<code>readInt</code>,<code>readDouble</code>,<code>readByte</code>,<code>readShort</code>,<code>readFloat</code>,<code>readLong</code>,<code>readChar</code>,<code>readBoolean</code>,<code>readLine</code></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">import</span> io.<span class="hljs-type">StdIn</span>._<br><br><span class="hljs-keyword">var</span> i = readInt()<br><br><span class="hljs-keyword">var</span> str = readLine(<span class="hljs-string">&quot;please input your name:&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>控制台输出信息：<code>print</code>,<code>println</code>,<code>printf</code>(C 语言风格)</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> i = <span class="hljs-number">10</span><br><span class="hljs-keyword">val</span> f = <span class="hljs-number">3.5</span><br><span class="hljs-keyword">val</span> s = <span class="hljs-string">&quot;hello&quot;</span><br><br>scala&gt; println(<span class="hljs-string">s&quot;<span class="hljs-subst">$s</span>:i=<span class="hljs-subst">$i</span>,f=<span class="hljs-subst">$f</span>&quot;</span>)         <span class="hljs-comment">//s插值字符串</span><br>hello:i=<span class="hljs-number">10</span>,f=<span class="hljs-number">3.5425</span><br><br>scala&gt; println(<span class="hljs-string">f&quot;<span class="hljs-subst">$s</span>:i=<span class="hljs-subst">$i</span>%-4d,f=<span class="hljs-subst">$f</span>%.1f&quot;</span>) <span class="hljs-comment">//f插值字符串</span><br>hello:i=<span class="hljs-number">10</span>  ,f=<span class="hljs-number">3.5</span><br></code></pre></td></tr></table></figure>
+<p><strong>读写文件</strong></p>
+<p>写入文件：使用 java.io.PrintWriter 把数据写入文件，PrintWriter 类提供了<code>print</code>和<code>println</code>两个写方法</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">import</span> java.io.<span class="hljs-type">PrintWriter</span><br><br><span class="hljs-keyword">val</span> outputFile = <span class="hljs-keyword">new</span> <span class="hljs-type">PrintWriter</span>(<span class="hljs-string">&quot;test.txt&quot;</span>)<br><br>outputFile.println(<span class="hljs-string">&quot;Hello World&quot;</span>)<br>outputFile.print(<span class="hljs-string">&quot;Spark is good&quot;</span>)<br><br>outputFile.close()<br></code></pre></td></tr></table></figure>
+<p>读取文件：使用 scala.io.Source 的<code>getLines</code>方法</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">import</span> scala.io.<span class="hljs-type">Source</span><br><br><span class="hljs-keyword">val</span> inputFile = <span class="hljs-type">Source</span>.fromFile(<span class="hljs-string">&quot;output.txt&quot;</span>)<br><span class="hljs-keyword">val</span> lines = inputFile.getLines  <span class="hljs-comment">//返回的结果是一个迭代器</span><br><br><span class="hljs-keyword">for</span> (line &lt;- lines) println(line)<span class="hljs-comment">//逐行打印结果</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-2-3-控制结构">2.2.3 控制结构</h3>
+<h4 id="2-2-3-1-if-条件表达式">2.2.3.1 if 条件表达式</h4>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">if</span>(表达式)&#123;<br>    语句块<span class="hljs-number">1</span><br>&#125;<br><span class="hljs-keyword">else</span>&#123;<br>    语句块<span class="hljs-number">2</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Scala 中 if 表达式的值可以赋值给变量</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> a = <span class="hljs-keyword">if</span>(x&gt;<span class="hljs-number">0</span>) <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">-1</span><br></code></pre></td></tr></table></figure>
+<h4 id="2-2-3-2-while-循环">2.2.3.2 while 循环</h4>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">while</span>(表达式)&#123;<br>    循环体<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">do</span>&#123;<br>    循环体<br>&#125;<span class="hljs-keyword">while</span>(表达式)<br></code></pre></td></tr></table></figure>
+<h4 id="2-2-3-3-for-循环">2.2.3.3 for 循环</h4>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">for</span>(变量 &lt;- 表达式)&#123;语句块&#125;<br></code></pre></td></tr></table></figure>
+<p>其中，“变量&lt;-表达式”被称为生成器</p>
+<p><strong>守卫表达式</strong>：过滤出一些满足条件的结果</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">for</span>(i &lt;- <span class="hljs-number">1</span> to <span class="hljs-number">5</span> <span class="hljs-keyword">if</span> i%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>) println(i)<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">2<br>4<br></code></pre></td></tr></table></figure>
+<p>for 支持多个<strong>生成器</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">for</span> (i &lt;- <span class="hljs-number">1</span> to <span class="hljs-number">5</span>; j &lt;- <span class="hljs-number">1</span> to <span class="hljs-number">3</span>) println(i*j)<br></code></pre></td></tr></table></figure>
+<p><strong>for 推导式</strong>：for 结构可以再每次执行的时候创造一个值，然后将包含了所有产生值的集合作为 for 循环表达式的结果返回，集合的类型由生成器中的集合类型决定</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">for</span> (变量&lt;-表达式) <span class="hljs-keyword">yield</span>&#123;语句块&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs scala">scala&gt; <span class="hljs-keyword">val</span> r=<span class="hljs-keyword">for</span>(i &lt;- <span class="hljs-type">Array</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>) <span class="hljs-keyword">if</span> i%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>) <span class="hljs-keyword">yield</span> &#123;println(i);i&#125;<br><br><span class="hljs-number">2</span><br><span class="hljs-number">4</span><br>r:<span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] = <span class="hljs-type">Array</span>(<span class="hljs-number">2</span>,<span class="hljs-number">4</span>)<br></code></pre></td></tr></table></figure>
+<h4 id="2-2-3-4-异常处理">2.2.3.4 异常处理</h4>
+<p>Scala 将所有异常都当作“不受检异常”（或称运行时异常）</p>
+<p>使用 try-catch 结构来捕获异常</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">import</span> java.io.<span class="hljs-type">FileReader</span><br><span class="hljs-keyword">import</span> java.io.<span class="hljs-type">FileNotFoundException</span><br><span class="hljs-keyword">import</span> java.io.<span class="hljs-type">IOException</span><br><span class="hljs-keyword">try</span>&#123;<br>    <span class="hljs-keyword">val</span> f = <span class="hljs-keyword">new</span> <span class="hljs-type">FileReader</span>(<span class="hljs-string">&quot;input.txt&quot;</span>)<br>    <span class="hljs-comment">// 文件操作</span><br>&#125;<span class="hljs-keyword">catch</span>&#123;<br>    <span class="hljs-keyword">case</span> ex:<span class="hljs-type">FileNotFoundException</span> =&gt;<br>        <span class="hljs-comment">// 文件不存在时的操作</span><br>    <span class="hljs-keyword">case</span> ex:<span class="hljs-type">IOException</span> =&gt;<br>        <span class="hljs-comment">// 发生I/O错误时的操作</span><br>&#125;<span class="hljs-keyword">finally</span>&#123;<br>    file.close() <span class="hljs-comment">//确保关闭文件</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="2-2-3-5-对循环的控制">2.2.3.5 对循环的控制</h4>
+<p>Scala 提供了一个 Breaks 类，<code>breakable</code>和<code>break</code>对循环结构进行控制</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">import</span> util.control.<span class="hljs-type">Breaks</span>._ <span class="hljs-comment">//导入Breaks类的所有方法</span><br><br><span class="hljs-keyword">val</span> array = <span class="hljs-type">Array</span>(<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">10</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>)<br><br>breakable&#123;<br>    <span class="hljs-keyword">for</span> (i &lt;- array)&#123;<br>        <span class="hljs-keyword">if</span>(i&gt;<span class="hljs-number">5</span>) <span class="hljs-keyword">break</span> <span class="hljs-comment">//跳出breakable，终止for循环，相当于break</span><br>        println(i)<br>    &#125;<br>&#125;<span class="hljs-comment">// 输出1，3</span><br><br><span class="hljs-keyword">for</span>(i &lt;- array)&#123;<br>    breakable&#123;<br>        <span class="hljs-keyword">if</span>(i&gt;<span class="hljs-number">5</span>) <span class="hljs-keyword">break</span> <span class="hljs-comment">//跳出breakable，终止当次循环，相当于continue</span><br>        println(i)<br>    &#125;<br>&#125;<span class="hljs-comment">// 输出1，3，5，4</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-2-4-数据结构">2.2.4 数据结构</h3>
+<h4 id="2-2-4-1-数组（Array）">2.2.4.1 数组（Array）</h4>
+<p>声明一个整型数组</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> intValueArr = <span class="hljs-keyword">new</span> <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>](<span class="hljs-number">3</span>) <span class="hljs-comment">// 声明一个长度为3的整型数组，每个数组元素初始化为0</span><br><br>intValueArr(<span class="hljs-number">0</span>) = <span class="hljs-number">12</span> <span class="hljs-comment">//给第一个元素赋值为12</span><br></code></pre></td></tr></table></figure>
+<p>声明一个字符串数组</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> myStrArr = <span class="hljs-keyword">new</span> <span class="hljs-type">Array</span>[<span class="hljs-type">String</span>](<span class="hljs-number">3</span>) <span class="hljs-comment">// 声明一个长度为3的字符串数组，每个数组元素初始化为null</span><br><br>myStrArr(<span class="hljs-number">0</span>) = <span class="hljs-string">&quot;BigData&quot;</span><br></code></pre></td></tr></table></figure>
+<p>可以不给出数组类型</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> intValue = <span class="hljs-type">Array</span>(<span class="hljs-number">12</span>,<span class="hljs-number">45</span>,<span class="hljs-number">33</span>)<br><span class="hljs-keyword">val</span> myStrArr = <span class="hljs-type">Array</span>(<span class="hljs-string">&quot;BigData&quot;</span>,<span class="hljs-string">&quot;Hadoop&quot;</span>,<span class="hljs-string">&quot;Spark&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>多维数组的创建：调用 Array 的<code>ofDim</code>方法</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> myMatrix = <span class="hljs-type">Array</span>.ofDim[<span class="hljs-type">Int</span>](<span class="hljs-number">3</span>,<span class="hljs-number">4</span>)<br><br>\\ `myMatrix(<span class="hljs-number">0</span>)(<span class="hljs-number">1</span>)`返回第一行第二列的元素<br></code></pre></td></tr></table></figure>
+<h4 id="2-2-4-2-元组（Tuple）">2.2.4.2 元组（Tuple）</h4>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs scala">scala&gt; <span class="hljs-keyword">val</span> tuple = (<span class="hljs-string">&quot;BigData&quot;</span>,<span class="hljs-number">2015</span>,<span class="hljs-number">45.0</span>) <span class="hljs-comment">//定义元组</span><br>tuple: (<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>, <span class="hljs-type">Double</span>) = (<span class="hljs-type">BigData</span>,<span class="hljs-number">2015</span>,<span class="hljs-number">45.0</span>)<br><br>scala&gt; println(tuple._1)    <span class="hljs-comment">//访问元组的元素（索引从1开始）</span><br><span class="hljs-type">BigData</span><br></code></pre></td></tr></table></figure>
+<h4 id="2-2-4-3-容器（Collection）">2.2.4.3 容器（Collection）</h4>
+<p>包括序列（Sequence）、集合（Set）、映射（Map）</p>
+<p>Scala 用了三个包来组织容器类，分别是 scala.collection, scala.collection.mutable, scala.collection.immutable</p>
+<p>scala.collection 定义了可变容器和不可变容器的一些通用操作</p>
+<h4 id="2-2-4-4-序列（Sequence）">2.2.4.4 序列（Sequence）</h4>
+<p>元素可以按照特定的顺序访问的容器，序列中每个元素均带有一个从 0 开始计数的固定索引位置</p>
+<p>具有两个子特质 LinearSeq 和 IndexedSeq，LinearSeq 序列具有高效的 head 和 tail 操作，而 IndexedSeq 序列具有高效的随机存储操作</p>
+<p><strong>列表（List）</strong></p>
+<p>scala 中的 List 一旦被定义，其值就不能改变</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">var</span> strList = <span class="hljs-type">List</span>(<span class="hljs-string">&quot;BigData&quot;</span>,<span class="hljs-string">&quot;Hadoop&quot;</span>,<span class="hljs-string">&quot;Spark&quot;</span>)<br><br>strList.head <span class="hljs-comment">//返回第一个元素，即&quot;BigData&quot;</span><br>strList.tail <span class="hljs-comment">// 返回除第一个元素外的其他值构成的新列表，即List(&quot;Hadoop&quot;,&quot;Spark&quot;)</span><br></code></pre></td></tr></table></figure>
+<p>构造列表</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> otherList=<span class="hljs-string">&quot;Apache&quot;</span>::strList<br><br>otherList为<span class="hljs-type">List</span>(<span class="hljs-string">&quot;Apache&quot;</span>,<span class="hljs-string">&quot;BigData&quot;</span>,<span class="hljs-string">&quot;Hadoop&quot;</span>,<span class="hljs-string">&quot;Spark&quot;</span>)<br><br><span class="hljs-keyword">val</span> intList = <span class="hljs-number">1</span>::<span class="hljs-number">2</span>::<span class="hljs-number">3</span>::<span class="hljs-type">Nil</span>  <span class="hljs-comment">//Nil：空列表对象</span><br><span class="hljs-comment">// 借助Nil可以将多个元素用操作符::串起来初始化一个列表</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>除了 head、tail 操作是常数时间 O(1)，其他按索引访问的操作都需要从头开始遍历，即 O(N)</p>
+</blockquote>
+<p><strong>向量（Vector）</strong><br>
+实现所有访问操作都是常数时间</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs scala">scala&gt; <span class="hljs-keyword">val</span> v = <span class="hljs-type">Vector</span>(<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>)<br>v: scala.collection.immutable.<span class="hljs-type">Vector</span>[<span class="hljs-type">String</span>] = <span class="hljs-type">Vector</span>(a,b,c)<br>scala&gt; v(<span class="hljs-number">1</span>)<br>res2: <span class="hljs-type">String</span> = b<br></code></pre></td></tr></table></figure>
+<p>Vector 不能改变，但是可以通过生成新的 Vector 来实现对 Vector 的修改</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs scala">scala&gt; <span class="hljs-keyword">val</span> a = <span class="hljs-type">Vector</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)<br>scala&gt; <span class="hljs-keyword">val</span> b = a ++ <span class="hljs-type">Vector</span>(<span class="hljs-number">4</span>,<span class="hljs-number">5</span>) <span class="hljs-comment">//实现对Vector添加元素</span><br>b: scala.collection.immutable.<span class="hljs-type">Vector</span>[<span class="hljs-type">Int</span>] = <span class="hljs-type">Vector</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)<br><br>scala&gt; <span class="hljs-keyword">val</span> a = <span class="hljs-type">Vector</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)<br>scala&gt; <span class="hljs-keyword">val</span> b = a.updated(<span class="hljs-number">0</span>,<span class="hljs-number">4</span>) <span class="hljs-comment">// 修改Vector中的元素</span><br>b: <span class="hljs-type">Vector</span>(<span class="hljs-number">4</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)<br><br>scala&gt; <span class="hljs-keyword">val</span> vec1 = <span class="hljs-type">Vector</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)<br>scala&gt; <span class="hljs-keyword">val</span> vec2 = <span class="hljs-number">3</span> +: <span class="hljs-number">4</span> +: vec1 <span class="hljs-comment">//+:用于在头部追加元素</span><br>vec2: <span class="hljs-type">Vector</span>(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)<br><br>scala&gt; <span class="hljs-keyword">val</span> vec3 = vec2 :+ <span class="hljs-number">5</span> <span class="hljs-comment">//:+用于在尾部追加元素</span><br>vec3: <span class="hljs-type">Vector</span>(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>)<br><br>scala&gt; vec3(<span class="hljs-number">3</span>)<br>res6: <span class="hljs-type">Int</span> = <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+<p><code>++</code> 连接两个集合<br>
+<code>:::</code> 连接两个 List 类型的集合<br>
+这些操作符都是从右往左结合的</p>
+<p><strong>Range</strong></p>
+<p>一种特殊的、带索引的不可变数字等差序列</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs scala">scala&gt; <span class="hljs-keyword">val</span> r = <span class="hljs-keyword">new</span> <span class="hljs-type">Range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">5</span>,<span class="hljs-number">1</span>)<br><br>scala&gt; <span class="hljs-number">1</span> to <span class="hljs-number">5</span><br>res0: <span class="hljs-type">Range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)<br><br><span class="hljs-comment">// 1到5，不包含区间终点</span><br>scala&gt; <span class="hljs-number">1</span> until <span class="hljs-number">5</span><br><br><span class="hljs-comment">// 1到10，步长为2</span><br>scala&gt; <span class="hljs-number">1</span> to <span class="hljs-number">10</span> by <span class="hljs-number">2</span><br><br><span class="hljs-comment">// Float类型，从0.5f到5.9f，步长为0.3f</span><br>scala&gt; <span class="hljs-number">0.5</span>f to <span class="hljs-number">5.9</span>f by <span class="hljs-number">0.8</span>f<br>res3: <span class="hljs-type">NumericRange</span>(<span class="hljs-number">0.5</span>,<span class="hljs-number">1.3</span>,<span class="hljs-number">2.1</span>,<span class="hljs-number">2.89999</span>,<span class="hljs-number">3.69998</span>,<span class="hljs-number">4.5</span>,<span class="hljs-number">5.3</span>)<br></code></pre></td></tr></table></figure>
+<h4 id="2-2-4-5-集合（Set）">2.2.4.5 集合（Set）</h4>
+<p>不重复元素的容器</p>
+<p>创建不可变集</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">var</span> mySet = <span class="hljs-type">Set</span>(<span class="hljs-string">&quot;Hadoop&quot;</span>,<span class="hljs-string">&quot;Spark&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>创建可变集</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">import</span> scala.collection.mutable.<span class="hljs-type">Set</span><br><span class="hljs-keyword">val</span> myMutableSet = <span class="hljs-type">Set</span>(<span class="hljs-string">&quot;Database&quot;</span>,<span class="hljs-string">&quot;BigData&quot;</span>)<br>myMutableSet += <span class="hljs-string">&quot;Cloud Computing&quot;</span><br></code></pre></td></tr></table></figure>
+<p>操作：</p>
+<ul>
+<li>head</li>
+<li>tail</li>
+<li>isEmpty，在集合为空时返回 true</li>
+<li>连接：<code>++</code>或<code>.++()</code></li>
+<li>交集：<code>.&amp;()</code>或<code>.intersect()</code></li>
+</ul>
+<h4 id="2-2-4-6-映射（Map）">2.2.4.6 映射（Map）</h4>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> university = <span class="hljs-type">Map</span>(<span class="hljs-string">&quot;XMU&quot;</span>-&gt;<span class="hljs-string">&quot;Xiamen University&quot;</span>,<span class="hljs-string">&quot;THU&quot;</span>-&gt;<span class="hljs-string">&quot;Tsinghua University&quot;</span>,<span class="hljs-string">&quot;PKU&quot;</span>-&gt;<span class="hljs-string">&quot;Peking University&quot;</span>) <span class="hljs-comment">//定义</span><br><br>println(university(<span class="hljs-string">&quot;XMU&quot;</span>)) <span class="hljs-comment">//通过键获取值</span><br><br><span class="hljs-keyword">val</span> xmu = <span class="hljs-keyword">if</span>(university.contains(<span class="hljs-string">&quot;XMU&quot;</span>)) university(<span class="hljs-string">&quot;XMU&quot;</span>) <span class="hljs-keyword">else</span> <span class="hljs-number">0</span> <span class="hljs-comment">//先调用contains方法确定键是否存在</span><br>println(xmu)<br></code></pre></td></tr></table></figure>
+<p>可变的映射</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">import</span> scala.collection.mutable.<span class="hljs-type">Map</span> <span class="hljs-comment">//导入所需的包</span><br><br>university(<span class="hljs-string">&quot;XMU&quot;</span>) = <span class="hljs-string">&quot;Xiaman University&quot;</span> <span class="hljs-comment">//更新已有元素</span><br>university(<span class="hljs-string">&quot;FZU&quot;</span>) = <span class="hljs-string">&quot;Fuzhou University&quot;</span> <span class="hljs-comment">//添加新元素</span><br><br>university += (<span class="hljs-string">&quot;SDU&quot;</span>-&gt;<span class="hljs-string">&quot;Shandong University&quot;</span>,<span class="hljs-string">&quot;WHU&quot;</span>-&gt;<span class="hljs-string">&quot;Wuhan University&quot;</span>) <span class="hljs-comment">//+=添加元素</span><br></code></pre></td></tr></table></figure>
+<p>循环遍历映射</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">for</span>((k,v)&lt;-映射)<br><br><span class="hljs-keyword">for</span>(k&lt;-映射.keys)     <span class="hljs-comment">//只遍历k</span><br><span class="hljs-keyword">for</span>(v&lt;-映射.values)   <span class="hljs-comment">//只遍历v</span><br></code></pre></td></tr></table></figure>
+<p><strong>Map 合并</strong>：使用<code>++</code>或<code>Map.++()</code>，Map 合并时会移除重复的 key<br>
+如果存在相同的 key，合并之后的 Map 中的 value 会被最右边的 Map 的值所替代</p>
+<h4 id="2-2-4-7-迭代器（Iterator）">2.2.4.7 迭代器（Iterator）</h4>
+<p>提供了按顺序访问容器元素的数据结构</p>
+<p>操作：</p>
+<ul>
+<li>next：返回迭代器的下一个元素</li>
+<li>hasNext：检测是否还有下一个元素<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> iter = <span class="hljs-type">Iterator</span>(<span class="hljs-string">&quot;Hadoop&quot;</span>,<span class="hljs-string">&quot;Spark&quot;</span>,<span class="hljs-string">&quot;Scala&quot;</span>)<br><span class="hljs-keyword">while</span> (iter.hasNext)&#123;<br>    println(iter.next())<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><code>.max</code>查找最大元素，<code>.min</code>查找最小元素</li>
+<li><code>.size</code>,<code>.length</code>，获取迭代器的长度</li>
+</ul>
+<h2 id="2-3-面向对象编程基础">2.3 面向对象编程基础</h2>
+<h3 id="2-3-1-类">2.3.1 类</h3>
+<p><strong>类的定义</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span></span>&#123;<br>    <span class="hljs-keyword">var</span> value = <span class="hljs-number">0</span><br>    <span class="hljs-comment">// def 方法名(参数列表):返回结果类型=&#123;方法体&#125;</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">increment</span></span>(step:<span class="hljs-type">Int</span>):<span class="hljs-type">Unit</span> = &#123;value += step&#125; <span class="hljs-comment">//Unit:不返回任何值</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">current</span></span>():<span class="hljs-type">Int</span> = &#123;value&#125;<br>&#125;<br><br><span class="hljs-keyword">val</span> myCounter = <span class="hljs-keyword">new</span> <span class="hljs-type">Counter</span> <span class="hljs-comment">//使用new关键字创建一个类的实例</span><br></code></pre></td></tr></table></figure>
+<p><strong>方法的定义</strong></p>
+<p>如果方法返回类型为 Unit，可以同时省略返回结果类型和等号，但是不能省略大括号</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> value = <span class="hljs-number">0</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">increment</span></span>() &#123;value += <span class="hljs-number">1</span>&#125;    <span class="hljs-comment">// 去掉返回值类型和等号只保留大括号</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">current</span></span>()=value     <span class="hljs-comment">//根据value的类型自动推断出返回类型为Int型</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>构造器</strong></p>
+<p>Scala 类的定义主体就是类的构造器，称为主构造器。<strong>在类名之后用圆括号列出主构造器的参数列表</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span>(<span class="hljs-params">var name:<span class="hljs-type">String</span></span>) <span class="hljs-comment">//定义一个带字符串参数的简单类</span></span><br><span class="hljs-keyword">var</span> mycounter = <span class="hljs-keyword">new</span> <span class="hljs-type">Counter</span>(<span class="hljs-string">&quot;Runner&quot;</span>)<br><br>println(mycounter.name) <span class="hljs-comment">//调用读方法：Runner</span><br>mycounter.name = <span class="hljs-string">&quot;Timer&quot;</span>    <span class="hljs-comment">//调用写方法</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-3-2-模式匹配">2.3.2 模式匹配</h3>
+<p><strong>match 语句</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">import</span> scala.io.<span class="hljs-type">Stdln</span>._<br>println(<span class="hljs-string">&quot;Please input the score:&quot;</span>)<br><span class="hljs-keyword">val</span> grade=readChar()<br>grade <span class="hljs-keyword">match</span>&#123;<br>    <span class="hljs-keyword">case</span> &#x27;<span class="hljs-type">A</span>&#x27; =&gt; println(<span class="hljs-string">&quot;85-100&quot;</span>)<br>    <span class="hljs-keyword">case</span> &#x27;<span class="hljs-type">B</span>&#x27; =&gt; println(<span class="hljs-string">&quot;70-84&quot;</span>)<br>    <span class="hljs-keyword">case</span> &#x27;<span class="hljs-type">C</span>&#x27; =&gt; println(<span class="hljs-string">&quot;60-69&quot;</span>)<br>    <span class="hljs-keyword">case</span> &#x27;<span class="hljs-type">D</span>&#x27; =&gt; println(<span class="hljs-string">&quot;&lt;60&quot;</span>)<br>    <span class="hljs-keyword">case</span> _ =&gt; println(<span class="hljs-string">&quot;error input&quot;</span>) <span class="hljs-comment">//default</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>不需要 break 跳出判断</p>
+<p>匹配某类型的所有值</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">case</span> i: <span class="hljs-type">Int</span> =&gt; i + <span class="hljs-string">&quot;is an int value&quot;</span> <span class="hljs-comment">//匹配整形的值，并赋值给i</span><br><span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Spark&quot;</span>=&gt;<span class="hljs-string">&quot;Spark is found&quot;</span>      <span class="hljs-comment">//匹配特定的字符串</span><br></code></pre></td></tr></table></figure>
+<p>在 case 中使用守卫式（guard）添加一些过滤逻辑</p>
+<h2 id="2-4-函数式编程基础">2.4 函数式编程基础</h2>
+<h3 id="2-4-1-函数的定义和使用">2.4.1 函数的定义和使用</h3>
+<p>def 方法名(参数列表):结果类型={方法体}</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">counter</span></span>(value:<span class="hljs-type">Int</span>):<span class="hljs-type">Int</span> = &#123;value+=<span class="hljs-number">1</span>&#125;<br></code></pre></td></tr></table></figure>
+<p>可以直接把匿名函数存放到变量中</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">val</span> myNumFunc: <span class="hljs-type">Int</span> =&gt; <span class="hljs-type">Int</span>=(num:<span class="hljs-type">Int</span>)=&gt;num*<span class="hljs-number">2</span><br><span class="hljs-comment">//val myNumFunc = (num:Int) =&gt; num*2 （省略Int=&gt;Int）</span><br>println(myNumFunc(<span class="hljs-number">3</span>)) <span class="hljs-comment">//6</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-4-2-高阶函数">2.4.2 高阶函数</h3>
+<p>一个函数包含其他函数作为其参数或者返回结果为一个函数</p>
+<p>分别 计算一个整数到另一个整数的连加和、平方和、2 的幂次和</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sum</span></span>(f:<span class="hljs-type">Int</span> =&gt; <span class="hljs-type">Int</span>, a:<span class="hljs-type">Int</span>, b:<span class="hljs-type">Int</span>):<span class="hljs-type">Int</span> = &#123;<br>    <span class="hljs-keyword">if</span>(a&gt;b) <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> f(a)+sum(f,a+<span class="hljs-number">1</span>,b)<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs scala">scala&gt; sum(x=&gt;x,<span class="hljs-number">1</span>,<span class="hljs-number">5</span>)    <span class="hljs-comment">//直接传入一个匿名函数</span><br>res8: <span class="hljs-type">Int</span>=<span class="hljs-number">15</span><br><br>scala&gt; sum(x=&gt;x*x,<span class="hljs-number">1</span>,<span class="hljs-number">5</span>)  <span class="hljs-comment">//传入另一个匿名函数</span><br>res9: <span class="hljs-type">Int</span>=<span class="hljs-number">55</span><br><br>scala&gt; sum(powerOfTwo,<span class="hljs-number">1</span>,<span class="hljs-number">5</span>) <span class="hljs-comment">//传入一个已经定义好的方法</span><br>res10:<span class="hljs-type">Int</span>=<span class="hljs-number">62</span><br></code></pre></td></tr></table></figure>
+<h2 id="2-5-函数式编程实例-WordCount">2.5 函数式编程实例 WordCount</h2>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">import</span> java.io.<span class="hljs-type">File</span><br><span class="hljs-keyword">import</span> scala.io.<span class="hljs-type">Sourse</span><br><span class="hljs-keyword">import</span> collection.mutable.<span class="hljs-type">Map</span><br><br><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">WordCount</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span></span>(args:<span class="hljs-type">Array</span>[<span class="hljs-type">String</span>])&#123;<br>        <span class="hljs-keyword">val</span> dirfile = <span class="hljs-keyword">new</span> <span class="hljs-type">File</span>(<span class="hljs-string">&quot;testfiles&quot;</span>)<br>        <span class="hljs-keyword">val</span> files = dirfile.listFiles<br>        <span class="hljs-keyword">val</span> results = <span class="hljs-type">Map</span>.empty[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>]<br>        <span class="hljs-keyword">for</span>(file&lt;-files)&#123;<br>            <span class="hljs-keyword">val</span> data = <span class="hljs-type">Source</span>.fromFile(file)<br>            <span class="hljs-keyword">val</span> strs = data.getLines.flatMap&#123;s=&gt;s.split(<span class="hljs-string">&quot; &quot;</span>)&#125;<br>            strs foreach &#123; word =&gt;<br>                <span class="hljs-keyword">if</span>(results.contains(word))<br>                    results(word)+=<span class="hljs-number">1</span><br>                <span class="hljs-keyword">else</span> results(word)=<span class="hljs-number">1</span><br>            &#125;<br>        &#125;<br>        results foreach&#123;<span class="hljs-keyword">case</span> (k,v)=&gt;println(<span class="hljs-string">s&quot;<span class="hljs-subst">$k</span>:<span class="hljs-subst">$v</span>&quot;</span>)&#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/" class="category-chain-item">大数据计算</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/">#大数据计算</a>
+      
+        <a href="/tags/Scala/">#Scala</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CH2 Scala 语言基础</div>
+      <div>https://jin4869.github.io/2023/01/02/CH2-Scala-语言基础/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>不想长大的小孩</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/02/CH3-Spark-%E8%AE%BE%E8%AE%A1%E4%B8%8E%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" title="CH3 Spark 设计与运行原理">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CH3 Spark 设计与运行原理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/02/CH1-MapReduce/" title="CH1 MapReduce">
+                        <span class="hidden-mobile">CH1 MapReduce</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  <div class="footer-content"> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div>
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+   
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+ <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script> <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> <script  src="/js/events.js" ></script> <script  src="/js/plugins.js" ></script> 
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+   <script  src="/js/img-lazyload.js" ></script>     
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>    
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
+ 
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":175,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
+</html>

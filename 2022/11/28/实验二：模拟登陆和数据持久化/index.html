@@ -1,0 +1,841 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/3.png">
+  <link rel="icon" href="/img/3.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#88A3C3">
+  <meta name="author" content="不想长大的小孩">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="熟悉两种常见的登录模式：**基于 Session 与 Cookie 的登录**，**基于 JWT 登录**；掌握使用**MySQL 数据库基本操作**，持久化爬取数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实验二：模拟登陆和数据持久化">
+<meta property="og:url" content="https://jin4869.github.io/2022/11/28/%E5%AE%9E%E9%AA%8C%E4%BA%8C%EF%BC%9A%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86%E5%92%8C%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="熟悉两种常见的登录模式：**基于 Session 与 Cookie 的登录**，**基于 JWT 登录**；掌握使用**MySQL 数据库基本操作**，持久化爬取数据">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-16-58-57.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-02-16.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-04-42.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-16-50-56.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-16-51-14.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-16-52-41.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-16-53-54.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-12-07.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-12-56.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-19-14.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-23-35.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-27-40.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-32-13.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-34-26.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-37-34.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/2022-11-27-17-39-33.png">
+<meta property="article:published_time" content="2022-11-28T12:12:32.000Z">
+<meta property="article:modified_time" content="2023-01-14T10:15:49.101Z">
+<meta property="article:author" content="不想长大的小孩">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="爬虫">
+<meta property="article:tag" content="JWT">
+<meta property="article:tag" content="pymysql">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jin4869.github.io/img/post/2022-11-27-16-58-57.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>实验二：模拟登陆和数据持久化 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jin4869.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav
+  id="navbar"
+  class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>APTX</strong>
+    </a>
+
+    <iframe
+      style="opacity: 0.5"
+      frameborder="no"
+      border="0"
+      marginwidth="0"
+      marginheight="0"
+      width="280"
+      height="52"
+      src="//music.163.com/outchain/player?type=0&id=8051474154&auto=0&height=32"
+    ></iframe>
+
+    <button
+      id="navbar-toggler-btn"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="iconfont icon-home-fill"></i>
+            <span>首页</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/archives/">
+            <i class="iconfont icon-archive-fill"></i>
+            <span>归档</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/categories/">
+            <i class="iconfont icon-category-fill"></i>
+            <span>分类</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/tags/">
+            <i class="iconfont icon-tags-fill"></i>
+            <span>标签</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
+            <i class="iconfont icon-pen"></i>
+            <span>留言板</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="iconfont icon-user-fill"></i>
+            <span>关于</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/links/">
+            <i class="iconfont icon-link-fill"></i>
+            <span>友链</span>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="search-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            data-toggle="modal"
+            data-target="#modalSearch"
+            aria-label="Search"
+          >
+            <i class="iconfont icon-search"></i>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="color-toggle-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            aria-label="Color Toggle"
+          >
+            <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="实验二：模拟登陆和数据持久化"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-28 20:12" pubdate>
+          2022年11月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          5.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">实验二：模拟登陆和数据持久化</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>实验二：模拟登陆和数据持久化</h1>
+<h2 id="实验目的">实验目的</h2>
+<ul>
+<li>熟悉两种常见的登录模式：<strong>基于 Session 与 Cookie 的登录</strong>，<strong>基于 JWT 登录</strong></li>
+<li>掌握使用<strong>MySQL 数据库基本操作</strong>，持久化爬取数据</li>
+</ul>
+<h2 id="环境">环境</h2>
+<ul>
+<li>安装<strong>Mysql</strong>和相应的 python 库：<strong>pymysql</strong></li>
+<li><strong>Selenium</strong>库，<strong>PyQuery</strong>库，Chrome 和对应的 ChromeDriver</li>
+</ul>
+<h2 id="基本要求">基本要求</h2>
+<p>实现<strong>基于 JWT 登录模式</strong>,实现对 <a target="_blank" rel="noopener" href="https://login3.scrape.center/login">https://login3.scrape.center/login</a> 数据的爬取，并把数据持久化到 MySQL，存储的表名为：spider_books，字段名称自定义，存储的字段信息包含：书名、作者、封面图像本地路径、评分、简介、标签、定价、出版社、出版时间、页数、ISBM</p>
+<h2 id="实验过程">实验过程</h2>
+<h3 id="分析过程">分析过程</h3>
+<p>先来在浏览器里面操作登录，观察下其网络请求过程<br>
+<img src="/img/post/2022-11-27-16-58-57.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>这里我们发现登录时其请求的 URL 为 <a target="_blank" rel="noopener" href="https://login3.scrape.center/api/login">https://login3.scrape.center/api/login</a> ，是通过 Ajax 请求的，返回状态码为 200。</p>
+<p>然后再看下返回结果，如图所示。<br>
+<img src="/img/post/2022-11-27-17-02-16.png" srcset="/img/loading.gif" lazyload alt=""><br>
+可以看到返回结果是一个 JSON 格式的数据，包含一个 token 字段，其结果为：</p>
+<blockquote>
+<p>token:“eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNjY3MjQ3NTcyLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsIm9yaWdfaWF0IjoxNjY3MjA0MzcyfQ.sk-QJ7U5qezyn9bzr_l7naDHfHaKmYbmuNhjsi5VGy4”</p>
+</blockquote>
+<p>那么有了这个 JWT 之后，后续的数据怎么获取呢？下面我们再来观察下后续的请求内容，如图所示。<br>
+<img src="/img/post/2022-11-27-17-04-42.png" srcset="/img/loading.gif" lazyload alt=""><br>
+这里我们可以发现，后续获取数据的 Ajax 请求中的 Request Headers 里面就多了一个 Authorization 字段，其结果为 jwt 然后加上刚才的 JWT 的内容，返回结果就是 JSON 格式的数据。</p>
+<p>模拟请求登录结果，带上必要的登录信息，获取 JWT 的结果。<br>
+后续的请求在 Request Headers 里面加上 Authorization 字段，值就是 JWT 对应的内容。<br>
+定义了登录接口和获取数据的接口，分别为 LOGIN_URL 和 INDEX_URL，接着通过 post 请求进行了模拟登录，这里提交的数据由于是 JSON 格式，所以这里使用 json 参数来传递。接着获取了返回结果中包含的 JWT 的结果。第二步就可以构造 Request Headers，然后设置 Authorization 字段并传入 JWT 即可，这样就能成功获取数据了</p>
+<h3 id="导入的包">导入的包</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">import</span> urllib.request<br><br><span class="hljs-keyword">import</span> pymysql<br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> urljoin <span class="hljs-comment"># 连接url</span><br></code></pre></td></tr></table></figure>
+<p>固定参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">BASE_URL = <span class="hljs-string">&#x27;https://login3.scrape.center/&#x27;</span><br>LOGIN_URL = urljoin(BASE_URL, <span class="hljs-string">&#x27;/api/login&#x27;</span>)<br>INDEX_URL = urljoin(BASE_URL, <span class="hljs-string">&#x27;/api/book&#x27;</span>)<br>USERNAME = <span class="hljs-string">&#x27;admin&#x27;</span><br>PASSWORD = <span class="hljs-string">&#x27;admin&#x27;</span><br></code></pre></td></tr></table></figure>
+<h3 id="requests-常用方法之-post-请求">requests 常用方法之 post 请求</h3>
+<ul>
+<li><strong>作用：</strong> 提交资源，新增资源</li>
+<li><strong>调用：</strong> <code>r = requests.post(url, json/data, headers)</code> #r: 响应对象</li>
+<li><strong>获取响应对象：</strong>
+<ul>
+<li><strong>响应状态码：</strong> 响应对象.status_code</li>
+<li><strong>响应信息：</strong> 响应对象.json()/响应对象.text</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">response_login = requests.post(LOGIN_URL, json=&#123;<br>    <span class="hljs-string">&#x27;username&#x27;</span>: USERNAME,<br>    <span class="hljs-string">&#x27;password&#x27;</span>: PASSWORD<br>&#125;)<br><br>data = response_login.json()<br><span class="hljs-comment"># print(&#x27;Response JSON&#x27;, data)</span><br>jwt = data.get(<span class="hljs-string">&#x27;token&#x27;</span>)<br><span class="hljs-comment"># print(&#x27;JWT&#x27;, jwt)</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><img src="/img/post/2022-11-27-16-50-56.png" srcset="/img/loading.gif" lazyload alt=""></li>
+<li><img src="/img/post/2022-11-27-16-51-14.png" srcset="/img/loading.gif" lazyload alt=""></li>
+</ul>
+<h3 id="jwt-登录的基本框架">jwt 登录的基本框架</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">headers = &#123;<br>    <span class="hljs-string">&#x27;Authorization&#x27;</span>: <span class="hljs-string">f&#x27;jwt <span class="hljs-subst">&#123;jwt&#125;</span>&#x27;</span><br>&#125;<br>response_index = requests.get(INDEX_URL, params=&#123;<br>    <span class="hljs-string">&#x27;limit&#x27;</span>: <span class="hljs-number">18</span>,<br>    <span class="hljs-string">&#x27;offset&#x27;</span>: <span class="hljs-number">0</span><br>&#125;, headers=headers)<br><span class="hljs-comment"># print(&#x27;Response Status&#x27;, response_index.status_code)</span><br><span class="hljs-comment"># print(&#x27;Response URL&#x27;, response_index.url)</span><br><span class="hljs-comment"># print(&#x27;Response Data&#x27;, response_index.json())</span><br></code></pre></td></tr></table></figure>
+<p><img src="/img/post/2022-11-27-16-52-41.png" srcset="/img/loading.gif" lazyload alt=""><br>
+<img src="/img/post/2022-11-27-16-53-54.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h3 id="获得书本在主页的信息">获得书本在主页的信息</h3>
+<p>response_index.json()中书籍的信息存在’results’下<br>
+<img src="/img/post/2022-11-27-17-12-07.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">books = response_index.json()[<span class="hljs-string">&#x27;results&#x27;</span>]<br></code></pre></td></tr></table></figure>
+<p>提取出来是一个个字典<br>
+<img src="/img/post/2022-11-27-17-12-56.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h3 id="保存书籍图片和保存路径">保存书籍图片和保存路径</h3>
+<ul>
+<li><strong>urlopen()方法：</strong> 利用 Request 类来构造请求</li>
+<li><strong>使用方法：</strong> <code>urllib.request.Request(url, data=None, headers=&#123;&#125;）</code></li>
+<li><strong>基本用法：</strong> （例）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">request = urllib.request.Request(<span class="hljs-string">&#x27;https://python.org&#x27;</span>)<br>response = urllib.request.urlopen(request)<br><span class="hljs-built_in">print</span>(response.read().decode(<span class="hljs-string">&#x27;urf-8&#x27;</span>))<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#   save image</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">save_image</span>(<span class="hljs-params">url, name</span>):<br>    <span class="hljs-keyword">if</span> url <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>        req_image = urllib.request.Request(url)<br>        image = urllib.request.urlopen(req_image).read()<br>        <span class="hljs-string">&#x27;&#x27;&#x27;保存路径：image/name.jpg&#x27;&#x27;&#x27;</span><br>        f_image = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;image\\&quot;</span> + name + <span class="hljs-string">&quot;.jpg&quot;</span>, <span class="hljs-string">&quot;wb&quot;</span>)<br>        f_image.write(image)<br>        f_image.close()<br>        path = <span class="hljs-string">&quot;image\\&quot;</span> + name + <span class="hljs-string">&quot;.jpg&quot;</span><br>    <span class="hljs-keyword">else</span>:<br>        path = <span class="hljs-string">&quot;null&quot;</span><br>    <span class="hljs-keyword">return</span> path<br></code></pre></td></tr></table></figure>
+<h3 id="连接-mysql">连接 mysql</h3>
+<ul>
+<li>port: 数据库端口，默认 3306</li>
+<li><strong>游标：</strong>
+<ul>
+<li>连接完数据库接着就该获取游标，之后才能进行执行、提交等操作</li>
+<li>游标(cursor)是系统为用户开设的一个数据缓冲区，存放 SQL 语句的执行结果</li>
+<li><strong>语法：</strong> <code>db.cursor()</code></li>
+<li>默认返回的数据类型为元组</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">db = pymysql.connect(host=<span class="hljs-string">&#x27;localhost&#x27;</span>, user=<span class="hljs-string">&#x27;root&#x27;</span>, password=<span class="hljs-string">&#x27;4869&#x27;</span>, port=<span class="hljs-number">3306</span>, db=<span class="hljs-string">&#x27;spiders&#x27;</span>)<br>cursor = db.cursor()<br></code></pre></td></tr></table></figure>
+<h3 id="将每一本书的数据存入数据库">将每一本书的数据存入数据库</h3>
+<ul>
+<li><strong>执行 SQL 语句</strong>
+<ul>
+<li><code>cursor.execute(sql, args)</code></li>
+<li>参数 args 可以是: tuple, list, dict</li>
+</ul>
+</li>
+<li><strong>每一本书籍详细信息的路径</strong><br>
+<img src="/img/post/2022-11-27-17-19-14.png" srcset="/img/loading.gif" lazyload alt=""></li>
+<li>要爬取的书籍信息<br>
+<img src="/img/post/2022-11-27-17-23-35.png" srcset="/img/loading.gif" lazyload alt=""></li>
+</ul>
+<h4 id="爬取一本书的信息">爬取一本书的信息</h4>
+<p><strong>以第三本书为例</strong><br>
+<img src="/img/post/2022-11-27-17-27-40.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><strong>首页的信息</strong><br>
+<img src="/img/post/2022-11-27-17-32-13.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><strong>详细信息，也是 json 格式</strong><br>
+<img src="/img/post/2022-11-27-17-34-26.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<ul>
+<li>介绍 <code>introduce = html['introduction']</code><br>
+<img src="/img/post/2022-11-27-17-37-34.png" srcset="/img/loading.gif" lazyload alt=""></li>
+<li>tag<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">tag = <span class="hljs-string">&quot;&quot;</span><br>tag_list = html[<span class="hljs-string">&#x27;tags&#x27;</span>]<br><span class="hljs-keyword">if</span> tag_list <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(tag_list)):<br>        tag += tag_list[j] + <span class="hljs-string">&quot; &quot;</span><br><span class="hljs-keyword">else</span>:<br>    tag = <span class="hljs-string">&quot;null&quot;</span>`<br></code></pre></td></tr></table></figure>
+<img src="/img/post/2022-11-27-17-39-33.png" srcset="/img/loading.gif" lazyload alt=""></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(books)):<br>    book_id = books[i][<span class="hljs-string">&#x27;id&#x27;</span>]<br>    book_name = books[i][<span class="hljs-string">&#x27;name&#x27;</span>] <span class="hljs-keyword">if</span> books[i][<span class="hljs-string">&#x27;name&#x27;</span>] <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;null&quot;</span> + <span class="hljs-built_in">str</span>(i + <span class="hljs-number">1</span>)<br>    author = <span class="hljs-string">&quot;&quot;</span><br>    author_list = books[i][<span class="hljs-string">&#x27;authors&#x27;</span>]<br>    <span class="hljs-keyword">if</span> author_list <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(author_list)):<br>            <span class="hljs-comment">#   .strip()方法删除多余空格</span><br>            author += author_list[j].strip() + <span class="hljs-string">&quot;/&quot;</span><br>    <span class="hljs-keyword">else</span>:<br>        author = <span class="hljs-string">&quot;null&quot;</span><br>    image_url = books[i][<span class="hljs-string">&#x27;cover&#x27;</span>]<br>    image_path = save_image(image_url, book_name)<br>    score = books[i][<span class="hljs-string">&#x27;score&#x27;</span>]<br><br>    <span class="hljs-comment">#   书本详细信息的路径</span><br>    req = requests.get(<span class="hljs-string">&quot;https://login3.scrape.center/api/book/&quot;</span> + book_id + <span class="hljs-string">&quot;/&quot;</span>, headers=headers)<br>    html = req.json()<br><br>    introduce = html[<span class="hljs-string">&#x27;introduction&#x27;</span>]<br>    tag = <span class="hljs-string">&quot;&quot;</span><br>    tag_list = html[<span class="hljs-string">&#x27;tags&#x27;</span>]<br>    <span class="hljs-keyword">if</span> tag_list <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(tag_list)):<br>            tag += tag_list[j] + <span class="hljs-string">&quot; &quot;</span><br>    <span class="hljs-keyword">else</span>:<br>        tag = <span class="hljs-string">&quot;null&quot;</span><br>    price = html[<span class="hljs-string">&#x27;price&#x27;</span>]<br>    publisher = html[<span class="hljs-string">&#x27;publisher&#x27;</span>]<br>    published_time = html[<span class="hljs-string">&#x27;published_at&#x27;</span>]<br>    page_num = html[<span class="hljs-string">&#x27;page_number&#x27;</span>]<br>    isbn_num = html[<span class="hljs-string">&#x27;isbn&#x27;</span>]<br><br>    <span class="hljs-comment">#   插入数据的语句</span><br>    sql = <span class="hljs-string">&#x27;INSERT INTO spi_book(b_name,author,cover,score,intro,label,price,publish_house,publish_date,page,ISBM) &#x27;</span> \<br>          <span class="hljs-string">&#x27;values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)&#x27;</span><br>    <span class="hljs-comment"># print(book_name, author, image_path, score, introduce, tag, price)</span><br>    <span class="hljs-comment"># print(publisher, published_time, page_num, isbn_num)</span><br><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-comment">#   执行sql语句</span><br>        cursor.execute(sql, (<br>            book_name, author, image_path, score, introduce, tag, price, publisher, published_time, page_num, isbn_num))<br>        <span class="hljs-comment">#   提交</span><br>        db.commit()<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Insert successfully&#x27;</span>)<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> err:<br>        <span class="hljs-comment">#   事件回滚</span><br>        db.rollback()<br>        <span class="hljs-built_in">print</span>(err)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Insert failure&#x27;</span>)<br><br>db.close()<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" class="category-chain-item">python网络爬虫</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/">#python</a>
+      
+        <a href="/tags/%E7%88%AC%E8%99%AB/">#爬虫</a>
+      
+        <a href="/tags/JWT/">#JWT</a>
+      
+        <a href="/tags/pymysql/">#pymysql</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>实验二：模拟登陆和数据持久化</div>
+      <div>https://jin4869.github.io/2022/11/28/实验二：模拟登陆和数据持久化/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>不想长大的小孩</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/29/%E5%AE%9E%E9%AA%8C%E4%B8%89%EF%BC%9A%E9%AA%8C%E8%AF%81%E7%A0%81%E5%A4%84%E7%90%86%E4%B8%8E%E8%AF%86%E5%88%AB/" title="实验三：验证码处理与识别">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">实验三：验证码处理与识别</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/28/%E5%AE%9E%E9%AA%8C%E4%B8%80%EF%BC%9A%E6%96%87%E6%9C%AC%E5%8F%8D%E7%88%AC%E7%BD%91%E7%AB%99%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E7%88%AC%E5%8F%96/" title="实验一：文本反爬网站的分析和爬取">
+                        <span class="hidden-mobile">实验一：文本反爬网站的分析和爬取</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  <div class="footer-content"> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div>
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+   
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+ <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script> <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> <script  src="/js/events.js" ></script> <script  src="/js/plugins.js" ></script> 
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+   <script  src="/js/img-lazyload.js" ></script>     
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>    
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
+ 
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":175,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
+</html>
