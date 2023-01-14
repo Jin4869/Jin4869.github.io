@@ -46,6 +46,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -66,6 +68,11 @@
     <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
 
 
 
@@ -95,96 +102,115 @@
     
 
 <div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <nav
+  id="navbar"
+  class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+>
   <div class="container">
     <a class="navbar-brand" href="/">
       <strong>APTX</strong>
     </a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <iframe
+      style="opacity: 0.5"
+      frameborder="no"
+      border="0"
+      marginwidth="0"
+      marginheight="0"
+      width="280"
+      height="52"
+      src="//music.163.com/outchain/player?type=0&id=8051474154&auto=0&height=32"
+    ></iframe>
+
+    <button
+      id="navbar-toggler-btn"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
-        
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="iconfont icon-home-fill"></i>
+            <span>首页</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/archives/">
+            <i class="iconfont icon-archive-fill"></i>
+            <span>归档</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/categories/">
+            <i class="iconfont icon-category-fill"></i>
+            <span>分类</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/tags/">
+            <i class="iconfont icon-tags-fill"></i>
+            <span>标签</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
+            <i class="iconfont icon-pen"></i>
+            <span>随笔</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="iconfont icon-user-fill"></i>
+            <span>关于</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/links/">
+            <i class="iconfont icon-link-fill"></i>
+            <span>友链</span>
+          </a>
+        </li>
           
+        <li class="nav-item" id="search-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            data-toggle="modal"
+            data-target="#modalSearch"
+            aria-label="Search"
+          >
+            <i class="iconfont icon-search"></i>
+          </a>
+        </li>
           
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
+        <li class="nav-item" id="color-toggle-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            aria-label="Color Toggle"
+          >
+            <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+          </a>
+        </li>
         
       </ul>
     </div>
@@ -250,6 +276,10 @@
       </div>
 
       
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
   </div>
 </div>
@@ -279,7 +309,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="数据库完整性">数据库完整性</h1>
+                <h1>数据库完整性</h1>
 <p>数据库完整性指数据的<strong>正确性、相容性</strong>和<strong>有效性</strong></p>
 <p>为维护数据库的完整性，数据库管理系统需实现如下功能：</p>
 <ul>
@@ -304,29 +334,29 @@
 <h3 id="参照完整性检查和违约处理">参照完整性检查和违约处理</h3>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>被参照表</th>
 <th>参照表</th>
 <th>违约处理</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>可能破坏参照完整性</td>
 <td>插入元组</td>
 <td>拒绝</td>
 </tr>
-<tr class="even">
+<tr>
 <td>可能破坏参照完整性</td>
 <td>修改外码值</td>
 <td>拒绝</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>删除元组</td>
 <td>可能破坏参照完整性</td>
 <td>拒绝(NO ACTION)/级联删除(CASCADE)/设置为空值</td>
 </tr>
-<tr class="even">
+<tr>
 <td>修改主码值</td>
 <td>可能破坏参照完整性</td>
 <td>拒绝(NO ACTION)/级联删除(CASCADE)/设置为空值</td>
@@ -340,7 +370,8 @@
 <ul>
 <li>列值非空(NOT NULL)</li>
 <li>列值唯一(UNIQUE)</li>
-<li>检查列值是否满足一个条件表达式（CHECK 语句） <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*性别属性Ssex只允许取‘男’或‘女’*/</span><br>Ssex <span class="hljs-type">CHAR</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">CHECK</span>(Ssex <span class="hljs-keyword">In</span>(<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;女&#x27;</span>))<br></code></pre></td></tr></table></figure></li>
+<li>检查列值是否满足一个条件表达式（CHECK 语句）<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*性别属性Ssex只允许取‘男’或‘女’*/</span><br>Ssex <span class="hljs-type">CHAR</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">CHECK</span>(Ssex <span class="hljs-keyword">In</span>(<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;女&#x27;</span>))<br></code></pre></td></tr></table></figure>
+</li>
 </ul>
 <h3 id="元组上的约束条件">元组上的约束条件</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*当性别为男时，其名字不能以Ms.开头*/</span><br><span class="hljs-keyword">CHECK</span>(Ssex<span class="hljs-operator">=</span><span class="hljs-string">&#x27;女&#x27;</span> <span class="hljs-keyword">OR</span> Sname <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;Ms.%&#x27;</span>)<br></code></pre></td></tr></table></figure>
@@ -359,7 +390,7 @@
 <h3 id="创建">创建</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> <span class="hljs-operator">&lt;</span>触发器名<span class="hljs-operator">&gt;</span><br>&#123;BEFORE<span class="hljs-operator">|</span>AFTER&#125; <span class="hljs-operator">&lt;</span>触发器事件<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">ON</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span> <span class="hljs-comment">/*指明触发器激活的时间是在执行触发事件前或后*/</span><br><span class="hljs-keyword">REFERENCING</span> <span class="hljs-keyword">NEW</span><span class="hljs-operator">|</span><span class="hljs-keyword">OLD</span> <span class="hljs-type">ROW</span> <span class="hljs-keyword">AS</span> <span class="hljs-operator">&lt;</span>变量<span class="hljs-operator">&gt;</span>   <span class="hljs-comment">/*REFERENCING指出引用的变量*/</span><br><span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span>&#123;<span class="hljs-type">ROW</span><span class="hljs-operator">|</span>STATEMENT&#125;            <span class="hljs-comment">/*定义触发器类型，行级触发器或语句级触发器*/</span><br>[<span class="hljs-keyword">WHEN</span> <span class="hljs-operator">&lt;</span>触发条件<span class="hljs-operator">&gt;</span>] <span class="hljs-operator">&lt;</span>触发动作体<span class="hljs-operator">&gt;</span>        <span class="hljs-comment">/*触发条件为真时才触发动作体*/</span><br></code></pre></td></tr></table></figure>
 <p>同一表上多个触发器激活时遵循如下的执行顺序：</p>
-<ol type="1">
+<ol>
 <li>执行该表上的 BEFORE 触发器</li>
 <li>激活触发器的 SQL 语句</li>
 <li>执行该表上的 AFTER 触发器</li>
@@ -458,9 +489,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0-SQL/" title="CH3 SQL">
+                      <a href="/2022/12/13/CH1-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AF%BC%E8%AE%BA/" title="CH1 机器学习导论">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CH3 SQL</span>
+                        <span class="hidden-mobile">CH1 机器学习导论</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -480,6 +511,39 @@
             </div>
 
             
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
           </article>
         </div>
       </div>
@@ -538,7 +602,6 @@
 
 
 
-
     
 
     
@@ -577,11 +640,7 @@
   <footer>
     <div class="footer-inner">
   
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
+  <div class="footer-content"> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div>
     <div class="statistics">
   
   
@@ -604,10 +663,7 @@
     
   
 </div>
-
-  
-  
-  
+   
 </div>
 
   </footer>
@@ -625,13 +681,7 @@
     })
   </script>
 
-
-<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
+ <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script> <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> <script  src="/js/events.js" ></script> <script  src="/js/plugins.js" ></script> 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
   <script>
     (function (window, document) {
@@ -647,17 +697,7 @@
     })(window, document);
   </script>
 
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
+   <script  src="/js/img-lazyload.js" ></script>     
 <script>
   Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
     var toc = jQuery('#toc');
@@ -695,13 +735,7 @@
     });
   });
 </script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
   
 <script>
   Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
@@ -738,68 +772,16 @@
     });
   });
 </script>
-
-
   
 <script>
   Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
     Fluid.plugins.fancyBox();
   });
 </script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>    
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
+ 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
@@ -811,5 +793,5 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":175,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
 </html>

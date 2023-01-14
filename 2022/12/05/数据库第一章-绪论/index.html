@@ -19,19 +19,19 @@
     <meta name="description" content="数据库系统概述；数据库；数据模型：概念模型；数据库系统模式：三级模式结构，二级映象功能">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CH1 绪论">
-<meta property="og:url" content="https://jin4869.github.io/2022/12/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/index.html">
+<meta property="og:url" content="https://jin4869.github.io/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="数据库系统概述；数据库；数据模型：概念模型；数据库系统模式：三级模式结构，二级映象功能">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jin4869.github.io/2022/12/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700603684573.jpg">
-<meta property="og:image" content="https://jin4869.github.io/2022/12/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700710079279.jpg">
-<meta property="og:image" content="https://jin4869.github.io/2022/12/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700725337253.jpg">
-<meta property="article:published_time" content="2022-12-27T06:50:06.000Z">
-<meta property="article:modified_time" content="2023-01-13T10:09:39.572Z">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700603684573.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700710079279.jpg">
+<meta property="og:image" content="https://jin4869.github.io/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700725337253.jpg">
+<meta property="article:published_time" content="2022-12-05T06:50:06.000Z">
+<meta property="article:modified_time" content="2023-01-13T10:50:44.600Z">
 <meta property="article:author" content="不想长大的小孩">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jin4869.github.io/2022/12/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700603684573.jpg">
+<meta name="twitter:image" content="https://jin4869.github.io/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA/assets/16700603684573.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -48,6 +48,8 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -69,6 +71,11 @@
     <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
 
 
 
@@ -98,96 +105,115 @@
     
 
 <div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <nav
+  id="navbar"
+  class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+>
   <div class="container">
     <a class="navbar-brand" href="/">
       <strong>APTX</strong>
     </a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <iframe
+      style="opacity: 0.5"
+      frameborder="no"
+      border="0"
+      marginwidth="0"
+      marginheight="0"
+      width="280"
+      height="52"
+      src="//music.163.com/outchain/player?type=0&id=8051474154&auto=0&height=32"
+    ></iframe>
+
+    <button
+      id="navbar-toggler-btn"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
-        
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="iconfont icon-home-fill"></i>
+            <span>首页</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/archives/">
+            <i class="iconfont icon-archive-fill"></i>
+            <span>归档</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/categories/">
+            <i class="iconfont icon-category-fill"></i>
+            <span>分类</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/tags/">
+            <i class="iconfont icon-tags-fill"></i>
+            <span>标签</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
+            <i class="iconfont icon-pen"></i>
+            <span>随笔</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="iconfont icon-user-fill"></i>
+            <span>关于</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/links/">
+            <i class="iconfont icon-link-fill"></i>
+            <span>友链</span>
+          </a>
+        </li>
           
+        <li class="nav-item" id="search-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            data-toggle="modal"
+            data-target="#modalSearch"
+            aria-label="Search"
+          >
+            <i class="iconfont icon-search"></i>
+          </a>
+        </li>
           
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
+        <li class="nav-item" id="color-toggle-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            aria-label="Color Toggle"
+          >
+            <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+          </a>
+        </li>
         
       </ul>
     </div>
@@ -214,8 +240,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-27 14:50" pubdate>
-          2022年12月27日 下午
+        <time datetime="2022-12-05 14:50" pubdate>
+          2022年12月5日 下午
         </time>
       </span>
     
@@ -253,6 +279,10 @@
       </div>
 
       
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
   </div>
 </div>
@@ -282,7 +312,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="第一章-绪论">第一章 绪论</h1>
+                <h1>第一章 绪论</h1>
 <h2 id="数据库系统概述">数据库系统概述</h2>
 <h3 id="数据">数据</h3>
 <ul>
@@ -290,10 +320,11 @@
 <li><strong>特点：</strong> <u>数据的含义称为数据的语义</u>，数据与其语义是不可分的，信息是对数据语义的解释</li>
 </ul>
 <h3 id="数据处理与管理的区别">数据处理与管理的区别</h3>
-<p><strong>数据处理：</strong> 从某些已知的数据推导加工新的数据 <strong>数据管理：</strong> 对数据收集、整理、组织、存储、维护、检索、传送等操作</p>
+<p><strong>数据处理：</strong> 从某些已知的数据推导加工新的数据<br>
+<strong>数据管理：</strong> 对数据收集、整理、组织、存储、维护、检索、传送等操作</p>
 <h3 id="数据库">数据库</h3>
 <p><strong>数据库</strong>是<strong>长期存储在计算机内、有组织的、可共享的大量数据的集合。</strong> 数据库中的数据按一定的数据模型组织、描述和储存，具有<u>较小的冗余度，较高的数据独立性和易扩展性</u>（降低更新维护的代价），并可为各种用户共享。</p>
-<h3 id="数据库管理系统---系统软件">数据库管理系统 - 系统软件</h3>
+<h3 id="数据库管理系统-系统软件">数据库管理系统 - 系统软件</h3>
 <p><strong>是位于用户与操作系统之间的一层数据管理软件</strong></p>
 <p>与操作系统一样是计算机的基础软件</p>
 <h4 id="功能">功能</h4>
@@ -304,13 +335,13 @@
 <li><strong>数据库的事务管理和运行管理：</strong> 在建立、运用和维护的时候统一管理和控制，保证事务的正确运行，发生故障后的系统恢复</li>
 <li><strong>数据库的建立和维护功能：</strong> 初始数据的输入、转换功能，数据库的转储、恢复功能，数据库的重组织功能和性能监视、分析功能等。</li>
 </ul>
-<h3 id="数据库系统---应用系统">数据库系统 - 应用系统</h3>
+<h3 id="数据库系统-应用系统">数据库系统 - 应用系统</h3>
 <p><strong>数据库</strong>是<u>由数据库、数据库管理系统（及其应用开发工具）、应用程序和数据库管理员（DBA）组成</u>的<strong>存储、管理、处理和维护数据</strong>的系统</p>
 <h3 id="数据管理技术等产生和发展">数据管理技术等产生和发展</h3>
 <p>三个阶段</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>人工管理阶段</th>
 <th>文件系统阶段</th>
@@ -318,43 +349,43 @@
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>软件背景</td>
 <td>没有操作系统</td>
 <td>有文件系统</td>
 <td>有数据库管理系统（DBMS）</td>
 </tr>
-<tr class="even">
+<tr>
 <td>处理方式</td>
 <td>批处理</td>
 <td>联机实时处理、批处理</td>
 <td>联机实时处理、分布处理、批处理</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>数据库的管理者</td>
 <td>用户（程序员）</td>
 <td>文件系统</td>
 <td>数据库管理系统</td>
 </tr>
-<tr class="even">
+<tr>
 <td>数据的共享程度</td>
 <td>无共享，冗余度极大</td>
 <td>共享性差，冗余度大</td>
 <td>共享性高，冗余度小</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>数据的独立性</td>
 <td>不独立，完全依赖于程序</td>
 <td>独立性差，数据逻辑结构改变要修改应用程序</td>
 <td>具有高度的物理独立性和一定的逻辑独立性</td>
 </tr>
-<tr class="even">
+<tr>
 <td>数据的结构化</td>
 <td>无结构</td>
 <td>记录内有结构，整体无结构</td>
 <td>整体结构化，用数据模型描述</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>数据控制能力</td>
 <td>应用程序自己控制</td>
 <td>应用程序自己控制</td>
@@ -371,10 +402,12 @@
 <ul>
 <li>数据库中的数据不再仅仅针对某一个应用，而是面向整个组织或企业</li>
 <li>不仅数据内部是结构化的，而且整体是结构化的，数据之间是有联系的</li>
-</ul></li>
+</ul>
+</li>
 <li>数据结构用数据模型描述，无需程序定义和解释</li>
 <li>数据可变长，最小单位数据项</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>数据的共享性高、冗余度低且易扩充：</strong>
 <ul>
 <li><strong>数据共享的好处</strong>
@@ -382,36 +415,45 @@
 <li>大大减少数据冗余，节约存储空间</li>
 <li>避免数据之间的不相容性与不一致性</li>
 <li>使数据库系统弹性大，易于扩充</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><strong>数据独立性高：</strong>
 <ul>
 <li><strong>物理独立性：</strong> 用户的应用程序与数据库中数据的物理存储是相互独立的
 <ul>
 <li>物理存储改变时应用程序不用改变</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>逻辑独立性：</strong> 用户的应用程序与数据库的逻辑结构是相互独立的
 <ul>
 <li>逻辑结构改变时用户程序也可以不变</li>
-</ul></li>
+</ul>
+</li>
 <li>由数据库管理系统提供的二级映像功能保证</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>数据由数据库管理系统统一管理和控制：</strong> 数据控制功能
 <ul>
 <li><strong>数据的安全性保护</strong>（主动安全机制-防外部入侵）
 <ul>
 <li>保护数据以防止不合法使用造成的数据泄密和破坏</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>数据的完整性检查</strong>（被动安全机制-防内部误操作）
 <ul>
 <li>完整性指数据的正确性、有效性和相容性，将数据控制在有效范围内</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>并发控制</strong>
 <ul>
 <li>对并发操作加以协调和控制</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>数据库恢复</strong></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h4 id="数据库系统的优势">数据库系统的优势</h4>
 <p>使信息系统从以加工数据的程序为中心转向围绕共享的数据库为中心的阶段</p>
@@ -428,8 +470,10 @@
 <li><strong>概念模型</strong>
 <ul>
 <li>也称信息模型，按用户的观点对数据和信息建模，主要用于数据库设计</li>
-</ul></li>
-<li><strong>逻辑模型和物理模型</strong> - <strong>逻辑模型：</strong> 按计算机系统的观点对数据建模，主要用于数据库管理系统的实现 - <strong>物理模型：</strong> 数据最底层的抽象，具体是现实数据库管理系统的任务 <img src="assets/16700603684573.jpg" srcset="/img/loading.gif" lazyload /></li>
+</ul>
+</li>
+<li><strong>逻辑模型和物理模型</strong> - <strong>逻辑模型：</strong> 按计算机系统的观点对数据建模，主要用于数据库管理系统的实现 - <strong>物理模型：</strong> 数据最底层的抽象，具体是现实数据库管理系统的任务<br>
+<img src="assets/16700603684573.jpg" srcset="/img/loading.gif" lazyload alt=""></li>
 </ul>
 <h3 id="概念模型">概念模型</h3>
 <p>信息世界中的基本概念：</p>
@@ -437,57 +481,67 @@
 <li><strong>实体</strong>
 <ul>
 <li>客观存在并可相互区别的事物</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>属性</strong>
 <ul>
 <li>实体所具有的某一特性称为属性</li>
 <li>若干属性的聚集组成了实体</li>
 <li>属性不能再具有需要描述的性质</li>
 <li>属性不能与其他实体具有联系</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>域</strong>（domain）
 <ul>
 <li>属性的取值范围称为该属性的域</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>码</strong>
 <ul>
 <li>唯一标识实体的属性集称为码（键）</li>
 <li>码是实体属性集的子集</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>实体型</strong> （class）
 <ul>
 <li>用实体名及其属性名集合来抽象和刻画同类实体，称为实体型</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>实体集</strong>（Array/Set）
 <ul>
 <li>同一类型实体的集合称为实体集</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>联系</strong>
 <ul>
 <li>实体（型）内部的联系和实体（型）之间的联系</li>
 <li>有一对一，一对多和多对多</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h4 id="表示方法">表示方法</h4>
 <p>E-R 图</p>
-<h3 id="数据模型组成要素背">数据模型组成要素（背）</h3>
+<h3 id="数据模型组成要素（背）">数据模型组成要素（背）</h3>
 <ul>
 <li><strong>数据结构</strong>
 <ul>
 <li>描述数据库的组成对象以及对象之间的联系</li>
 <li>是所描述的对象类型的集合，是对系统<strong>静态特性</strong>的描述</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>数据操作</strong>
 <ul>
 <li>对数据库中各种对象（型）的实例（值）允许执行的操作的集合，包括操作及有关的操作规则</li>
 <li>主要有<strong>查询</strong>和<strong>更新</strong>（包括插入、删除、修改）两大类操作</li>
 <li>是对系统<strong>动态特性</strong>的描述</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>数据的完整性约束条件</strong>
 <ul>
 <li>是一组完整性规则</li>
 <li>制约和依存规则，保证数据的正确、有效和相容</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h3 id="常用的数据模型">常用的数据模型</h3>
 <ul>
@@ -499,13 +553,16 @@
 <li>性能优于关系数据库，不低于网状数据库</li>
 <li>提供了良好的完整性支持</li>
 <li>多对多联系无法用层次模型直接表示</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>网状模型</strong>
 <ul>
 <li>直接描述现实世界，存取效率较高</li>
 <li>结构比较复杂；不容易掌握，不容易使用</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>关系模型</li>
 <li>面向对象数据模型</li>
 </ul>
@@ -518,7 +575,7 @@
 <li><strong>码：</strong> 可以唯一确定一个元组</li>
 <li><strong>域：</strong> 域是一组具有相同数据类型的值的集合</li>
 <li><strong>分量：</strong> 元组中的一个属性值</li>
-<li><strong>关系模式：</strong> 对关系的描述，一般表示为：关系名（属性 1，属性 2...）</li>
+<li><strong>关系模式：</strong> 对关系的描述，一般表示为：关系名（属性 1，属性 2…）</li>
 </ul>
 <p>关系模型要求关系必须是规范化的，关系的每一个分量必须是一个不可分的数据项（不允许表中还有表）</p>
 <p>数据操纵：查询、插入、删除、更新</p>
@@ -532,7 +589,7 @@
 </ul>
 <h2 id="数据库系统模式">数据库系统模式</h2>
 <h3 id="三级模式结构">三级模式结构</h3>
-<p><img src="assets/16700710079279.jpg" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="assets/16700710079279.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
 <h4 id="模式">模式</h4>
 <p>也称逻辑模式，是数据库中全体数据的逻辑结构和特征的描述，是所有用户的公共数据视图</p>
 <p>实际上是数据库数据在逻辑集上的视图</p>
@@ -549,12 +606,13 @@
 <p><strong>一个数据库只有一个内模式</strong></p>
 <p>是数据<strong>物理结构和存储方式的描述</strong>，是数据在数据库内部的<u>组织方式</u></p>
 <h3 id="二级映像功能">二级映像功能</h3>
-<p><img src="assets/16700725337253.jpg" srcset="/img/loading.gif" lazyload /></p>
-<h4 id="外模式模式映像---逻辑独立性">外模式/模式映像 -&gt; 逻辑独立性</h4>
+<p><img src="assets/16700725337253.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="外模式-模式映像-逻辑独立性">外模式/模式映像 -&gt; 逻辑独立性</h4>
 <p><strong>视图级抽象</strong></p>
 <p>描述的是数据的局部逻辑结构</p>
-<h4 id="模式内模式映像---物理独立性">模式/内模式映像 -&gt; 物理独立性</h4>
-<p>模式 - 概念级抽象 内模式 - 物理级抽象</p>
+<h4 id="模式-内模式映像-物理独立性">模式/内模式映像 -&gt; 物理独立性</h4>
+<p>模式 - 概念级抽象<br>
+内模式 - 物理级抽象</p>
 
                 
               </div>
@@ -601,7 +659,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>CH1 绪论</div>
-      <div>https://jin4869.github.io/2022/12/27/数据库第一章-绪论/</div>
+      <div>https://jin4869.github.io/2022/12/05/数据库第一章-绪论/</div>
     </div>
     <div class="license-meta">
       
@@ -613,7 +671,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月27日</div>
+          <div>2022年12月5日</div>
         </div>
       
       
@@ -645,7 +703,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" title="CH2 关系数据库">
+                      <a href="/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" title="CH2 关系数据库">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">CH2 关系数据库</span>
                         <span class="visible-mobile">上一篇</span>
@@ -655,18 +713,45 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" title="CH9 并发控制">
-                        <span class="hidden-mobile">CH9 并发控制</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
                   </article>
                 </div>
               
             </div>
 
             
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
           </article>
         </div>
       </div>
@@ -725,7 +810,6 @@
 
 
 
-
     
 
     
@@ -764,11 +848,7 @@
   <footer>
     <div class="footer-inner">
   
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
+  <div class="footer-content"> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div>
     <div class="statistics">
   
   
@@ -791,10 +871,7 @@
     
   
 </div>
-
-  
-  
-  
+   
 </div>
 
   </footer>
@@ -812,13 +889,7 @@
     })
   </script>
 
-
-<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
+ <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script> <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> <script  src="/js/events.js" ></script> <script  src="/js/plugins.js" ></script> 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
   <script>
     (function (window, document) {
@@ -834,17 +905,7 @@
     })(window, document);
   </script>
 
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
+   <script  src="/js/img-lazyload.js" ></script>     
 <script>
   Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
     var toc = jQuery('#toc');
@@ -882,13 +943,7 @@
     });
   });
 </script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
   
 <script>
   Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
@@ -925,68 +980,16 @@
     });
   });
 </script>
-
-
   
 <script>
   Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
     Fluid.plugins.fancyBox();
   });
 </script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>    
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
+ 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
@@ -998,5 +1001,5 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":175,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
 </html>
