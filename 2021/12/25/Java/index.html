@@ -1,0 +1,1140 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/3.png">
+  <link rel="icon" href="/img/3.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#88A3C3">
+  <meta name="author" content="不想长大的小孩">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Java语言概述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java">
+<meta property="og:url" content="https://jin4869.github.io/2021/12/25/Java/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java语言概述">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-25T07:52:33.000Z">
+<meta property="article:modified_time" content="2023-01-15T08:45:27.536Z">
+<meta property="article:author" content="不想长大的小孩">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Java - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jin4869.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav
+  id="navbar"
+  class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>APTX</strong>
+    </a>
+
+    <button
+      id="navbar-toggler-btn"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="iconfont icon-home-fill"></i>
+            <span>首页</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/archives/">
+            <i class="iconfont icon-archive-fill"></i>
+            <span>归档</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/categories/">
+            <i class="iconfont icon-category-fill"></i>
+            <span>分类</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/tags/">
+            <i class="iconfont icon-tags-fill"></i>
+            <span>标签</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
+            <i class="iconfont icon-pen"></i>
+            <span>留言板</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="iconfont icon-user-fill"></i>
+            <span>关于</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/links/">
+            <i class="iconfont icon-link-fill"></i>
+            <span>友链</span>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="search-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            data-toggle="modal"
+            data-target="#modalSearch"
+            aria-label="Search"
+          >
+            <i class="iconfont icon-search"></i>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="color-toggle-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            aria-label="Color Toggle"
+          >
+            <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-12-25 15:52" pubdate>
+          2021年12月25日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          8.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          70 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>Java</h1>
+<h2 id="第一章-Java-语言概述">第一章 Java 语言概述</h2>
+<h3 id="Java-语言的特色">Java 语言的特色</h3>
+<ol>
+<li>
+<p>简单性</p>
+</li>
+<li>
+<p>平台无关性</p>
+</li>
+<li>
+<p>面向对象的技术</p>
+</li>
+<li>
+<p>支持多线程</p>
+</li>
+<li>
+<p>动态性</p>
+</li>
+<li>
+<p>安全性</p>
+</li>
+</ol>
+<p>还有高性能、分布性、强大性、解释性、可移植性</p>
+<h3 id="Java-的工作原理及-JVM">Java 的工作原理及 JVM</h3>
+<p><strong>Java 虚拟机 JVM（ Java Virtual Machine ）</strong></p>
+<p>在一台计算机上由软件或硬件模拟的计算机。JVM 读取并处理经编译过的平台无关的字节码 class 文件</p>
+<p>Java 编译器针对 Java 虚拟机产生 class 文件，因此是独立于平台的</p>
+<p>Java 解释器负责将 Java 虚拟机的代码在特定的平台上运行<br>
+垃圾收集机制（ Garbage collection ）</p>
+<p><strong>代码安全性检测（ Code Security ）</strong></p>
+<p>执行代码时，JVM 对运行的代码进行安全性检测，当进行一些非法操作的时候，比如修改一些系统设置，JVM 会发出警告</p>
+<p><strong>垃圾收集机制</strong></p>
+<p>不再使用的内存空间应回收——垃圾收集</p>
+<p>Java 语言解除了程序员回收无用内存空间的责任，它提供一种系统级线程跟踪存储空间的分配情况，并在 JVM 空闲的时候检查并释放那些可被释放的存储器空间</p>
+<p>垃圾收集在 Java 程序运行过程中自动进行，程序员无法精确控制和干预</p>
+<h3 id="一个简单的-Java-应用程序">一个简单的 Java 应用程序</h3>
+<p>源文件中只能有一个类是 public 类，且源文件名必须与该类名完全相同，该类是主类，包含 main 方法</p>
+<p>main()是 Java 程序执行的入口点</p>
+<h3 id="Java-程序的分类">Java 程序的分类</h3>
+<ul>
+<li>Java 应用程序( Java Application )
+<ul>
+<li>以 main()方法作为程序入口，由 Java 解释器加载运行。是完整的程序，能够独立运行</li>
+</ul>
+</li>
+<li>Java 小应用程序( Java Applet )
+<ul>
+<li>不使用 main()方法作为程序入口，需要*.class 嵌入到 HTML 网页中运行，由浏览器或 appletviewer 加载执行，无法独立运行</li>
+<li>例：Welcome.Java<br>
+首先使用编译器将 Welcome.java 编译成 Welcome.class ，然后使用记事本编辑文件 welcome.html 如下：<br>
+<code>html &lt;applet code=&quot;Welcome.class&quot; height=&quot;100&quot; width=&quot;300&quot;&gt;&lt;/applet&gt; </code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Java-语言的面向对象特性">Java 语言的面向对象特性</h3>
+<p>编程思想：力图使对计算机语言中对事物的描述与现实中该事物的本来面目尽可能一致</p>
+<p><strong>类</strong>( class )和<strong>对象</strong>( object )是面向对象方法的核心概念。类是对一类事物描述，是抽象的，概念上的定义；对象是实际存在的该类事物的每个个体，因而也称<strong>实例</strong>( instance )</p>
+<h3 id="Java-API-介绍">Java API 介绍</h3>
+<p><a target="_blank" rel="noopener" href="http://java.io">java.io</a>; java.lang; <a target="_blank" rel="noopener" href="http://java.net">java.net</a>; java.util; java.awt; java.sql</p>
+<h2 id="第二章-Java-语法基础">第二章 Java 语法基础</h2>
+<h3 id="标识符、分隔符和关键字">标识符、分隔符和关键字</h3>
+<p><strong>标识符命名规则：</strong></p>
+<ol>
+<li>标识符应以字母、下划线、美元符$开头，不能以数字开头</li>
+<li>标识符可以有字母、下划线、美元符或数字</li>
+<li>大小写敏感，长度无限制</li>
+<li>系统的关键字不能作为标识符</li>
+</ol>
+<p><strong>关键字：</strong></p>
+<ul>
+<li>所有 Java 关键字都是小写</li>
+<li>TRUE, FALSE, NULL 都不是 Java 关键字，goto 和 const 虽然从未使用但也是关键字，true, false, null 虽做专门用途但也不是关键字</li>
+</ul>
+<p><strong>分隔符</strong>：“;”, “{}”, &quot; &quot;</p>
+<p>语句块嵌套层数无限制</p>
+<h3 id="常量和变量">常量和变量</h3>
+<p><strong>常量</strong>：布尔型、字符型（一对单引号括起来的单个字符）、整数型、浮点型、字符串型</p>
+<p><strong>变量</strong>：包括变量名和变量值，必须先声明后使用</p>
+<h3 id="Java-的数据类型">Java 的数据类型</h3>
+<p>数据类型</p>
+<ul>
+<li>基本数据类型
+<ul>
+<li>数值型
+<ul>
+<li>整数类型( byte, short, int, long )</li>
+<li>浮点类型( float, double )</li>
+</ul>
+</li>
+<li>字符型( char )</li>
+<li>布尔型( boolean )</li>
+</ul>
+</li>
+<li>引用数据类型
+<ul>
+<li>类( class )
+<ul>
+<li>接口( interface )</li>
+<li>数组</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="运算符、表达式和语句">运算符、表达式和语句</h3>
+<h3 id="条件语句">条件语句</h3>
+<h3 id="循环语句">循环语句</h3>
+<h3 id="跳转语句">跳转语句</h3>
+<h2 id="第三章-Java-面向对象程序设计">第三章 Java 面向对象程序设计</h2>
+<h3 id="类的创建">类的创建</h3>
+<p>类是组成 Java 程序的基本元素，封装了一类对象的状态属性和行为方法，是类对象的原型</p>
+<p>包括类声明和类体</p>
+<h4 id="修饰符">修饰符</h4>
+<p><code>public</code>：声明了类可以在其他类中使用</p>
+<p><code>abstract</code>：声明了这个类不能被实例化</p>
+<p><code>final</code>：声明了类不能被继承，即没有子类</p>
+<h4 id="关键字">关键字</h4>
+<p><code>class</code>：用来定义类，类名必须是合法的 Java 标识符</p>
+<p><code>extends</code>：用来说明该类是 SuperclassName 的子类，SuperclassName 是该类的父类的名字</p>
+<p><code>implement</code>：用来声明本类要实现的一个或多个接口，由逗号分隔</p>
+<h4 id="类体">类体</h4>
+<p>定义该类所有的变量和方法</p>
+<h5 id="成员变量">成员变量</h5>
+<p>在类体中，变量声明部分所声明的变量</p>
+<p>分为实例成员变量和类成员变量，用修饰符 static 声明的变量称为类变量，否则为实例变量</p>
+<p>可以是 Java 中任意的数据结构，包括简单类型，类，接口，数组，创建后系统自动对其进行默认初始化或显式初始化</p>
+<p><strong>限定符：</strong></p>
+<ul>
+<li><code>private</code>：变量只能被类中的代码访问</li>
+<li><code>protected</code>：可以被继承类及同一个包中的类访问</li>
+<li><code>public</code>：能被类外的代码访问</li>
+<li>无限定符：（包访问权限），可以被类中的代码和同一个包中的类访问</li>
+<li><code>static</code>：用来制定静态变量（类变量），类变量既可以由类方法访问，也可以由实例方法访问</li>
+<li><code>final</code>：用来声明一个常量，同 define</li>
+<li><code>volatile</code>：用来声明一个由多线程共享的变量，使得各线程对该变量的访问能保持一致</li>
+</ul>
+<h5 id="局部变量">局部变量</h5>
+<p>在方法体中声明的变量和方法中的参数</p>
+<h4 id="方法">方法</h4>
+<p>用修饰符 static 声明的方法称为类方法，没有用修饰符 static 修饰的变量称为实例方法</p>
+<p><strong>方法重载</strong>（overloading）：多个方法享有相同的名字，方法的参数列表必须不一样，这里的不一样可能是个数，类型不一样。重载和方法的返回值无关，返回值可以相同，也可以不同。在同一个类中可以定义多个同名方法。如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Testoverload</span>&#123;<br>	<span class="hljs-type">int</span> <span class="hljs-title function_">add</span><span class="hljs-params">( <span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b )</span>;<br>	String <span class="hljs-title function_">add</span><span class="hljs-params">( String a, String b )</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>构造方法</strong>：创建对象是总是调用一个特定的方法</p>
+<p>如在</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">person</span>&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-title function_">person</span><span class="hljs-params">()</span>&#123; &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在<code>main</code>方法中，<code>person a = new person();</code> 构造了一个对象</p>
+<p>一旦类的定义者显式定义了一个或多个构造方法，系统将不再提供默认的构造方法</p>
+<h5 id="this-的用法">this 的用法</h5>
+<p>用于覆盖范围规则，代表当前对象本身，this 可以看做是类对象的别名，使该类中的隐藏数据以及方法可以引用</p>
+<p>用于代表当前类的构造方法</p>
+<h3 id="继承（inheritance）">继承（inheritance）</h3>
+<p>重用其他类中的方法和属性来创建新类，利用继承可以先创建一个具有某些基本功能的一般类，然后将这些类作为基础去创建具有特殊功能的类。</p>
+<p>由继承得到的类称为子类（subclass），父类包括所有直接或间接被继承的类，一个父类可以同时拥有多个子类，一个子类只能直接拥有一个父类</p>
+<p><strong>变量的隐藏</strong>：如果子类中定义的成员变量和父类中定义的成员变量完全相同，此时父类中的成员变量将被隐藏</p>
+<p><strong>方法的覆盖或重写</strong>：如果在子类中定义的方法和父类中定义的方法在名字、返回类型、参数个数和参数类型方面完全相同，此时父类的方法将被隐藏</p>
+<h3 id="关键字-2">关键字</h3>
+<ul>
+<li><strong>static</strong>
+<ul>
+<li>标记的变量或方法由整个类（所有实例共享），如果访问控制权限允许，可不必创建该类对象而直接用类名加’ . '调用</li>
+</ul>
+</li>
+<li><strong>final</strong>
+<ul>
+<li>final 标记的类不能被继承</li>
+<li>final 标记的类不能被子类重写</li>
+<li>final 标记的变量即成为常量，只能被赋值一次</li>
+<li>final 标记的成员变量必须在声明的同时或在每个构造方法中显式赋值才能使用</li>
+</ul>
+</li>
+<li><strong>abstract</strong>
+<ul>
+<li>用 abstract 修饰的不能直接创建对象，抽象类往往是它的所有子类共有属性的集合</li>
+<li>必须产生子类，由子类创建对象</li>
+</ul>
+</li>
+<li><strong>super</strong>
+<ul>
+<li>super(parentName) 或 <a target="_blank" rel="noopener" href="http://super.name">super.name</a> = parentName</li>
+</ul>
+</li>
+</ul>
+<h3 id="包">包</h3>
+<p>由于 Java 编译器为每个类生成一个字节码文件，且文件名与 public 的类名相同，因此同名的类有可能发生冲突，Java 提供 package 来管理类名空间和访问保护机制</p>
+<h3 id="访问控制">访问控制</h3>
+<p>private，default，protected，public</p>
+<h3 id="接口">接口</h3>
+<p>接口（interface）是抽象方法和常量值的定义的集合</p>
+<p>是一种特殊的抽象类，只包含常量和方法的定义，而没有变量和方法的实现</p>
+<p>举例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Runner</span>&#123;<br>	<span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">id</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">start</span><span class="hljs-params">()</span>;<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span>;<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">stop</span><span class="hljs-params">()</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>多个无关的类可以实现同一个接口</p>
+<p>一个类可以实现多个无关的接口</p>
+<p>与继承关系类似，接口与实现类之间存在多态性</p>
+<h3 id="内部类">内部类</h3>
+<ul>
+<li>允许一个类的定义位于另一个类的内部，前者称为内部类</li>
+<li>内部类和外层封装它的类之间存在逻辑上的从属关系</li>
+<li>在外部引用它时必须给出完整的名称，如 School.Teacher mike = new School.Teacher()；</li>
+</ul>
+<h2 id="第四章-对象、数组与字符串">第四章 对象、数组与字符串</h2>
+<h3 id="对象">对象</h3>
+<p>将任何实体都看成对象</p>
+<p>对象 是通过对实体的抽象得到，由属性和方法组成。属性是实体的一些特征值，方法是实体的功能和方法</p>
+<p>对象之间通过消息进行传递进行交互，最终完成任务</p>
+<p><strong>对象生命周期</strong>三个阶段：创建，使用和清除</p>
+<p><strong>对象的复制</strong></p>
+<ul>
+<li>浅拷贝和深拷贝</li>
+<li>浅拷贝只直接复制所有对象成员的值</li>
+<li>深拷贝对于基本数据类型变量直接复制其值，对于引用数据类型对象递归复制其指向的内存空间</li>
+</ul>
+<h3 id="一维数组">一维数组</h3>
+<p>声明：如 <code>int a[]</code> 或 <code>int[] a</code>;</p>
+<p>声明数组时 不能指定其长度</p>
+<p>使用数组还需要为它分配内存空间，分配内存空间的时候 必须指明数组的长度</p>
+<p>如 <code>a = new int[3];</code></p>
+<p><strong>初始化：</strong></p>
+<ul>
+<li>动态初始化：数组定义与为数组元素分配空间并赋值的操作分开进行<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">dates[<span class="hljs-number">0</span>] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyDate</span>(<span class="hljs-number">22</span>,<span class="hljs-number">7</span>,<span class="hljs-number">1964</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li>静态初始化：定义数组的同时就为数组元素分配空间并复制<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> a[] = &#123;<span class="hljs-number">3</span>, <span class="hljs-number">9</span>, <span class="hljs-number">8</span>&#125;;<br>MyDate dates[] = &#123;<br>	newMyDate(<span class="hljs-number">22</span>,<span class="hljs-number">7</span>,<span class="hljs-number">1964</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="多维数组">多维数组</h3>
+<p>二维数组声明：<code>type var[][]</code> 或 <code>type[][] var;</code><br>
+例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> a[][] = &#123; &#123;<span class="hljs-number">1</span> ,<span class="hljs-number">2</span> &#125;, &#123; <span class="hljs-number">3</span> ,<span class="hljs-number">4</span> ,<span class="hljs-number">0</span> ,<span class="hljs-number">9</span> &#125;, &#123; <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span> &#125; &#125;<br></code></pre></td></tr></table></figure>
+<p>声明和初始化应按从高位到低维的顺序进行，不必是规则矩阵形式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> t[][] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span> [<span class="hljs-number">4</span>][];<br>t[<span class="hljs-number">0</span>] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">5</span>];<br>t[<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">5</span>];<br><span class="hljs-type">int</span> t1[][] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[][<span class="hljs-number">4</span>];<span class="hljs-comment">//非法</span><br></code></pre></td></tr></table></figure>
+<p>初始化：静态和动态</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> intArray1[<span class="hljs-number">3</span>][<span class="hljs-number">2</span>] = &#123; &#123; <span class="hljs-number">1</span>, <span class="hljs-number">2</span> &#125;, &#123; <span class="hljs-number">2</span>, <span class="hljs-number">3</span> &#125;, &#123; <span class="hljs-number">4</span>, <span class="hljs-number">5</span> &#125; &#125;; 	<span class="hljs-comment">// illegal</span><br></code></pre></td></tr></table></figure>
+<h3 id="字符串">字符串</h3>
+<p>利用 Java.lang 包中的两个类 String 和 StringBuffer 来储存、创建和操作字符串</p>
+<p><code>String类</code>用于处理由多个字符组成的不可变数据</p>
+<p><code>StringBuffer类</code>用于存储和操作由多个字符组成的可变数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello World&quot;</span>;<br>message = message + <span class="hljs-string">&quot;!!&quot;</span>;<br><span class="hljs-type">StringBuffer</span> <span class="hljs-variable">messageBuf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuffer</span>(message).append(<span class="hljs-string">&quot;!!&quot;</span>);<br><span class="hljs-type">String</span> <span class="hljs-variable">str</span> <span class="hljs-operator">=</span> messageBuf.toString();<br></code></pre></td></tr></table></figure>
+<h4 id="String-类">String 类</h4>
+<p>最常用的一种 Java 引用类型</p>
+<p>String 类对象保存不可修改的 Unicode 字符序列</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello World&quot;</span>;<br></code></pre></td></tr></table></figure>
+<p>String 类型数据可以和任何其他数据类型进行‘+’操作，实现字符串连接的效果</p>
+<ul>
+<li>
+<p>获得字符串长度 <code>int length = a.length();</code></p>
+</li>
+<li>
+<p>按照指定索引下得到字符 <code>char c1 = name.charAt(3);</code></p>
+</li>
+<li>
+<p>从一个字符串或者字符串缓冲区得到多个字符 <code>String b = s.substring(8);</code></p>
+</li>
+</ul>
+<p><strong>常用方法：</strong></p>
+<ul>
+<li>startWith(String s) 比较字符串的前缀与特定字符串是否相同</li>
+<li>endWith(String s) 比较字符串的后缀与特定字符串是否相同</li>
+<li>equals(String s) 比较字符串与特定字符串是否完全相同</li>
+<li>equalsIgnoreCase(String s) 比较字符串与特定字符串是否相同，忽略大小写</li>
+<li>public int compareTo(String s) 按字典序比较字符串大小，相同返回 0，比特定字符串大返回正值，小返回负值</li>
+<li>public int compareToIgnoreCase(String s) 按字典序比较字符串大小，忽略大小写</li>
+</ul>
+<h3 id="Java-中常用类库">Java 中常用类库</h3>
+<p>常用的包：</p>
+<ul>
+<li>java.lang 语言包，是 Java 语言的基础类包</li>
+<li>java.util 应用包，提供各种应用类型的类</li>
+<li>java.awt 抽象窗口工具包，提供各种图形和图像类</li>
+<li><a target="_blank" rel="noopener" href="http://java.io">java.io</a> 输入输出包，提供各种输入输出类</li>
+<li><a target="_blank" rel="noopener" href="http://java.net">java.net</a> 网络应用包，提供各种网络应用类</li>
+<li>java.applet 提供 applet 程序需要的类</li>
+</ul>
+<h2 id="第五章-数据结构及常用算法">第五章 数据结构及常用算法</h2>
+<p>泛型( Generic )<br>
+数据结构中的接口<br>
+向量( Vector )<br>
+散列表( HashMap )<br>
+堆栈( Stack )<br>
+链表( LinkedList )</p>
+<h2 id="第六章-流和文件">第六章 流和文件</h2>
+<h3 id="流概述">流概述</h3>
+<p>为进行数据的输入/输出操作，Java 中把不同的输入输出源（键盘、文件、网络连接等）抽象表述为“流”</p>
+<p><a target="_blank" rel="noopener" href="http://java.io">java.io</a> 包中定义了多个流类型（类或抽象类）来实现输入/输出功能</p>
+<h3 id="基本输入和输出流">基本输入和输出流</h3>
+<p>按<strong>功能</strong>划分两种基本的流：</p>
+<ul>
+<li><strong>输入流</strong>：只能从中读取数据，而不能向其写出数据</li>
+<li><strong>输出流</strong>：只能向其写出数据，而不能从中读取数据</li>
+</ul>
+<p>输入流和输出流可以被连接到文件、网络套接字或内存缓冲区</p>
+<p>按<strong>处理数据</strong>的单位划分：字符流和字节流</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>字节流</th>
+<th>字符流</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入</td>
+<td>InputStream</td>
+<td>Reader</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>OutputStream</td>
+<td>Writer</td>
+</tr>
+</tbody>
+</table>
+<h4 id="节点流和处理流">节点流和处理流</h4>
+<ul>
+<li><strong>节点流</strong>：可以从/向一个特定的地方（结点）读写数据，例如磁盘或者一块内存</li>
+<li><strong>处理流</strong>：是对一个已存在的流的连接和封装，通过所封装的流的功能调用实现数据读/写功能</li>
+</ul>
+<h4 id="InputStream-类">InputStream 类</h4>
+<p>三个基本 read 方法：</p>
+<ul>
+<li>int read()</li>
+<li>int read( byte[] buffer )</li>
+<li>int read( byte[] buffer, int offset, int length)</li>
+</ul>
+<p>其他方法：</p>
+<ul>
+<li>void close()</li>
+<li>int available()</li>
+</ul>
+<h4 id="OutputStream-类">OutputStream 类</h4>
+<p>三个基本 write 方法</p>
+<ul>
+<li>void write(int c)</li>
+<li>void write( byte[] buffer )</li>
+<li>void write( byte[] buffer, int offset, int length )</li>
+</ul>
+<p>其他方法：</p>
+<ul>
+<li>void close();</li>
+<li>void flush()</li>
+</ul>
+<h3 id="标准输入和输出流">标准输入和输出流</h3>
+<p><code>System.in</code>提供从“标准输入”读入数据的功能，为 InputStream 类型</p>
+<p><code>System.out</code>提供向“标准输出”写出数据的功能，为 PrintStream 类型</p>
+<h3 id="文件处理">文件处理</h3>
+<p><a target="_blank" rel="noopener" href="http://java.io">java.io</a> 包提供了文件操作功能的 File 类</p>
+<p>创建 File 对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">File f;<br>f = <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>( <span class="hljs-string">&quot;Test.java&quot;</span> );<br>f = <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>( <span class="hljs-string">&quot;F:/ok/HelloWorld.class&quot;</span> );<br></code></pre></td></tr></table></figure>
+<p>在 java 中将目录也当做文件处理，实现目录管理功能的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">File</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>( <span class="hljs-string">&quot;F:/ok/&quot;</span> );<br><span class="hljs-type">File</span> <span class="hljs-variable">f</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>( p, <span class="hljs-string">&quot;HelloWorld.class&quot;</span> );<br></code></pre></td></tr></table></figure>
+<h4 id="File-类方法介绍">File 类方法介绍</h4>
+<p>关于文件/目录名操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span><br>String <span class="hljs-title function_">getPath</span><span class="hljs-params">()</span><br>String <span class="hljs-title function_">getAbsolutePath</span><span class="hljs-params">()</span><br>String <span class="hljs-title function_">getParent</span><span class="hljs-params">()</span><br><span class="hljs-type">boolean</span> <span class="hljs-title function_">renameTo</span><span class="hljs-params">( File newName )</span><br></code></pre></td></tr></table></figure>
+<p>获取常规文件信息操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">long</span> <span class="hljs-title function_">lastModified</span><span class="hljs-params">()</span><br><span class="hljs-type">long</span> <span class="hljs-title function_">length</span><span class="hljs-params">()</span><br><span class="hljs-type">boolean</span> <span class="hljs-title function_">delete</span><span class="hljs-params">()</span><br></code></pre></td></tr></table></figure>
+<h4 id="文件过滤">文件过滤</h4>
+<p>就是对文件名的过滤，即将符合条件的文件选择出来进行操作</p>
+<p>接口<code>FileFilter</code>和<code>FilenameFilte</code>r 实现这一功能，要声明一个类实现接口中的 accept()的方法，常称为过滤器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FileFilter</span> &#123; <span class="hljs-type">boolean</span> <span class="hljs-title function_">accept</span><span class="hljs-params">( File pathname )</span>; &#125;		<span class="hljs-comment">//pathname 是要过滤目录中的文件对象</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FilenameFilter</span> &#123; <span class="hljs-type">boolean</span> <span class="hljs-title function_">accept</span><span class="hljs-params">( File dir, String name)</span>; &#125;		<span class="hljs-comment">//dir:要过滤的文件，name：目录中的文件名</span><br></code></pre></td></tr></table></figure>
+<h4 id="FileInputStream-FileOutputStream-类">FileInputStream/FileOutputStream 类</h4>
+<p>使用 File 类可以建立与磁盘文件的连接，读取磁盘文件的相关属性和对磁盘文件进行管理性操作</p>
+<p>使用 File 类不能完成对磁盘文件数据的读写操作</p>
+<p><code>FileInputStream</code>/<code>FileOutputStream</code>类可以用来实现对字节流文件的 I/O 处理，通过它提供的方法打开本机的文件，并进行顺序的读写</p>
+<p><strong>读入数据</strong>两种方式：</p>
+<ul>
+<li>利用 FileInputStream 类提供的 read 方法</li>
+<li>以 FileInputStream 类对象为原始数据源，再套上其他功能强大的输入流</li>
+</ul>
+<p><strong>向文件写入数据</strong>有两种方式：</p>
+<ul>
+<li>利用 FileOutputStream 类提供的 write 方法来完成</li>
+<li>以 FileOutputStream 类对象为原始数据源，再套上其他功能强大的输入流</li>
+</ul>
+<h4 id="RandomAcessFile-类">RandomAcessFile 类</h4>
+<p>直接继承于 Object，用户可以对文件进行任何所希望的操作</p>
+<h4 id="FileReader-FileWriter-类">FileReader/FileWriter 类</h4>
+<p>以字符为单位读入或写出数据</p>
+<p>以 String 或 File 类型参数指定要读写的文件</p>
+<h3 id="缓冲区输入和输出流">缓冲区输入和输出流</h3>
+<p>输入流 FileReader 和输出流 FileWriter 可以方便的完成输入和输出操作，对输入和输出有较快的时间要求，使用缓冲流类在内存中建立缓冲区</p>
+<ul>
+<li>BufferedReader</li>
+<li>BufferedWriter</li>
+</ul>
+<h3 id="格式字节数据流">格式字节数据流</h3>
+<p>DataInputStream 类和 DataOutputStream 类创建的对象称为数据输入流和数据输出流</p>
+<p>允许程序按照与机器无关的风格读取 Java 的原始数据类型，即无需关心数据类型占多少字节</p>
+<ul>
+<li>DataInputStream 类
+<ul>
+<li><code>DataInputStream( InputStream in );</code><br>
+将创建的数据输入流指向一个由参数 in 指定的输入流，以便从中读取数据</li>
+</ul>
+</li>
+<li>DataOutputStream 类
+<ul>
+<li><code>DataOutputStream( OutputStream out )</code><br>
+将创建的数据输出流指向一个由参数 out 指定的输出流，然后通过这个数据输出流把 Java 数据类型的数据写到输出流 out</li>
+</ul>
+</li>
+</ul>
+<h2 id="第七章-Java-GUI-应用程序设计">第七章 Java GUI 应用程序设计</h2>
+<p>AWT 与 Swing<br>
+事件处理机制<br>
+AWT/Swing 组件<br>
+常用事件<br>
+绘图</p>
+<h2 id="第八章-异常处理与多线程">第八章 异常处理与多线程</h2>
+<h3 id="Java-异常">Java 异常</h3>
+<p>异常（Eception）：其他因编程错误或偶然的外在因素导致的一般性问题，例如：对负数开平方，空指针访问，试图读取不存在的文件，网络连接中断</p>
+<p>常见异常：</p>
+<ul>
+<li><code>RuntimeException</code>：错误的类型转换，数组下标越界，空指针访问</li>
+<li><code>IOExeption</code>：从一个不存在的文件中读取数据，越过文件结尾继续读取，连接一个不存在的 URL</li>
+</ul>
+<h3 id="异常的处理">异常的处理</h3>
+<p>程序出现异常会自动生成一个异常类对象，该异常对象将被提交给 Java 运行时系统，这个过程称为抛出（throw）异常</p>
+<p>Java 运行时系统接收到异常对象时，会寻找能处理这一异常的代码并把当前异常对象交给其处理，这个过程称为捕获（catch）异常</p>
+<p>系统找不到可以捕获异常的方法，则系统终止，程序退出</p>
+<p>程序员通常只能处理异常而对错误无能为力</p>
+<p><strong>异常的处理</strong></p>
+<ul>
+<li>运行时错误：运行时系统就会产生一个和该错误相对应的异常类对象，Java 为它提供默认的异常处理程序</li>
+<li>非运行时错误：一种方法是自己处理，使用<code>try-catch-finally</code>语句来捕获并处理异常对象；另一种是方法不需要处理它生成的异常，而是向上传递，由调用它的方法来处理，使用<code>throw</code>语句声明他可以抛出的异常而不捕捉它们</li>
+</ul>
+<h3 id="线程概念">线程概念</h3>
+<p>线程是一个程序内部的顺序控制流</p>
+<p>Java 的线程是通过<code>java.lang.Thread</code>类来实现的，方法 run()称为线程体</p>
+<h3 id="线程的创建">线程的创建</h3>
+<p>使用 Runnable 接口，可以从其他类继承，保持程序风格的一致性</p>
+<p>直接继承 Thread 类，不能再从其他类继承，编写简单，可以直接操纵线程，无需使用 Thread.currentThread()</p>
+<h3 id="线程的状态与控制">线程的状态与控制</h3>
+<p>状态：创建，就绪，运行，阻塞，终止</p>
+<h3 id="线程的优先级、调度和管理">线程的优先级、调度和管理</h3>
+<p>Java 允许我们对一个线程组中的所有线程同时进行操作</p>
+<h3 id="线程组">线程组</h3>
+<h3 id="线程的同步">线程的同步</h3>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/">#Java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java</div>
+      <div>https://jin4869.github.io/2021/12/25/Java/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>不想长大的小孩</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年12月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/28/%E5%AE%9E%E9%AA%8C%E4%B8%80%EF%BC%9A%E6%96%87%E6%9C%AC%E5%8F%8D%E7%88%AC%E7%BD%91%E7%AB%99%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E7%88%AC%E5%8F%96/" title="实验一：文本反爬网站的分析和爬取">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">实验一：文本反爬网站的分析和爬取</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/" title="计算机操作系统复习">
+                        <span class="hidden-mobile">计算机操作系统复习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/pjax@VERSION/pjax.min.js"></script> <meting-js server="netease" type="playlist" id="8051474154" fixed="true"></meting-js> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  <div class="footer-content"> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div>
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+   
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+ <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script> <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> <script  src="/js/events.js" ></script> <script  src="/js/plugins.js" ></script> 
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+   <script  src="/js/img-lazyload.js" ></script>     
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>    
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
+ 
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":175,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
+</html>
