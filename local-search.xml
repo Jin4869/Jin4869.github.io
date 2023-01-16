@@ -4,6 +4,52 @@
   
   
   <entry>
+    <title>测试post_asset_folder</title>
+    <link href="/2023/01/16/%E6%B5%8B%E8%AF%95post-asset-folder/"/>
+    <url>/2023/01/16/%E6%B5%8B%E8%AF%95post-asset-folder/</url>
+    
+    <content type="html"><![CDATA[<p>项目配置文件<code>_config.yml</code></p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">post_asset_folder:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure><p>在创建文章时同时在该目录创建同名文件夹存放图片</p><p><img src="2023-01-16-14-43-36.png" alt=""></p><p>引用图片，用相对路径</p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs md">![](<span class="hljs-link">2023-01-16-14-43-36.png</span>)<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>使用Spark碰到内存不足</title>
+    <link href="/2023/01/16/%E4%BD%BF%E7%94%A8Spark%E7%A2%B0%E5%88%B0%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/"/>
+    <url>/2023/01/16/%E4%BD%BF%E7%94%A8Spark%E7%A2%B0%E5%88%B0%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/</url>
+    
+    <content type="html"><![CDATA[<p>原文链接：<a href="https://blog.csdn.net/qq_36055407/article/details/103976014">在使用 spark 时，碰到内存不足问题</a></p><blockquote><p>搬运过来自己查看方便</p><p><strong>遇到此问题可以创建 swap 交换区：</strong></p></blockquote><p>Linux 中 Swap（即：交换分区），类似于 Windows 的虚拟内存，就是当内存不足的时候，把一部分硬盘空间虚拟成内存使用,从而解决内存容量不足的情况。</p><h2 id="步骤：">步骤：</h2><p>1.使用 root 用户</p><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">su</span><br></code></pre></td></tr></table></figure><p>2.创建一个用于交换的文件</p><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fallocate</span> -l <span class="hljs-number">2</span>G /swapfile<br></code></pre></td></tr></table></figure><p>3.设置正确的权限</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> 600 /swapfile<br></code></pre></td></tr></table></figure><p>4.设置 linux 交换区</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mkswap -f /swapfile<br></code></pre></td></tr></table></figure><p>5.启用交换</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">swapon /swapfile<br></code></pre></td></tr></table></figure><p>6.每次自动启用，则在 vim /etc/fstab 文件并添加以下行 ：</p><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">/swapfile <span class="hljs-keyword">swap</span> <span class="hljs-keyword">swap</span> defaults <span class="hljs-number">0</span> <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure><blockquote><p>这一步我会报错，所以每次都需要启动</p></blockquote><p>7.查看</p><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">free -h</span><br></code></pre></td></tr></table></figure><p>显示如下则成功创建交换区：<br><img src="/img/post/2023-01-16-14-15-45.png" alt=""></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Ubuntu相关问题</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Spark</tag>
+      
+      <tag>Ubuntu</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>为页脚添加网站运行时间与busuanzi计数</title>
     <link href="/2023/01/15/%E4%B8%BA%E9%A1%B5%E8%84%9A%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%AB%99%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%B8%8Ebusuanzi%E8%AE%A1%E6%95%B0/"/>
     <url>/2023/01/15/%E4%B8%BA%E9%A1%B5%E8%84%9A%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%AB%99%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%B8%8Ebusuanzi%E8%AE%A1%E6%95%B0/</url>
@@ -457,9 +503,9 @@
     
     <tags>
       
-      <tag>数据库设计</tag>
-      
       <tag>数据库</tag>
+      
+      <tag>数据库设计</tag>
       
     </tags>
     
