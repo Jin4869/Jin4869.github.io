@@ -16,25 +16,48 @@
   <meta name="author" content="不想长大的小孩">
   <meta name="keywords" content="">
   
-    <meta name="description" content="数据库设计六个阶段，需求分析，概念结构，逻辑结构，物理结构，数据库设计的例题">
+    <meta name="description" content="十月份就更新的大理寺日志第二季，我直到一月份才知道，而且看了官方的微博，才知道第一季竟然亏钱了，**亏钱了！！**unbelievable！！ 所以赶紧来补了 hhh 趁着还没有开虐记录一下里面沙雕的剧情 猫猫一如既往的可爱，咋不考虑做只娃娃捏  我真的笑死，不愧是你崔倍  开幕可爱击   娇羞什么啊猫爷！！  md 好帅  笑死，什么表情啊猫爷  我真的笑死这一段  陈拾耍帅，有点黑罗刹的样子">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CH7 数据库设计">
-<meta property="og:url" content="https://jin4869.github.io/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%83%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:title" content="大理寺日志贰一些观感">
+<meta property="og:url" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/index.html">
 <meta property="og:site_name" content="APTX">
-<meta property="og:description" content="数据库设计六个阶段，需求分析，概念结构，逻辑结构，物理结构，数据库设计的例题">
+<meta property="og:description" content="十月份就更新的大理寺日志第二季，我直到一月份才知道，而且看了官方的微博，才知道第一季竟然亏钱了，**亏钱了！！**unbelievable！！ 所以赶紧来补了 hhh 趁着还没有开虐记录一下里面沙雕的剧情 猫猫一如既往的可爱，咋不考虑做只娃娃捏  我真的笑死，不愧是你崔倍  开幕可爱击   娇羞什么啊猫爷！！  md 好帅  笑死，什么表情啊猫爷  我真的笑死这一段  陈拾耍帅，有点黑罗刹的样子">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jin4869.github.io/img/cover/4.png">
-<meta property="article:published_time" content="2022-12-24T14:07:56.000Z">
-<meta property="article:modified_time" content="2023-01-16T07:28:50.696Z">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-19-51-25.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-19-52-41.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-06-07.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-05-38.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-10-41.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-11-56.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-14-10.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-17-09.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-29-34.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-42-48.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-44-16.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-51-26.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-53-14.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-20-58-47.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-00-30.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-03-35.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-16-30.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-23-40.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-30-41.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-38-17.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-38-45.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-45-19.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-45-40.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-45-52.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-21-46-02.png">
+<meta property="article:published_time" content="2023-01-19T11:38:50.000Z">
+<meta property="article:modified_time" content="2023-01-19T13:51:57.972Z">
 <meta property="article:author" content="不想长大的小孩">
-<meta property="article:tag" content="数据库设计">
-<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="动漫">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jin4869.github.io/img/cover/4.png">
+<meta name="twitter:image" content="https://jin4869.github.io/2023/01/19/%E5%A4%A7%E7%90%86%E5%AF%BA%E6%97%A5%E5%BF%97%E8%B4%B0%E4%B8%80%E4%BA%9B%E8%A7%82%E6%84%9F/2023-01-19-19-51-25.png">
   
   
   
-  <title>CH7 数据库设计 - APTX</title>
+  <title>大理寺日志贰一些观感 - APTX</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -216,7 +239,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CH7 数据库设计"></span>
+            <span id="subtitle" data-typed-text="大理寺日志贰一些观感"></span>
           
         </div>
 
@@ -227,8 +250,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-24 22:07" pubdate>
-          2022年12月24日 晚上
+        <time datetime="2023-01-19 19:38" pubdate>
+          2023年1月19日 晚上
         </time>
       </span>
     
@@ -240,7 +263,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.7k 字
+          341 字
         
       </span>
     
@@ -252,7 +275,7 @@
         
         
           <!-- compatible with older versions-->
-          14 分钟
+          3 分钟
         
       </span>
     
@@ -294,157 +317,62 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">CH7 数据库设计</h1>
+            <h1 style="display: none">大理寺日志贰一些观感</h1>
             
             
               <div class="markdown-body">
                 
-                <h1>第七章 数据库设计</h1>
-<h2 id="7-1-数据库设计概述">7.1 数据库设计概述</h2>
-<p>数据库设计的特点“三分技术，七分管理，十二分基础数据”</p>
-<h3 id="7-1-1-数据库设计的六个阶段（熟练掌握）">7.1.1 数据库设计的六个阶段（熟练掌握）</h3>
-<ul>
-<li><strong>需求分析</strong>
-<ul>
-<li>准确了解与分析用户需求（包括数据与处理）</li>
-<li>最困难、最耗费时间的一步</li>
-</ul>
-</li>
-<li><strong>概念结构设计</strong>
-<ul>
-<li>整个数据库设计的关键</li>
-<li>形成一个独立于具体数据库管理系统的概念模型</li>
-</ul>
-</li>
-<li><strong>逻辑结构设计</strong>
-<ul>
-<li>将概念结构转换为某个 DBMS 所支持的数据模型</li>
-<li>优化</li>
-</ul>
-</li>
-<li><strong>物理结构设计</strong>
-<ul>
-<li>为逻辑结构选取一个最适合应用环境的物理结构（包括存储结构和存取方法）</li>
-</ul>
-</li>
-<li><strong>数据库实施</strong>
-<ul>
-<li>建立数据库</li>
-<li>编制与调试应用程序</li>
-<li>组织数据入库</li>
-<li>进行试运行</li>
-</ul>
-</li>
-<li><strong>数据库运行和维护</strong>
-<ul>
-<li>经过试运行即可投入正式运行</li>
-<li>运行过程中不断进行评估、调整与修改</li>
-</ul>
-</li>
-</ul>
-<p><strong>需求分析和概念设计独立于任何数据库管理系统</strong></p>
-<p>逻辑设计和物理设计与选用的 DBMS 密切相关</p>
-<p><img src="/img/post/16718867044639.jpg" srcset="/img/loading.gif" lazyload alt="数据库设计各个阶段的设计描述"></p>
-<h3 id="7-1-2-数据库设计过程中的各级模式">7.1.2 数据库设计过程中的各级模式</h3>
-<p><img src="/img/post/16718869311421.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
-<h2 id="7-2-需求分析">7.2 需求分析</h2>
-<h3 id="7-2-1-需求分析过程">7.2.1 需求分析过程</h3>
-<p><img src="/img/post/16718872124515.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
-<h3 id="7-2-2-数据字典">7.2.2 数据字典</h3>
-<p><strong>用途</strong>：进行详细的数据收集和数据分析所获得主要成果</p>
-<p>数据字典是关于数据库中数据的描述，是<strong>元数据</strong>，而不是数据本身，在<strong>需求分析</strong>阶段建立，<strong>强调用户的参与</strong></p>
-<p><strong>内容</strong></p>
-<ul>
-<li><strong>数据项</strong>
-<ul>
-<li>不可再分的数据单位</li>
-<li>数据项描述 = {数据项名，数据项含义说明，别名，数据类型，长度，取值范围，取值含义，与其他数据项的逻辑关系，数据项之间的联系}
-<ul>
-<li>“取值范围”、“与其他数据项的逻辑关系”定义了数据的完整性约束条件</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>数据结构</strong>
-<ul>
-<li>数据之间的组合关系</li>
-<li>数据结构描述 = {数据结构名，含义说明，组成：{数据项或数据结构}}</li>
-</ul>
-</li>
-<li><strong>数据流</strong>
-<ul>
-<li>数据结构在系统内传输的路径</li>
-<li>数据流描述 = {数据流名，说明，数据流来源，数据流去向，组成：{数据结构}，平均流量，高峰期流量}</li>
-</ul>
-</li>
-<li><strong>数据存储</strong>
-<ul>
-<li>数据结构停留或保存的地方，也是数据流的来源和去向之一</li>
-<li>数据存储描述 = {数据存储名，说明，编号，输入的数据流，输出的数据流，组成：{数据结构}，数据量，存取频度，存取方式}</li>
-</ul>
-</li>
-<li><strong>处理过程</strong>
-<ul>
-<li>一般用判定表或判定树来描述</li>
-<li>处理过程描述 = {处理过程名，说明，输入：{数据流}，输出：{数据流}，处理：{简要说明}}</li>
-</ul>
-</li>
-</ul>
-<h2 id="7-3-概念结构">7.3 概念结构</h2>
-<h3 id="7-3-1-E-R-模型">7.3.1 *E-R 模型</h3>
-<pre><code class=" mermaid">graph TB
-实体集
-a([属性])
-b&#123;联系集&#125;
-</code></pre>
-<h3 id="7-3-2-概念结构设计">7.3.2 概念结构设计</h3>
-<p>为了简化 E- R 图的处置，现实世界的事物能作为属性对待的尽量作为属性对待</p>
-<ul>
-<li>作为属性不能再具有需要描述的性质</li>
-<li>属性不能与其他实体具有联系</li>
-</ul>
-<ol>
-<li>合并 E-R 图。生成初步的 E-R 图<br>
-产生冲突：
-<ul>
-<li>属性冲突</li>
-<li>命名冲突</li>
-<li>结构冲突</li>
-</ul>
-</li>
-<li>消除不必要的冗余，设计基本 E-R 图
-<ul>
-<li>冗余容易破坏数据库的完整性，给数据库维护增加困难</li>
-</ul>
-</li>
-</ol>
-<h2 id="7-4-逻辑结构">7.4 逻辑结构</h2>
-<p>把概念结构设计阶段设计好的基本 E-R 图转换为与选用数据库管理系统产品所支持的数据模型相符合的逻辑结构</p>
-<h3 id="7-4-1-转化规则：">7.4.1 转化规则：</h3>
-<ul>
-<li>一个实体型转换为一个独立的关系模式</li>
-<li>1:1 联系可以与任何一端的关系模式合并</li>
-<li>1:n 联系一般和多端合并，放上 1 端的候选码</li>
-<li>m:n 转换成一个独立的关系模式</li>
-<li>三个或三个以上实体间的一个多元联系可以转换为一个关系模式</li>
-</ul>
-<h3 id="7-4-2-数据模型的优化">7.4.2 数据模型的优化</h3>
-<p>对关系模式进行必要分解，提高数据操作效率和存储空间利用率。常用的两种分解方法是<strong>水平分解</strong>和<strong>垂直分解</strong></p>
-<h2 id="7-5-物理结构">7.5 物理结构</h2>
-<p>关系模式常用<strong>存取方法</strong>：<u>索引方法</u>和<u>聚簇方法</u></p>
-<p>B+树索引和 hash 索引是数据库中经典的存取方法</p>
-<h2 id="7-6-例题">7.6 例题</h2>
-<p><img src="/img/post/16718901231457.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
-<h2 id="第七章相关习题">第七章相关习题</h2>
-<ol>
-<li>在数据库设计中，把数据需求写成文档，它是个类数据描述的集合，包括数据项、数据结构、数据流、数据存储和数据加工过程等的描述，通常称为 <u>数据字典</u></li>
-<li>E- R 图向关系模型转化要解决的问题是如何将实体和实体之间的的联系转换成关系模式，并如何确定这些关系模式的<u>属性</u>和<u>码</u></li>
-<li>为提高数据操作的效率和存储空间的利用率，经过规范化处理之后的关系模式还需要进行一定的优化处理。优化是根据需求分析和概念设计中定义的事务的特点对关系模式进行必要的分解，常用的两种分解方法是<u>水平分解</u>和<u>垂直分解</u></li>
-<li>将概念模型转换为全局逻辑模型后，还需根据局部应用需求，结合具体 DBMS 的特点，设计<u>用户的外模式（或用户视图）</u></li>
-<li>E-R 图是数据库设计的工具之一，它适用于建立数据库的<u>概念模型</u></li>
-<li>数据库逻辑设计阶段的任务是<u>建立数据模型</u></li>
-<li>数据流程图（DFD）是用于描述结构化方法中<u>需求分析</u>阶段的工具</li>
-</ol>
+                <p>十月份就更新的大理寺日志第二季，我直到一月份才知道，而且看了官方的微博，才知道第一季竟然亏钱了，**亏钱了！！**unbelievable！！</p>
+<p>所以赶紧来补了 hhh 趁着还没有开虐记录一下里面沙雕的剧情</p>
+<p>猫猫一如既往的可爱，咋不考虑做只娃娃捏<br>
+<img src="2023-01-19-19-51-25.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>我真的笑死，不愧是你崔倍<br>
+<img src="2023-01-19-19-52-41.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>开幕可爱击<br>
+<img src="2023-01-19-20-06-07.png" srcset="/img/loading.gif" lazyload alt=""><br>
+<img src="2023-01-19-20-05-38.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>娇羞什么啊猫爷！！<br>
+<img src="2023-01-19-20-10-41.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>md 好帅<br>
+<img src="2023-01-19-20-11-56.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>笑死，什么表情啊猫爷<br>
+<img src="2023-01-19-20-14-10.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>我真的笑死这一段<br>
+<img src="2023-01-19-20-17-09.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>陈拾耍帅，有点黑罗刹的样子<br>
+<img src="2023-01-19-20-29-34.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>新 op，猫爷真帅<br>
+<img src="2023-01-19-20-42-48.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>捕捉两只彩蛋<br>
+<img src="2023-01-19-20-44-16.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>隔壁老奶奶一脸磕到的样子哈哈哈哈<br>
+<img src="2023-01-19-20-51-26.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>笑死我了不要细想<br>
+<img src="2023-01-19-20-53-14.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>又发现彩蛋，但是不认识，主要画风很不一样<br>
+<img src="2023-01-19-20-58-47.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>彩蛋又加 1，还是不认识<br>
+<img src="2023-01-19-21-00-30.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>真实，阿里巴巴曾是个快乐的青年<br>
+<img src="2023-01-19-21-03-35.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p class="note note-info">我真的很讨厌那个太后</p>
+<p>又发现彩蛋一枚，这次是金小黑<br>
+<img src="2023-01-19-21-16-30.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>王七：猫爷克星<br>
+<img src="2023-01-19-21-23-40.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<blockquote>
+<p>：谁要让我再钻盒子，我就！。。。</p>
+<p>猫爷的眼睛真的好好看！<br>
+<img src="2023-01-19-21-30-41.png" srcset="/img/loading.gif" lazyload alt=""></p>
+</blockquote>
+<p>失去药效的猫爷，太可爱了哈哈哈<br>
+<img src="2023-01-19-21-38-17.png" srcset="/img/loading.gif" lazyload alt=""><br>
+<img src="2023-01-19-21-38-45.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>崔倍十八变<br>
+<img src="2023-01-19-21-45-19.png" srcset="/img/loading.gif" lazyload alt=""><br>
+<img src="2023-01-19-21-45-40.png" srcset="/img/loading.gif" lazyload alt=""><br>
+<img src="2023-01-19-21-45-52.png" srcset="/img/loading.gif" lazyload alt=""><br>
+<img src="2023-01-19-21-46-02.png" srcset="/img/loading.gif" lazyload alt=""></p>
 
                 
               </div>
@@ -463,7 +391,7 @@ b&#123;联系集&#125;
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  <a href="/categories/%E7%94%9F%E6%B4%BB%E5%B0%8F%E8%AE%B0/" class="category-chain-item">生活小记</a>
   
   
 
@@ -478,9 +406,7 @@ b&#123;联系集&#125;
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">#数据库设计</a>
-      
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+        <a href="/tags/%E5%8A%A8%E6%BC%AB/">#动漫</a>
       
     </div>
   
@@ -492,8 +418,8 @@ b&#123;联系集&#125;
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CH7 数据库设计</div>
-      <div>https://jin4869.github.io/2022/12/24/数据库第七章-数据库设计/</div>
+      <div>大理寺日志贰一些观感</div>
+      <div>https://jin4869.github.io/2023/01/19/大理寺日志贰一些观感/</div>
     </div>
     <div class="license-meta">
       
@@ -505,7 +431,7 @@ b&#123;联系集&#125;
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月24日</div>
+          <div>2023年1月19日</div>
         </div>
       
       
@@ -537,18 +463,12 @@ b&#123;联系集&#125;
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%81%A2%E5%A4%8D%E6%8A%80%E6%9C%AF/" title="CH8 数据库恢复技术">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CH8 数据库恢复技术</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/" title="CH6 关系数据理论">
-                        <span class="hidden-mobile">CH6 关系数据理论</span>
+                      <a href="/2023/01/16/%E6%B5%8B%E8%AF%95post-asset-folder/" title="测试post_asset_folder">
+                        <span class="hidden-mobile">测试post_asset_folder</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
