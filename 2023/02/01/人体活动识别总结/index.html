@@ -1,0 +1,849 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/3.png">
+  <link rel="icon" href="/img/3.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#88A3C3">
+  <meta name="author" content="不想长大的小孩">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="活动识别过程，监测方法，特征工程，分类器，评价指标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人体活动识别总结">
+<meta property="og:url" content="https://jin4869.github.io/2023/02/01/%E4%BA%BA%E4%BD%93%E6%B4%BB%E5%8A%A8%E8%AF%86%E5%88%AB%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="小张的应试博客">
+<meta property="og:description" content="活动识别过程，监测方法，特征工程，分类器，评价指标">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210301092157276.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210305221052855.png">
+<meta property="og:image" content="https://jin4869.github.io/img/post/test.jpg">
+<meta property="article:published_time" content="2023-02-01T04:09:38.000Z">
+<meta property="article:modified_time" content="2023-02-01T09:09:21.228Z">
+<meta property="article:author" content="不想长大的小孩">
+<meta property="article:tag" content="人体活动识别">
+<meta property="article:tag" content="特征工程">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210301092157276.png">
+  
+  
+  
+  <title>人体活动识别总结 - 小张的应试博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jin4869.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","app_key":"lMcgSJZVf96W4kgugplYzNUn","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav
+  id="navbar"
+  class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小张的应试博客</strong>
+    </a>
+
+    <button
+      id="navbar-toggler-btn"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="iconfont icon-home-fill"></i>
+            <span>首页</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/archives/">
+            <i class="iconfont icon-archive-fill"></i>
+            <span>归档</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/categories/">
+            <i class="iconfont icon-category-fill"></i>
+            <span>分类</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/tags/">
+            <i class="iconfont icon-tags-fill"></i>
+            <span>标签</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
+            <i class="iconfont icon-pen"></i>
+            <span>留言板</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="iconfont icon-user-fill"></i>
+            <span>关于</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/links/">
+            <i class="iconfont icon-link-fill"></i>
+            <span>友链</span>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="search-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            data-toggle="modal"
+            data-target="#modalSearch"
+            aria-label="Search"
+          >
+            <i class="iconfont icon-search"></i>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="color-toggle-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            aria-label="Color Toggle"
+          >
+            <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/cover/1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="人体活动识别总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-01 12:09" pubdate>
+          2023年2月1日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">人体活动识别总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、人体活动识别">一、人体活动识别</h2>
+<h3 id="1-1活动识别过程">1.1活动识别过程</h3>
+<p>数据采集 → 数据预处理 → 窗口分割 → <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96&amp;spm=1001.2101.3001.7020">特征提取</a> → 特征选择 → 活动分类</p>
+<p><img src="https://img-blog.csdnimg.cn/20210301092157276.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="https://img-blog.csdnimg.cn/20210305221052855.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/img/post/test.jpg" srcset="/img/loading.gif" lazyload alt=""></p>
+<h3 id="1-2-面临问题">1.2 面临问题</h3>
+<p><strong>人类活动识别（HAR）</strong>，仍有许多问题促使新技术的发展，以提高在更现实的条件下的准确性。其中一些挑战是：</p>
+<ol>
+<li>要度量的属性选择</li>
+<li>便携的、不显眼的、廉价的数据采集系统的构造</li>
+<li>特征提取及推理方法的设计</li>
+<li>在现实的条件下收集数据</li>
+<li>支持新用户而无需对系统进行再训练的灵活性</li>
+<li>在满足能量和处理需求的移动设备上实现</li>
+</ol>
+<h2 id="二、检测方法">二、检测方法</h2>
+<h3 id="2-1-基于传感器">2.1 基于传感器</h3>
+<p>加速度计、惯性传感器、陀螺仪等</p>
+<p>”<strong>可穿戴</strong>”：该可穿戴技术使用安装在受试者上的传感设备来收集来自传感器的数据。由于人体活动包含着不同身体位置的动作，因此对人体活动的研究需要从安装在人体不同部位的多个传感器中获取信息。可穿戴设备的设计必须考虑到用户的易用性。轻便、现代、舒适的嵌入式传感器穿戴设备用于活动监测。</p>
+<p><strong>活动监测传感器</strong>用于多个数据集。最常用的传感器是加速度计、陀螺仪、磁力计。通过统计可以识别人类活动，并应用于机器学习算法。</p>
+<p><strong>如何将低级传感器数据映射到高级抽象是活动识别的关键</strong></p>
+<h3 id="2-2-基于图像">2.2 基于图像</h3>
+<p>计算机视觉方法</p>
+<p>以整个图像作为输入，显示身体关键点的像素坐标。身体有15个关节：颈、膝、踝关节、肩、腕、弓、肩、臀、肘、腕、胸，还有14个关节连接处。尽管使用摄像机识别任何活动是有用的，但最重要的是，它们需要基础设施支持，因为它需要在监视场所安装摄像机，并且高度依赖于照明。</p>
+<h2 id="三、数据集">三、数据集</h2>
+<p>一行数据称为一个样本，一列数据称为一个特征，数据类型为特征值+标签值（标签值是离散值）</p>
+<p>数据基本处理：数据分割，一般训练集：测试集=7：3/（8：2）</p>
+<h2 id="四、数据预处理">四、数据预处理</h2>
+<p>滤波、去噪 → 分割窗口</p>
+<h3 id="4-1-SVD（奇异值分解）">4.1 SVD（奇异值分解）</h3>
+<p>通过SVD对数据的处理，我们可以使用小得多的数据集来表示原始数据集，这样做实际上是去除了噪声和冗余信息，以此达到了优化数据、提高结果的目的。<br>
+优点：简化数据，去除噪声点，提高算法的结果；<br>
+缺点：数据的转换可能难以理解；<br>
+适用于数据类型：数值型。</p>
+<h3 id="4-2-窗口分割">4.2 窗口分割</h3>
+<p>选择相当短的窗口可能会提高特征提取的性能，但由于识别算法被更频繁地触发，将需要更高的开销。此外，短时间窗口可能不能提供足够的信息来完全描述所执行的活动。相反，如果窗口太长，在一个时间窗口中可能有多个活动。当然，窗口大小的决定取决于要识别的活动和度量的属性。</p>
+<h2 id="五、特征工程">五、特征工程</h2>
+<h3 id="5-1-特征提取">5.1 特征提取</h3>
+<p>将数据转换为可用于机器学习的数字特征</p>
+<h3 id="5-2-优化特征集（特征预处理）">5.2 优化特征集（特征预处理）</h3>
+<p><strong>通过预处理</strong>：通过一些转换函数将特征数据转换成更加适合算法模型的特征数据过程。（归一化、标准化等）</p>
+<p>为了筛选出显著特征，摒弃非显著特征，需要运用特征有效性分析的相关技术，如相关系数、卡方检验、平均互信息、条件熵、后验概率、逻辑回归权重等方法。</p>
+<h3 id="5-3-特征降维">5.3 特征降维</h3>
+<p>特征约简方法主要是无监督特征提取方法（PCA和CPCA）和判别分析特征提取方法（KDA和LDA）等</p>
+<h2 id="六、分类器">六、分类器</h2>
+<p>人类活动识别系统使用的分类算法：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>分类器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>决策树</td>
+<td>C4.5， ID3</td>
+</tr>
+<tr>
+<td>贝叶斯</td>
+<td>朴素贝叶斯、贝叶斯网络</td>
+</tr>
+<tr>
+<td>基于实例的</td>
+<td>k-近邻</td>
+</tr>
+<tr>
+<td>神经网络</td>
+<td>多层感知器</td>
+</tr>
+<tr>
+<td>域变换</td>
+<td>支持向量机（SVM）</td>
+</tr>
+<tr>
+<td>模糊逻辑</td>
+<td>模糊基函数、模糊推理系统</td>
+</tr>
+<tr>
+<td>回归法</td>
+<td>MLR、ALR</td>
+</tr>
+<tr>
+<td>马尔可夫模型</td>
+<td>隐马尔可夫模型、条件随机域</td>
+</tr>
+<tr>
+<td>分类器集合体</td>
+<td>拔靴集成法、多模激发法</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-1-监督学习">6.1 监督学习</h3>
+<ol>
+<li>
+<p><strong>决策树</strong>——一种层次模型，将属性映射到节点上，边表示可能的属性值。从根到叶节点的每个分支都是一个分类规则。C4.5可能是应用最广泛的决策树分类器，它基于信息增益的概念来选择应该放置在顶部节点中的属性[70]。决策树可以对n个属性以O(logn)的形式进行评估，通常生成的模型容易被人类理解。</p>
+</li>
+<li>
+<p><strong>贝叶斯方法</strong>——通过估计训练集的条件概率来计算每个类的后验概率。贝叶斯网络(BN)分类器和朴素贝叶斯（NB）分类器是这类分类器的主要代表。贝叶斯网络的一个关键问题是拓扑结构，因为它需要对特征之间的独立性做出假设。例如，NB分类器假设给定一个类值，所有的特征都是条件独立的，但是这种假设在很多情况下并不成立。事实上，加速度信号以及心率、呼吸频率、ECG振幅等生理信号都是高度相关的。</p>
+</li>
+<li>
+<p><strong>基于实例的学习(IBL)方法</strong>——根据训练集中最相似的实例对实例进行分类。为此，它们定义了一个距离函数来度量每一对实例之间的相似性。因为每个要分类的新实例都需要与整个训练集进行比较，使得IBL分类器在评估阶段的开销很大。</p>
+</li>
+<li>
+<p><strong>支持向量机</strong>(SVM)和<strong>人工神经网络</strong>（ANN）在HAR中也被广泛使用。然而，知识隐藏在模型中，这可能会阻碍分析和合并额外的推理。支持向量机依赖于将所有实例投射到高维空间的核函数，目的是找到一个线性决策边界(即超平面)来划分数据。神经网络复制人类大脑中生物神经元的行为，在网络链接中传播激活信号并编码知识。此外，ANN被证明是通用函数逼近器。神经网络的两个普遍缺点是计算成本高和需要大量的训练数据。</p>
+</li>
+<li>
+<p><strong>集成分类器</strong>——结合多个分类器的输出以提高分类精度。分类器集成显然在计算上更昂贵，因为他们需要对几个模型进行培训和评估</p>
+</li>
+</ol>
+<h3 id="6-2-评价指标">6.2 评价指标</h3>
+<p>绝大多数研究使用交叉验证与统计测试来比较特定数据集的分类器性能。特定方法的分类结果可以组织在n×n的混淆矩阵中显示出来，由混淆矩阵可以得到以下值:</p>
+<p>True Positives (TP)、True Negatives (TN)、False Positives (FP)、False Negatives (FN)。</p>
+<p><strong>准确性</strong>是总结所有类别总体分类性能的最标准的指标：</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mi>c</mi><mi>c</mi><mi>u</mi><mi>r</mi><mi>a</mi><mi>c</mi><mi>y</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi><mo>+</mo><mi>F</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">Accuracy = \frac{TP+TN}{TP+TN+FP+FN}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal">cc</span><span class="mord mathnormal">u</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.03588em;">cy</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.1297em;vertical-align:-0.7693em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">TP</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">TN</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">FP</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">FN</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">TP</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">TN</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p><strong>查准率</strong>：</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>i</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">Precision = \frac{TP}{TP+FP}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal">rec</span><span class="mord mathnormal">i</span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.1297em;vertical-align:-0.7693em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">TP</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">FP</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">TP</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p><strong>查全率</strong>：</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mi>e</mi><mi>c</mi><mi>a</mi><mi>l</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">Recal = \frac{TP}{TP+FN}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">ec</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.1297em;vertical-align:-0.7693em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">TP</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">FN</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">TP</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> scipy.optimize <span class="hljs-keyword">import</span> linear_sum_assignment <span class="hljs-keyword">as</span> linear_assignment<br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string"> Clustering accuracy</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">cluster_acc</span>(<span class="hljs-params">y_true, y_pred</span>):<br>     <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">     Calculate clustering accuracy. Require scikit-learn installed</span><br><span class="hljs-string">     </span><br><span class="hljs-string">     # Arguments</span><br><span class="hljs-string">     y: true labels, numpy.array with shape `(n_samples,)`</span><br><span class="hljs-string">     y_pred: predicted labels, numpy.array with shape `(n_samples,)`</span><br><span class="hljs-string">     </span><br><span class="hljs-string">     # Return</span><br><span class="hljs-string">     accuracy, in [0,1]</span><br><span class="hljs-string">     &quot;&quot;&quot;</span><br>     y_true = np.array(y_true).astype(np.int64)<br>     <span class="hljs-keyword">assert</span> y_pred.size == y_true.size<br>     D = <span class="hljs-built_in">max</span>(y_pred.<span class="hljs-built_in">max</span>(), y_true.<span class="hljs-built_in">max</span>()) + <span class="hljs-number">1</span><br>     w = np.zeros((D, D), dtype=np.int64)<br>     <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(y_pred.size):<br>     	w[y_pred[i], y_true[i]] += <span class="hljs-number">1</span><br>     ind = linear_assignment(w.<span class="hljs-built_in">max</span>() - w)<br>     <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>([w[i, j] <span class="hljs-keyword">for</span> i, j <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(ind[<span class="hljs-number">0</span>],ind[<span class="hljs-number">1</span>])]) * <span class="hljs-number">1.0</span> / y_pred.size<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">     Evaluation metrics of clustering performance</span><br><span class="hljs-string">     ACC: clustering accuracy</span><br><span class="hljs-string">     NMI: normalized mutual information</span><br><span class="hljs-string">     ARI: adjusted rand index</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">clusteringMetrics</span>(<span class="hljs-params">trueLabel, predictiveLabel</span>):<br>     <span class="hljs-comment"># Clustering accuracy</span><br>     ACC = cluster_acc(trueLabel, predictiveLabel)<br>     <span class="hljs-comment"># Normalized mutual information</span><br>     NMI = metrics.normalized_mutual_info_score(trueLabel, predictiveLabel)<br>     <span class="hljs-comment"># Adjusted rand index</span><br>     ARI = metrics.adjusted_rand_score(trueLabel, predictiveLabel)<br>     <span class="hljs-keyword">return</span> ACC, NMI, ARI<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/srtp%E7%9B%B8%E5%85%B3/" class="category-chain-item">srtp相关</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BA%BA%E4%BD%93%E6%B4%BB%E5%8A%A8%E8%AF%86%E5%88%AB/">#人体活动识别</a>
+      
+        <a href="/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">#特征工程</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>人体活动识别总结</div>
+      <div>https://jin4869.github.io/2023/02/01/人体活动识别总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>不想长大的小孩</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/31/%E5%90%88%E5%B9%B6%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/" title="合并有序链表">
+                        <span class="hidden-mobile">合并有序链表</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/pjax@VERSION/pjax.min.js"></script> <meting-js server="netease" type="playlist" id="8051474154" fixed="true" showlrc="false" lrc-type="0"></meting-js> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  <div class="footer-content"> <a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title="博客框架为Hexo_v5.4.0"><img src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg" srcset="/img/loading.gif" lazyload data-lazy-src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg" alt="博客框架为Hexo_v5.4.0" data-ll-status="loaded" class="entered loaded"></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank"><img src="https://img.shields.io/badge/Theme-fluid-purple.svg" srcset="/img/loading.gif" lazyload title="主题版本fluid_v1.9.4"/></a> <a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title="本站项目由Github托管"><img src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Source-Github.svg" srcset="/img/loading.gif" lazyload data-lazy-src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Source-Github.svg" alt="本站项目由Github托管" data-ll-status="loaded" class="entered loaded"></a> </div>
+     
+
+  <div id="days"></div>
+  <script>
+    function show_date_time() {
+      window.setTimeout("show_date_time()", 1000);
+      BirthDay = new Date("01/13/2023 20:02:02"); //修改为自己的blog建站时间
+      today = new Date();
+      timeold = today.getTime() - BirthDay.getTime();
+      sectimeold = timeold / 1000;
+      secondsold = Math.floor(sectimeold);
+      msPerDay = 24 * 60 * 60 * 1000;
+      e_daysold = timeold / msPerDay;
+      daysold = Math.floor(e_daysold);
+      e_hrsold = (e_daysold - daysold) * 24;
+      hrsold = setzero(Math.floor(e_hrsold));
+      e_minsold = (e_hrsold - hrsold) * 60;
+      minsold = setzero(Math.floor((e_hrsold - hrsold) * 60));
+      seconds = setzero(Math.floor((e_minsold - minsold) * 60));
+      document.getElementById("days").innerHTML =
+        "本站已跌跌撞撞运行" +
+        daysold +
+        "天" +
+        hrsold +
+        "小时" +
+        minsold +
+        "分" +
+        seconds +
+        "秒";
+    }
+    function setzero(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    }
+    show_date_time();
+  </script>
+
+  <script async src="/js/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span id="busuanzi_container_site_uv">
+    总访客数<span id="busuanzi_value_site_uv"></span>人
+  </span>
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+ <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script> <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> <script  src="/js/events.js" ></script> <script  src="/js/plugins.js" ></script> 
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+   <script  src="/js/img-lazyload.js" ></script>     
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>    
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
+<script src="/js/busuanzi.pure.mini.js"></script>
+ 
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
+</html>
