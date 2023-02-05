@@ -1,0 +1,908 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/3.png">
+  <link rel="icon" href="/img/3.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#88A3C3">
+  <meta name="author" content="不想长大的小孩">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="纯属个人理解，有问题欢迎指正！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BRB例：输油管道泄漏检测">
+<meta property="og:url" content="https://jin4869.github.io/2023/02/05/BRB%E4%BE%8B%EF%BC%9A%E8%BE%93%E6%B2%B9%E7%AE%A1%E9%81%93%E6%B3%84%E6%BC%8F%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="小张的应试博客">
+<meta property="og:description" content="纯属个人理解，有问题欢迎指正！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jin4869.github.io/2023/02/05/BRB%E4%BE%8B%EF%BC%9A%E8%BE%93%E6%B2%B9%E7%AE%A1%E9%81%93%E6%B3%84%E6%BC%8F%E6%A3%80%E6%B5%8B/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW9odXRvbmcxOTkx,size_16,color_FFFFFF,t_70.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/02/05/BRB%E4%BE%8B%EF%BC%9A%E8%BE%93%E6%B2%B9%E7%AE%A1%E9%81%93%E6%B3%84%E6%BC%8F%E6%A3%80%E6%B5%8B/IMG_0995(20230205-231526).PNG">
+<meta property="og:image" content="https://jin4869.github.io/2023/02/05/BRB%E4%BE%8B%EF%BC%9A%E8%BE%93%E6%B2%B9%E7%AE%A1%E9%81%93%E6%B3%84%E6%BC%8F%E6%A3%80%E6%B5%8B/IMG_0996(20230205-231631).PNG">
+<meta property="og:image" content="https://jin4869.github.io/2023/02/05/BRB%E4%BE%8B%EF%BC%9A%E8%BE%93%E6%B2%B9%E7%AE%A1%E9%81%93%E6%B3%84%E6%BC%8F%E6%A3%80%E6%B5%8B/image-20230205232902901.png">
+<meta property="og:image" content="https://jin4869.github.io/2023/02/05/BRB%E4%BE%8B%EF%BC%9A%E8%BE%93%E6%B2%B9%E7%AE%A1%E9%81%93%E6%B3%84%E6%BC%8F%E6%A3%80%E6%B5%8B/Figure_1.png">
+<meta property="article:published_time" content="2023-02-05T08:17:46.000Z">
+<meta property="article:modified_time" content="2023-02-05T15:36:01.270Z">
+<meta property="article:author" content="不想长大的小孩">
+<meta property="article:tag" content="置信规则库">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jin4869.github.io/2023/02/05/BRB%E4%BE%8B%EF%BC%9A%E8%BE%93%E6%B2%B9%E7%AE%A1%E9%81%93%E6%B3%84%E6%BC%8F%E6%A3%80%E6%B5%8B/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW9odXRvbmcxOTkx,size_16,color_FFFFFF,t_70.png">
+  
+  
+  
+  <title>BRB例：输油管道泄漏检测 - 小张的应试博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jin4869.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","app_key":"lMcgSJZVf96W4kgugplYzNUn","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav
+  id="navbar"
+  class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小张的应试博客</strong>
+    </a>
+
+    <button
+      id="navbar-toggler-btn"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="iconfont icon-home-fill"></i>
+            <span>首页</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/archives/">
+            <i class="iconfont icon-archive-fill"></i>
+            <span>归档</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/categories/">
+            <i class="iconfont icon-category-fill"></i>
+            <span>分类</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/tags/">
+            <i class="iconfont icon-tags-fill"></i>
+            <span>标签</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
+            <i class="iconfont icon-pen"></i>
+            <span>留言板</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="iconfont icon-user-fill"></i>
+            <span>关于</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/links/">
+            <i class="iconfont icon-link-fill"></i>
+            <span>友链</span>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="search-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            data-toggle="modal"
+            data-target="#modalSearch"
+            aria-label="Search"
+          >
+            <i class="iconfont icon-search"></i>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="color-toggle-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            aria-label="Color Toggle"
+          >
+            <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/cover/1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="BRB例：输油管道泄漏检测"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-05 16:17" pubdate>
+          2023年2月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          7.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          61 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">BRB例：输油管道泄漏检测</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>输油管道泄漏问题</h1>
+<h2 id="一、问题描述">一、问题描述</h2>
+<p>当输油管道发生泄漏时，输油管道中油液的流量和压力会发生变化。因此，选择输油管道的流量差以及输油管道的平均压力差对泄漏大小进行估计。</p>
+<h2 id="二、代码分析">二、代码分析</h2>
+<h3 id="2-1-对数据进行处理">2.1 对数据进行处理</h3>
+<p><code>oil.data</code>数据如下：</p>
+<table>
+<thead>
+<tr>
+<th>流量差</th>
+<th>平均压力差</th>
+<th>泄漏大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-5.632500</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr>
+<td>-5.877500</td>
+<td>-0.003001</td>
+<td>6.210443</td>
+</tr>
+<tr>
+<td>0.250000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr>
+<td>1.100000</td>
+<td>-0.006502</td>
+<td>0.000000</td>
+</tr>
+<tr>
+<td>-0.100000</td>
+<td>0.001093</td>
+<td>0.103121</td>
+</tr>
+</tbody>
+</table>
+<p>对数据处理：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">dataset_oil</span>():<br>    x, y = [], []	<span class="hljs-comment"># x为输入数据，y为输出目标结果</span><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;../data/oil.data&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> f:<br>            z = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">float</span>, i.split()))<br>            x.append(z[:<span class="hljs-number">2</span>]), y.append(z[-<span class="hljs-number">1</span>])<br>    <span class="hljs-keyword">return</span> np.array(x, dtype=np.float64), np.array(y, dtype=np.float64)<br></code></pre></td></tr></table></figure>
+<p>引入数据集：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data, target = dataset_oil()<br></code></pre></td></tr></table></figure>
+<h3 id="2-2-设置常量">2.2 设置常量</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">data_name, att_dim, res_dim = <span class="hljs-string">&quot;oil&quot;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span><br>experiment_num, rule_num, epoch, batch_size = <span class="hljs-number">20</span>, <span class="hljs-number">16</span>, <span class="hljs-number">500</span>, <span class="hljs-number">64</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>个人理解，<code>att_dim</code>表示输入数据的维度，也表示置信度的维度；<code>res_dim</code>表示输出结果的维度（5个标准）</li>
+<li><code>experiment_num</code>训练次数；<code>rule_num</code>选取训练数据的数量，产生置信规则</li>
+<li><code>epoch</code>：1个epoch等于使用训练集中的全部样本训练一次</li>
+<li><code>batch_size</code>：批大小，每次训练在训练集中取batch_size个样本训练</li>
+</ul>
+<h3 id="2-3-训练过程">2.3 训练过程</h3>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">for</span> en <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(experiment_num):	<span class="hljs-comment"># 训练20次</span><br>    <span class="hljs-keyword">for</span> _, _, train_data, train_target <span class="hljs-keyword">in</span> kfold(data, target, <span class="hljs-number">4</span>, <span class="hljs-string">&#x27;numeric&#x27;</span>, random_state=en):<br>        model = training(train_data, train_target,<br>                         rule_num, att_dim, res_dim,<br>                         epoch, batch_size)<br></code></pre></td></tr></table></figure>
+<h4 id="2-3-1-KFold交叉验证">2.3.1 KFold交叉验证</h4>
+<p>将原始数据分成K组（K-Fold），将每个子集数据分别做一次验证集，其余的K-1组子集数据作为训练集，这样会得到K个模型。最后把得到的K个实验结果进行平分</p>
+<blockquote>
+<p>验证集：用于调超参数，监控模型是否发生过拟合（以决定是否停止训练）</p>
+</blockquote>
+<p><img src="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW9odXRvbmcxOTkx,size_16,color_FFFFFF,t_70.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="2-3-2-training">2.3.2 training</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">model = training(train_data, train_target,	<span class="hljs-comment"># 训练数据，训练输出结果</span><br>                 rule_num, att_dim, res_dim,	<span class="hljs-comment"># 16,2,5</span><br>                 epoch, batch_size)				<span class="hljs-comment"># 500,64</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">training</span>(<span class="hljs-params">x, y, rn, ad, rd, ep, bs</span>):<br>    s = tf.distribute.MirroredStrategy()<br>    <span class="hljs-keyword">with</span> s.scope():		<span class="hljs-comment"># 返回选择此策略作为当前策略的上下文管理器。</span><br>        <span class="hljs-comment"># model = BRB(rn, ad, rd, tf.random.normal((rn, ad)), tf.zeros((rn, rd)))</span><br>        model = create(rn, ad, rd, x, y)	<span class="hljs-comment"># 创建训练模型</span><br>        <span class="hljs-comment"># draw3d_compare(x[:, 0], x[:, 1], y, model.predict(x))</span><br>        <span class="hljs-comment"># tb = tf.keras.callbacks.TensorBoard(log_dir=&#x27;logs&#x27;)</span><br>        model.fit(x, y, batch_size=bs, epochs=ep, verbose=<span class="hljs-number">1</span>, callbacks=[])	<span class="hljs-comment"># 将训练数据在模型中训练一定次数，返回loss和测量指标</span><br>    <span class="hljs-keyword">return</span> model<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>tf.distribute.MirroredStrategy</code> 是一种简单且高性能的，数据并行的同步式分布式策略，主要支持多个 GPU 在同一台主机上训练。</li>
+</ul>
+<blockquote>
+<p>1、MirroredStrategy运行原理：</p>
+<ol>
+<li>训练开始前，该策略在所有 N 个计算设备（GPU）上均各复制一份完整的模型</li>
+<li>每次训练传入一个批次的数据时，将数据分成 N 份，分别传入 N 个计算设备（即数据并行）</li>
+<li>使用分布式计算的 All-reduce 操作，在计算设备间高效交换梯度数据并进行求和，使得最终每个设备都有了所有设备的梯度之和，使用梯度求和的结果更新本地变量</li>
+<li>当所有设备均更新本地变量后，进行下一轮训练（即该并行策略是同步的）。默认情况下，TensorFlow 中的 MirroredStrategy 策略使用 NVIDIA NCCL 进行 All-reduce 操作。</li>
+</ol>
+</blockquote>
+<h4 id="2-3-3-创建模型">2.3.3 创建模型</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">model = create(rn, ad, rd, x, y)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">create</span>(<span class="hljs-params">rn, ad, rd, x, y</span>):<br>    mask = np.arange(x.shape[<span class="hljs-number">0</span>], dtype=np.<span class="hljs-built_in">int</span>)	<span class="hljs-comment"># 创建长度为x.shape[0]的array</span><br>    np.random.shuffle(mask)  <span class="hljs-comment"># 通过打乱其内容来就地修改序列</span><br>    mask = mask[:rn]		 <span class="hljs-comment"># 选取前rn个元素</span><br>    xa, yb = x[mask], -np.<span class="hljs-built_in">abs</span>(np.array([[<span class="hljs-number">0.</span>, <span class="hljs-number">2.</span>, <span class="hljs-number">4.</span>, <span class="hljs-number">6.</span>, <span class="hljs-number">8.</span>]] * rn) - np.expand_dims(y[mask], -<span class="hljs-number">1</span>))	<span class="hljs-comment"># 选取rn个训练数据，是随机的</span><br>    <span class="hljs-keyword">return</span> BRB(rn, ad, rd, xa, yb)	<span class="hljs-comment"># 参数放入类BRB内进行构造模型</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>这里的<code>yb</code>应该是映射到五个级别</li>
+</ul>
+<p>函数用途：</p>
+<p><img src="IMG_0995(20230205-231526).PNG" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="IMG_0996(20230205-231631).PNG" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="2-3-4-BRB系统">2.3.4 BRB系统</h4>
+<p>该BRB系统基于TensorFlow集成的keras库构建神经网络模型</p>
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BRB</span>(tf.keras.Model):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, rn, ad, rd, xa, yb</span>):<br>        <span class="hljs-built_in">super</span>(BRB, self).__init__()<br>        self.a = tf.Variable(xa, dtype=tdtype)  <span class="hljs-comment"># [rn, ad]</span><br>        self.b = tf.Variable(yb, dtype=tdtype)  <span class="hljs-comment"># [rn, rd]</span><br>        self.c = tf.Variable([[<span class="hljs-number">1.0</span>, <span class="hljs-number">0.01</span>]] * rn, dtype=tdtype)<br>        <span class="hljs-comment"># self.c = tf.Variable(0.5 * tf.ones((rn, ad,), dtype=tdtype))  # [rn, ad]</span><br>        self.u = tf.constant([<span class="hljs-number">0.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">4.0</span>, <span class="hljs-number">6.0</span>, <span class="hljs-number">8.0</span>], dtype=tdtype)<br>        self.eps = tf.constant(<span class="hljs-number">1e-10</span>, dtype=tdtype)<br>        self.self_compile()<br><br>    <span class="hljs-comment"># 配置训练模型。</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">self_compile</span>(<span class="hljs-params">self</span>):<br>        self.<span class="hljs-built_in">compile</span>(optimizer=tf.keras.optimizers.Nadam(),<br>                     loss=<span class="hljs-string">&#x27;mse&#x27;</span>,<br>                     metrics=[<span class="hljs-string">&#x27;mae&#x27;</span>, <span class="hljs-string">&#x27;mse&#x27;</span>])<br>	<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">call</span>(<span class="hljs-params">self, x, training</span>):  <span class="hljs-comment"># [None,ad]</span><br>        w = tf.math.square(self.c * (self.a - tf.expand_dims(x, -<span class="hljs-number">2</span>)))  <span class="hljs-comment"># [None, rn, ad]</span><br>        aw = tf.math.exp(tf.negative(tf.reduce_sum(w, -<span class="hljs-number">1</span>)))  <span class="hljs-comment"># [None, rn]</span><br>        aw = aw / tf.expand_dims(tf.reduce_sum(aw, -<span class="hljs-number">1</span>), -<span class="hljs-number">1</span>)<br>        mj, md = tf.expand_dims(aw, -<span class="hljs-number">1</span>) * tf.nn.softmax(self.b), <span class="hljs-number">1.0</span> - aw  <span class="hljs-comment"># [None, rn, rd], [None, rn]</span><br>        bc = tf.reduce_prod(mj + tf.expand_dims(md, -<span class="hljs-number">1</span>), -<span class="hljs-number">2</span>) - tf.expand_dims(tf.reduce_prod(md),<br>                                                                              -<span class="hljs-number">1</span>) + self.eps  <span class="hljs-comment"># [None, rd]</span><br>        pc = bc / tf.expand_dims(tf.reduce_sum(bc, -<span class="hljs-number">1</span>), -<span class="hljs-number">1</span>)  <span class="hljs-comment"># [None, rd]</span><br>        <span class="hljs-keyword">return</span> tf.reduce_sum(pc * self.u, -<span class="hljs-number">1</span>)  <span class="hljs-comment"># [None]</span><br></code></pre></td></tr></table></figure>
+<p>首先了解<code>tf.keras.Model</code>的创建过程</p>
+<blockquote>
+<p><code>tf.keras.Model</code>类将定义好的网络结构封装入一个对象，用于训练、测试和预测</p>
+</blockquote>
+<p>这里是<strong>通过继承Model类</strong>进行实例化：</p>
+<p>在这种方法中，我们需要定义自己的<code>__init__</code>并且在<code>call</code>方法中实现网络的前向传播结构（即在这个方法中定义网络结构）</p>
+<p>例：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf  <br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyModel</span>(tf.keras.Model):    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):     <br>        <span class="hljs-built_in">super</span>(MyModel, self).__init__()     <br>        self.dense1 = tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=tf.nn.relu)     <br>        self.dense2 = tf.keras.layers.Dense(<span class="hljs-number">5</span>, activation=tf.nn.softmax)    <br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">call</span>(<span class="hljs-params">self, inputs</span>):     <br>        x = self.dense1(inputs)     <br>        <span class="hljs-keyword">return</span> self.dense2(x)  <br>    <br>model = MyModel()<br></code></pre></td></tr></table></figure>
+<h5 id="2-3-4-1-定义-init">2.3.4.1 定义<code>__init__</code></h5>
+<p>构造函数，初始化要用到的层</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, rn, ad, rd, xa, yb</span>):<br>    <span class="hljs-built_in">super</span>(BRB, self).__init__()<br>    self.a = tf.Variable(xa, dtype=tdtype)  <span class="hljs-comment"># [rn, ad]</span><br>    self.b = tf.Variable(yb, dtype=tdtype)  <span class="hljs-comment"># [rn, rd]</span><br>    self.c = tf.Variable([[<span class="hljs-number">1.0</span>, <span class="hljs-number">0.01</span>]] * rn, dtype=tdtype)<br>    <span class="hljs-comment"># self.c = tf.Variable(0.5 * tf.ones((rn, ad,), dtype=tdtype))  # [rn, ad]</span><br>    self.u = tf.constant([<span class="hljs-number">0.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">4.0</span>, <span class="hljs-number">6.0</span>, <span class="hljs-number">8.0</span>], dtype=tdtype)<br>    self.eps = tf.constant(<span class="hljs-number">1e-10</span>, dtype=tdtype)<br>    self.self_compile()<br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p><code>tf.Variable</code>用于创建变量张量</p>
+<ol>
+<li>
+<p><code>xa</code>表示随机选取了<code>rn</code>个样本（rn在主函数中定义为16）</p>
+</li>
+<li>
+<p><code>yb</code>表示对这<code>rn</code>个样本的输出进行数据处理，处理如下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">yb = -np.<span class="hljs-built_in">abs</span>(np.array([[<span class="hljs-number">0.</span>, <span class="hljs-number">2.</span>, <span class="hljs-number">4.</span>, <span class="hljs-number">6.</span>, <span class="hljs-number">8.</span>]] * rn) - np.expand_dims(y[mask], -<span class="hljs-number">1</span>))<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li>
+<p><code>tf.constant</code>用于创建常量张量</p>
+<ol>
+<li>对于<code>c</code>的理解，个人觉得可能是流量差与平均压力差的置信度，类比于<code>u</code></li>
+<li><code>u</code>在论文中有说明，为输出的五个评价等级{0,2,4,6,8}</li>
+</ol>
+</li>
+</ol>
+<h5 id="2-3-4-2-配置训练模型">2.3.4.2 配置训练模型</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">self_compile</span>(<span class="hljs-params">self</span>):<br>    self.<span class="hljs-built_in">compile</span>(optimizer=tf.keras.optimizers.Nadam(),<br>                 loss=<span class="hljs-string">&#x27;mse&#x27;</span>,<br>                 metrics=[<span class="hljs-string">&#x27;mae&#x27;</span>, <span class="hljs-string">&#x27;mse&#x27;</span>])<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>optimizer</code>：模型的优化方法</li>
+<li><code>loss</code>：模型的损失函数</li>
+<li><code>metrics</code>：训练和评价模型时使用的评价指标</li>
+</ul>
+<p><strong>mae</strong>：绝对误差的平均值</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>M</mi><mi>A</mi><mi>E</mi><mo stretchy="false">(</mo><mi>X</mi><mo separator="true">,</mo><mi>h</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>m</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>m</mi></munderover><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">(</mo><msup><mi>x</mi><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">)</mo><mo>−</mo><msup><mi>y</mi><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msup><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">MAE(X,h)=\frac{1}{m}\sum\limits^m_{i=1}|h(x^{(i)})-y^{(i)}|
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.9291em;vertical-align:-1.2777em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">m</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">∣</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">i</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.188em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">i</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mord">∣</span></span></span></span></span></p>
+<p><strong>mse</strong>：均方误差</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mn>1</mn><mi>m</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>m</mi></munderover><mo stretchy="false">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><msubsup><mi>y</mi><mi>i</mi><mo>∗</mo></msubsup><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\frac{1}{m}\sum\limits^m_{i=1}(y_i-y_i^*)^2
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.9291em;vertical-align:-1.2777em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">m</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-2.453em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></p>
+<h5 id="2-3-4-3-返回输出数据">2.3.4.3 返回输出数据</h5>
+<p>这一部分不太理解，大概是对数据的训练过程</p>
+<blockquote>
+<p>在这种情况下，<code>call</code> 只是将图中的所有操作重新应用到新输入（例如，根据提供的输入构建一个新的计算图）</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">call</span>(<span class="hljs-params">self, x, training</span>):  <span class="hljs-comment"># [None,ad]</span><br>    w = tf.math.square(self.c * (self.a - tf.expand_dims(x, -<span class="hljs-number">2</span>)))  <span class="hljs-comment"># [None, rn, ad]</span><br>    aw = tf.math.exp(tf.negative(tf.reduce_sum(w, -<span class="hljs-number">1</span>)))  <span class="hljs-comment"># [None, rn]</span><br>    aw = aw / tf.expand_dims(tf.reduce_sum(aw, -<span class="hljs-number">1</span>), -<span class="hljs-number">1</span>)<br>    mj, md = tf.expand_dims(aw, -<span class="hljs-number">1</span>) * tf.nn.softmax(self.b), <span class="hljs-number">1.0</span> - aw  <span class="hljs-comment"># [None, rn, rd], [None, rn]</span><br>    bc = tf.reduce_prod(mj + tf.expand_dims(md, -<span class="hljs-number">1</span>), -<span class="hljs-number">2</span>) - tf.expand_dims(tf.reduce_prod(md),-<span class="hljs-number">1</span>) + self.eps  <span class="hljs-comment"># [None, rd]</span><br>    pc = bc / tf.expand_dims(tf.reduce_sum(bc, -<span class="hljs-number">1</span>), -<span class="hljs-number">1</span>)  <span class="hljs-comment"># [None, rd]</span><br>    <span class="hljs-keyword">return</span> tf.reduce_sum(pc * self.u, -<span class="hljs-number">1</span>)  <span class="hljs-comment"># [None]</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>tf.reduce_sum</code>计算跨张量维度的元素总和
+<ul>
+<li><code>axis</code>为负数表示倒数第axis个维度</li>
+</ul>
+</li>
+</ul>
+<p>代码举例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">sess = tf.Session()<br>tensor = [[[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>],[<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>],[<span class="hljs-number">9</span>,<span class="hljs-number">10</span>,<span class="hljs-number">11</span>,<span class="hljs-number">12</span>]],<br>         [[<span class="hljs-number">13</span>,<span class="hljs-number">14</span>,<span class="hljs-number">15</span>,<span class="hljs-number">16</span>],[<span class="hljs-number">17</span>,<span class="hljs-number">18</span>,<span class="hljs-number">19</span>,<span class="hljs-number">20</span>],[<span class="hljs-number">21</span>,<span class="hljs-number">22</span>,<span class="hljs-number">23</span>,<span class="hljs-number">24</span>]]]	<span class="hljs-comment"># 2*3*4</span><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>c = tf.reduce_sum(tensor, axis=-<span class="hljs-number">1</span>)		<span class="hljs-comment"># 等同于axis=2，倒数第1个维度求和</span><br><span class="hljs-built_in">print</span>(sess.run(c))<br></code></pre></td></tr></table></figure>
+<p>结果：</p>
+<blockquote>
+<p>[[10 26 42]</p>
+<p>[58 74 90]]</p>
+</blockquote>
+<ul>
+<li><code>tf.expand_dims</code>给定张量输入，此操作在输入形状的维度索引轴处插入大小为 1 的维度。维度索引轴从零开始；如果您为axis指定负数，则从末尾向后计数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">t = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]] <span class="hljs-comment"># shape [2, 3]</span><br>tf.expand_dims(t, <span class="hljs-number">0</span>)<br>tf.expand_dims(t, <span class="hljs-number">1</span>)<br>tf.expand_dims(t, -<span class="hljs-number">1</span>) <span class="hljs-comment"># Last dimension index. In this case, same as 2.</span><br></code></pre></td></tr></table></figure>
+<p>结果：</p>
+<blockquote>
+<p>&lt;tf.Tensor: shape=(1, 2, 3), dtype=int32, numpy=<br>
+array([[[1, 2, 3],[4, 5, 6]]], dtype=int32)&gt;</p>
+<p>&lt;tf.Tensor: shape=(2, 1, 3), dtype=int32, numpy=<br>
+array([[[1, 2, 3]],[[4, 5, 6]]], dtype=int32)&gt;</p>
+<p>&lt;tf.Tensor: shape=(2, 3, 1), dtype=int32, numpy=<br>
+array([[[1], [2],[3]],[[4],[5],[6]]], dtype=int32)&gt;</p>
+</blockquote>
+<h4 id="2-3-5-fit">2.3.5 fit</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">model.fit(x, y, batch_size=bs, epochs=ep, verbose=<span class="hljs-number">1</span>, callbacks=[])<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>verbose=1</code>显示进度条</li>
+</ul>
+<h3 id="2-4-返回训练结果">2.4 返回训练结果</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">loss, mae, mse = model.evaluate(data, target)  <span class="hljs-comment"># 返回测试模式下模型的损失值和指标值。</span><br>draw3d_compare(data[:, <span class="hljs-number">0</span>], data[:, <span class="hljs-number">1</span>], target, model.predict(data))<br><span class="hljs-comment"># exit(0)</span><br><br>sum_mse += mse<br>sum_cnt += <span class="hljs-number">1</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;mse avg:%f mse now: %f&quot;</span> % (sum_mse / sum_cnt, mse))<br></code></pre></td></tr></table></figure>
+<p>第一次实验的第一折数据：</p>
+<p><img src="image-20230205232902901.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="2-4-1-draw-3d">2.4.1 draw_3d</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">draw3d_compare</span>(<span class="hljs-params">x, y, z1, z2</span>):<br>    fig = plt.figure()<br>    a = Axes3D(fig)<br>    a.scatter(x, y, z1, c=<span class="hljs-string">&#x27;b&#x27;</span>)<br>    a.scatter(x, y, z2, c=<span class="hljs-string">&#x27;r&#x27;</span>)<br>    a.set_ylabel(<span class="hljs-string">&#x27;Pressure Difference&#x27;</span>)<br>    a.set_xlabel(<span class="hljs-string">&#x27;Flow Difference&#x27;</span>)<br>    a.set_zlabel(<span class="hljs-string">&#x27;Leak Size&#x27;</span>)<br>    a.set_rasterized(<span class="hljs-literal">True</span>)<br>    red = patches.Patch(color=<span class="hljs-string">&#x27;r&#x27;</span>, label=<span class="hljs-string">&#x27;initial brb output&#x27;</span>)<br>    blue = patches.Patch(color=<span class="hljs-string">&#x27;b&#x27;</span>, label=<span class="hljs-string">&#x27;original leak size&#x27;</span>)<br>    plt.legend(handles=[red, blue])<br>    plt.savefig(<span class="hljs-string">&#x27;oil_compare_after.eps&#x27;</span>, <span class="hljs-built_in">format</span>=<span class="hljs-string">&#x27;eps&#x27;</span>)<br>    plt.show()<br></code></pre></td></tr></table></figure>
+<p>得出的对比图</p>
+<p><img src="Figure_1.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>二者重合度越高说明模型拟合效果越好，可以看出有部分样本拟合不够好</p>
+<h2 id="三、存在问题">三、存在问题</h2>
+<p>未能对BRB的实现过程进行很好的分析</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/srtp%E7%9B%B8%E5%85%B3/" class="category-chain-item">srtp相关</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%AE%E4%BF%A1%E8%A7%84%E5%88%99%E5%BA%93/">#置信规则库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>BRB例：输油管道泄漏检测</div>
+      <div>https://jin4869.github.io/2023/02/05/BRB例：输油管道泄漏检测/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>不想长大的小孩</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/04/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/" title="人工智能常见算法">
+                        <span class="hidden-mobile">人工智能常见算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/pjax@VERSION/pjax.min.js"></script> <meting-js server="netease" type="playlist" id="8051474154" fixed="true" showlrc="false" lrc-type="0"></meting-js> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  <div class="footer-content"> <a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title="博客框架为Hexo_v5.4.0"><img src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg" srcset="/img/loading.gif" lazyload data-lazy-src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg" alt="博客框架为Hexo_v5.4.0" data-ll-status="loaded" class="entered loaded"></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank"><img src="https://img.shields.io/badge/Theme-fluid-purple.svg" srcset="/img/loading.gif" lazyload title="主题版本fluid_v1.9.4"/></a> <a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title="本站项目由Github托管"><img src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Source-Github.svg" srcset="/img/loading.gif" lazyload data-lazy-src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Source-Github.svg" alt="本站项目由Github托管" data-ll-status="loaded" class="entered loaded"></a> </div>
+     
+
+  <div id="days"></div>
+  <script>
+    function show_date_time() {
+      window.setTimeout("show_date_time()", 1000);
+      BirthDay = new Date("01/13/2023 20:02:02"); //修改为自己的blog建站时间
+      today = new Date();
+      timeold = today.getTime() - BirthDay.getTime();
+      sectimeold = timeold / 1000;
+      secondsold = Math.floor(sectimeold);
+      msPerDay = 24 * 60 * 60 * 1000;
+      e_daysold = timeold / msPerDay;
+      daysold = Math.floor(e_daysold);
+      e_hrsold = (e_daysold - daysold) * 24;
+      hrsold = setzero(Math.floor(e_hrsold));
+      e_minsold = (e_hrsold - hrsold) * 60;
+      minsold = setzero(Math.floor((e_hrsold - hrsold) * 60));
+      seconds = setzero(Math.floor((e_minsold - minsold) * 60));
+      document.getElementById("days").innerHTML =
+        "本站已跌跌撞撞运行" +
+        daysold +
+        "天" +
+        hrsold +
+        "小时" +
+        minsold +
+        "分" +
+        seconds +
+        "秒";
+    }
+    function setzero(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    }
+    show_date_time();
+  </script>
+
+  <script async src="/js/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span id="busuanzi_container_site_uv">
+    总访客数<span id="busuanzi_value_site_uv"></span>人
+  </span>
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+ <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script> <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> <script  src="/js/events.js" ></script> <script  src="/js/plugins.js" ></script> 
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+   <script  src="/js/img-lazyload.js" ></script>     
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>    
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
+<script src="/js/busuanzi.pure.mini.js"></script>
+ 
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
+</html>

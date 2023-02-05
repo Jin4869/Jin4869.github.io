@@ -16,25 +16,22 @@
   <meta name="author" content="不想长大的小孩">
   <meta name="keywords" content="">
   
-    <meta name="description" content="快慢指针，Floyd判圈算法">
+    <meta name="description" content="一、按照模型训练方式不同可以分为：  监督学习（Supervised Learning） 无监督学习（Unsupervised Learning） 半监督学习（Semi-supervised Learning） 强化学习（Reinforcement Learning）  常见的监督学习算法包含以下几类： 1.人工神经网络（Artificial Neural Network）类：  反向传播（Bac">
 <meta property="og:type" content="article">
-<meta property="og:title" content="快慢指针">
-<meta property="og:url" content="https://jin4869.github.io/2023/01/31/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/index.html">
+<meta property="og:title" content="人工智能常见算法">
+<meta property="og:url" content="https://jin4869.github.io/2023/02/04/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="小张的应试博客">
-<meta property="og:description" content="快慢指针，Floyd判圈算法">
+<meta property="og:description" content="一、按照模型训练方式不同可以分为：  监督学习（Supervised Learning） 无监督学习（Unsupervised Learning） 半监督学习（Semi-supervised Learning） 强化学习（Reinforcement Learning）  常见的监督学习算法包含以下几类： 1.人工神经网络（Artificial Neural Network）类：  反向传播（Bac">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jin4869.github.io/img/cover/15.jpg">
-<meta property="article:published_time" content="2023-01-31T03:34:44.000Z">
-<meta property="article:modified_time" content="2023-02-01T04:23:04.508Z">
+<meta property="article:published_time" content="2023-02-04T07:16:06.000Z">
+<meta property="article:modified_time" content="2023-02-05T08:46:37.831Z">
 <meta property="article:author" content="不想长大的小孩">
-<meta property="article:tag" content="指针">
-<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="人工智能算法">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jin4869.github.io/img/cover/15.jpg">
   
   
   
-  <title>快慢指针 - 小张的应试博客</title>
+  <title>人工智能常见算法 - 小张的应试博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -216,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="快慢指针"></span>
+            <span id="subtitle" data-typed-text="人工智能常见算法"></span>
           
         </div>
 
@@ -227,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-01-31 11:34" pubdate>
-          2023年1月31日 中午
+        <time datetime="2023-02-04 15:16" pubdate>
+          2023年2月4日 下午
         </time>
       </span>
     
@@ -240,7 +237,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.2k 字
+          4.6k 字
         
       </span>
     
@@ -252,7 +249,7 @@
         
         
           <!-- compatible with older versions-->
-          11 分钟
+          39 分钟
         
       </span>
     
@@ -294,39 +291,195 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">快慢指针</h1>
+            <h1 style="display: none">人工智能常见算法</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目">题目</h2>
-<p>给你一个链表的头节点 <code>head</code> ，判断链表中是否有环。</p>
-<p>如果链表中有某个节点，可以通过连续跟踪 <code>next</code> 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 <code>pos</code> 来表示链表尾连接到链表中的位置（索引从 0 开始）。<strong>注意：<code>pos</code> 不作为参数进行传递</strong> 。仅仅是为了标识链表的实际情况。</p>
-<p><em>如果链表中存在环</em> ，则返回 <code>true</code> 。 否则，返回 <code>false</code> 。</p>
-<p><strong>示例1：</strong></p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">输入：<span class="hljs-built_in">head</span> = [3,2,0,-4], pos = 1<br>输出：<span class="hljs-literal">true</span><br>解释：链表中有一个环，其尾部连接到第二个节点。<br></code></pre></td></tr></table></figure>
-<p><strong>示例2：</strong></p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">输入：<span class="hljs-built_in">head</span> = [1], pos = -1<br>输出：<span class="hljs-literal">false</span><br>解释：链表中没有环。<br></code></pre></td></tr></table></figure>
-<p><strong>提示：</strong></p>
+                <h2 id="一、按照模型训练方式不同可以分为：">一、按照模型训练方式不同可以分为：</h2>
 <ul>
-<li>链表中节点的数目范围是 <code>[0, 104]</code></li>
-<li><code>-105 &lt;= Node.val &lt;= 105</code></li>
-<li><code>pos</code> 为 <code>-1</code> 或者链表中的一个 <strong>有效索引</strong> 。</li>
+<li>监督学习（Supervised Learning）</li>
+<li>无监督学习（Unsupervised Learning）</li>
+<li>半监督学习（Semi-supervised Learning）</li>
+<li>强化学习（Reinforcement Learning）</li>
 </ul>
-<h2 id="思路及算法">思路及算法</h2>
-<p>本方法需要读者对「Floyd 判圈算法」（又称龟兔赛跑算法）有所了解。</p>
-<p>假想「乌龟」和「兔子」在链表上移动，「兔子」跑得快，「乌龟」跑得慢。当「乌龟」和「兔子」从链表上的同一个节点开始移动时，如果该链表中没有环，那么「兔子」将一直处于「乌龟」的前方；如果该链表中有环，那么「兔子」会先于「乌龟」进入环，并且一直在环内移动。等到「乌龟」进入环时，由于「兔子」的速度快，它一定会在某个时刻与乌龟相遇，即套了「乌龟」若干圈。</p>
-<p>我们可以根据上述思路来解决本题。具体地，我们定义两个指针，一快一慢。慢指针每次只移动一步，而快指针每次移动两步。初始时，慢指针在位置 <code>head</code>，而快指针在位置 <code>head.next</code>。这样一来，如果在移动的过程中，快指针反过来追上慢指针，就说明该链表为环形链表。否则快指针将到达链表尾部，该链表不为环形链表。</p>
-<p>点击可查看详情：</p>
-<div class="select-none"><div class="cursor-pointer overflow-hidden whitespace-nowrap"><img class="no-preview w-full" src="https://assets.leetcode-cn.com/solution-static/141/1.png" srcset="/img/loading.gif" lazyload alt=""><img class="no-preview w-full" src="https://assets.leetcode-cn.com/solution-static/141/2.png" srcset="/img/loading.gif" lazyload alt="" hidden=""><img class="no-preview w-full" src="https://assets.leetcode-cn.com/solution-static/141/3.png" srcset="/img/loading.gif" lazyload alt="" hidden=""><img class="no-preview w-full" src="https://assets.leetcode-cn.com/solution-static/141/4.png" srcset="/img/loading.gif" lazyload alt="" hidden=""><img class="no-preview w-full" src="https://assets.leetcode-cn.com/solution-static/141/5.png" srcset="/img/loading.gif" lazyload alt="" hidden=""></div><div class="flex items-center justify-between bg-black px-2.5 py-2 text-white dark:bg-white dark:text-black"><svg class="mr-auto h-5 w-5 cursor-pointer" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6 19h4v-14h-4zm8-14v14h4v-14z" fill="currentColor"></path></svg><svg class="h-5 w-5 cursor-pointer" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m18 18-8.5-6 8.5-6zm-10-12v12h-2v-12z" fill="currentColor"></path></svg><span class="mx-5 text-xs">4 / 5</span><svg class="h-5 w-5 cursor-pointer" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6 18 8.5-6-8.5-6zm10-12v12h2v-12z" fill="currentColor"></path></svg></div></div>
-<p><strong>细节</strong></p>
-<p>为什么我们要规定初始时慢指针在位置 <code>head</code>，快指针在位置 <code>head.next</code>，而不是两个指针都在位置 <code>head</code>（即与「乌龟」和「兔子」中的叙述相同）？</p>
-<p>观察下面的代码，我们使用的是 <code>while </code>循环，循环条件先于循环体。由于循环条件一定是判断快慢指针是否重合，如果我们将两个指针初始都置于 <code>head</code>，那么 <code>while</code> 循环就不会执行。因此，我们可以假想一个在 <code>head</code> 之前的虚拟节点，慢指针从虚拟节点移动一步到达 <code>head</code>，快指针从虚拟节点移动两步到达 <code>head.next</code>，这样我们就可以使用 <code>while</code> 循环了。</p>
-<p>当然，我们也可以使用 <code>do-while</code> 循环。此时，我们就可以把快慢指针的初始值都置为 <code>head</code>。</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">hasCycle</span>(<span class="hljs-params">self, head: ListNode</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> head.<span class="hljs-built_in">next</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <br>        slow = head<br>        fast = head.<span class="hljs-built_in">next</span><br><br>        <span class="hljs-keyword">while</span> slow != fast:<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> fast <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> fast.<span class="hljs-built_in">next</span>:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            slow = slow.<span class="hljs-built_in">next</span><br>            fast = fast.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span><br>        <br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+<h3 id="常见的监督学习算法包含以下几类：">常见的监督学习算法包含以下几类：</h3>
+<h4 id="1-人工神经网络（Artificial-Neural-Network）类：">1.人工神经网络（Artificial Neural Network）类：</h4>
+<ul>
+<li>反向传播（Backpropagation）</li>
+<li>波尔兹曼机（Boltzmann Machine）</li>
+<li>卷积神经网络（Convolutional Neural Network）</li>
+<li>Hopfield网络（hopfield Network）</li>
+<li>多层感知器（Multilyer Perceptron）</li>
+<li>径向基函数网络（Radial Basis Function Network，RBFN）</li>
+<li>受限波尔兹曼机（Restricted Boltzmann Machine）</li>
+<li>回归神经网络（Recurrent Neural Network，RNN）</li>
+<li>自组织映射（Self-organizing Map，SOM）</li>
+<li>尖峰神经网络（Spiking Neural Network）</li>
+<li>… …</li>
+</ul>
+<h4 id="2-贝叶斯类（Bayesin）：">2.贝叶斯类（Bayesin）：</h4>
+<ul>
+<li>朴素贝叶斯（Naive Bayes）</li>
+<li>高斯贝叶斯（Gaussian Naive Bayes）</li>
+<li>多项朴素贝叶斯（Multinomial Naive Bayes）</li>
+<li>平均-依赖性评估（Averaged One-Dependence Estimators，AODE）</li>
+<li>贝叶斯信念网络（Bayesian Belief Network，BBN）</li>
+<li>贝叶斯网络（Bayesian Network，BN）</li>
+<li>… …</li>
+</ul>
+<h4 id="3-决策树（Decision-Tree）类：">3.决策树（Decision Tree）类：</h4>
+<ul>
+<li>分类和回归树（Classification and Regression Tree，CART）</li>
+<li>迭代Dichotomiser3（Iterative Dichotomiser 3， ID3）</li>
+<li>C4.5算法（C4.5 Algorithm）</li>
+<li>C5.0算法（C5.0 Algorithm）</li>
+<li>卡方自动交互检测（Chi-squared Automatic Interaction Detection，CHAID）</li>
+<li>决策残端（Decision Stump）</li>
+<li>ID3算法（ID3 Algorithm）</li>
+<li>随机森林（Random Forest）</li>
+<li>SLIQ（Supervised Learning in Quest）</li>
+<li>… …</li>
+</ul>
+<h4 id="4-线性分类器（Linear-Classifier）类：">4.线性分类器（Linear Classifier）类：</h4>
+<ul>
+<li>Fisher的线性判别（Fisher’s Linear Discriminant）</li>
+<li>线性回归（Linear Regression）</li>
+<li>逻辑回归（Logistic Regression）</li>
+<li>多项逻辑回归（Multionmial Logistic Regression）</li>
+<li>朴素贝叶斯分类器（Naive Bayes Classifier）</li>
+<li>感知（Perception）</li>
+<li>支持向量机（Support Vector Machine）</li>
+<li>… …</li>
+</ul>
+<h3 id="常见的无监督学习类算法包括：">常见的无监督学习类算法包括：</h3>
+<h4 id="1-人工神经网络（Artificial-Neural-Network）类：-2">1.人工神经网络（Artificial Neural Network）类：</h4>
+<ul>
+<li>生成对抗网络（Generative Adversarial Networks，GAN）</li>
+<li>前馈神经网络（Feedforward Neural Network）</li>
+<li>逻辑学习机（Logic Learning Machine）</li>
+<li>自组织映射（Self-organizing Map）</li>
+<li>… …</li>
+</ul>
+<h4 id="2-关联规则学习（Association-Rule-Learning）类：">2.关联规则学习（Association Rule Learning）类：</h4>
+<ul>
+<li>先验算法（Apriori Algorithm）</li>
+<li>Eclat算法（Eclat Algorithm）</li>
+<li>FP-Growth算法</li>
+<li>… …</li>
+</ul>
+<h4 id="3-分层聚类算法（Hierarchical-Clustering）：">3.分层聚类算法（Hierarchical Clustering）：</h4>
+<ul>
+<li>单连锁聚类（Single-linkage Clustering）</li>
+<li>概念聚类（Conceptual Clustering）</li>
+<li>… …</li>
+</ul>
+<h4 id="4-聚类分析（Cluster-analysis）：">4.聚类分析（Cluster analysis）：</h4>
+<ul>
+<li>BIRCH算法</li>
+<li>DBSCAN算法</li>
+<li>期望最大化（Expectation-maximization，EM）</li>
+<li>模糊聚类（Fuzzy Clustering）</li>
+<li>K-means算法</li>
+<li>K均值聚类（K-means Clustering）</li>
+<li>K-medians聚类</li>
+<li>均值漂移算法（Mean-shift）</li>
+<li>OPTICS算法</li>
+<li>… …</li>
+</ul>
+<h4 id="5-异常检测（Anomaly-detection）类：">5.异常检测（Anomaly detection）类：</h4>
+<ul>
+<li>K最邻近（K-nearest Neighbor，KNN）算法</li>
+<li>局部异常因子算法（Local Outlier Factor，LOF）</li>
+<li>… …</li>
+</ul>
+<h3 id="常见的半监督学习类算法包含：">常见的半监督学习类算法包含：</h3>
+<ul>
+<li>生成模型（Generative Models）</li>
+<li>低密度分离（Low-density Separation）</li>
+<li>基于图形的方法（Graph-based Methods）</li>
+<li>联合训练（Co-training）</li>
+<li>… …</li>
+</ul>
+<h3 id="常见的强化学习类算法包含：">常见的强化学习类算法包含：</h3>
+<ul>
+<li>Q学习（Q-learning）</li>
+<li>状态-行动-奖励-状态-行动（State-Action-Reward-State-Action，SARSA）</li>
+<li>DQN（Deep Q Network）</li>
+<li>策略梯度算法（Policy Gradients）</li>
+<li>基于模型强化学习（Model Based RL）</li>
+<li>时序差分学习（Temporal Different Learning）</li>
+<li>… …</li>
+</ul>
+<h3 id="常见的深度学习类算法包含：">常见的深度学习类算法包含：</h3>
+<ul>
+<li>深度信念网络（Deep Belief Machines）</li>
+<li>深度卷积神经网络（Deep Convolutional Neural Networks）</li>
+<li>深度递归神经网络（Deep Recurrent Neural Network）</li>
+<li>分层时间记忆（Hierarchical Temporal Memory，HTM）</li>
+<li>深度波尔兹曼机（Deep Boltzmann Machine，DBM）</li>
+<li>栈式自动编码器（Stacked Autoencoder）</li>
+<li>生成对抗网络（Generative Adversarial Networks）</li>
+<li>… …</li>
+</ul>
+<h2 id="二、按照解决任务的不同来分类">二、按照解决任务的不同来分类</h2>
+<p>粗略可以分5种为：</p>
+<ul>
+<li>二分类算法（Two-class Classification）</li>
+<li>多分类算法（Multi-class Classification）</li>
+<li>回归算法（Regression）</li>
+<li>聚类算法（Clustering）</li>
+<li>异常检测（Anomaly Detection）</li>
+</ul>
+<h3 id="1-二分类（Two-class-Classification）">1.二分类（Two-class Classification）</h3>
+<p>（1）二分类支持向量机（Two-class SVM）：适用于数据特征较多、线性模型的场景。<br>
+（2）二分类平均感知器（Two-class Average Perceptron）：适用于训练时间短、线性模型的场景。<br>
+（3）二分类逻辑回归（Two-class Logistic Regression）：适用于训练时间短、线性模型的场景。<br>
+（4）二分类贝叶斯点机（Two-class Bayes Point Machine）：适用于训练时间短、线性模型的场景。（5）二分类决策森林（Two-class Decision Forest）：适用于训练时间短、精准的场景。<br>
+（6）二分类提升决策树（Two-class Boosted Decision Tree）：适用于训练时间短、精准度高、内存占用量大的场景<br>
+（7）二分类决策丛林（Two-class Decision Jungle）：适用于训练时间短、精确度高、内存占用量小的场景。<br>
+（8）二分类局部深度支持向量机（Two-class Locally Deep SVM）：适用于数据特征较多的场景。<br>
+（9）二分类神经网络（Two-class Neural Network）：适用于精准度高、训练时间较长的场景。</p>
+<h3 id="2-多分类（Multi-class-Classification）">2.多分类（Multi-class Classification）</h3>
+<p><strong>解决多分类问题通常适用三种解决方案：</strong><br>
+第一种，从数据集和适用方法入手，利用二分类器解决多分类问题；<br>
+第二种，直接使用具备多分类能力的多分类器；<br>
+第三种，将二分类器改进成为多分类器今儿解决多分类问题。</p>
+<p><strong>常用的算法：</strong><br>
+（1）多分类逻辑回归（Multiclass Logistic Regression）：适用训练时间短、线性模型的场景。<br>
+（2）多分类神经网络（Multiclass Neural Network）：适用于精准度高、训练时间较长的场景。<br>
+（3）多分类决策森林（Multiclass Decision Forest）：适用于精准度高，训练时间短的场景。<br>
+（4）多分类决策丛林（Multiclass Decision Jungle）：适用于精准度高，内存占用较小的场景。<br>
+（5）“一对多”多分类（One-vs-all Multiclass）：取决于二分类器效果。</p>
+<h3 id="3-回归（Regression）">3.回归（Regression）</h3>
+<p>回归问题通常被用来预测具体的数值而非分类。除了返回的结果不同，其他方法与分类问题类似。我们将定量输出，或者连续变量预测称为回归；将定性输出，或者离散变量预测称为分类。常见的算法有：<br>
+（1）排序回归（Ordinal Regression）：适用于对数据进行分类排序的场景。<br>
+（2）泊松回归（Poission Regression）：适用于预测事件次数的场景。<br>
+（3）快速森林分位数回归（Fast Forest Quantile Regression）：适用于预测分布的场景。<br>
+（4）线性回归（Linear Regression）：适用于训练时间短、线性模型的场景。<br>
+（5）贝叶斯线性回归（Bayesian Linear Regression）：适用于线性模型，训练数据量较少的场景。<br>
+（6）神经网络回归（Neural Network Regression）：适用于精准度高、训练时间较长的场景。<br>
+（7）决策森林回归（Decision Forest Regression）：适用于精准度高、训练时间短的场景。<br>
+（8）提升决策树回归（Boosted Decision Tree Regression）：适用于精确度高、训练时间短、内存占用较大的场景。</p>
+<h3 id="4-聚类算法（Clustering）">4.聚类算法（Clustering）</h3>
+<p>聚类的目标是发现数据的潜在规律和结构。聚类通常被用做描述和衡量不同数据源间的相似性，并把数据源分类到不同的簇中。<br>
+（1）层次聚类（Hierarchical Clustering）：适用于训练时间短、大数据量的场景。<br>
+（2）K-means算法：适用于精准度高、训练时间短的场景。<br>
+（3）模糊聚类FCM算法（Fuzzy C-means，FCM）：适用于精确度高、训练时间短的场景。<br>
+（4）SOM神经网络（Self-organizing Feature Map，SOM）：适用于运行时间较长的场景。</p>
+<h3 id="5-异常检测（Anomaly-Detection）">5.异常检测（Anomaly Detection）</h3>
+<p>异常检测是指对数据中存在的不正常或非典型的分体进行检测和标志，有时也称为偏差检测。<br>
+异常检测看起来和监督学习问题非常相似，都是分类问题。都是对样本的标签进行预测和判断，但是实际上两者的区别非常大，因为异常检测中的正样本（异常点）非常小。常用的算法有：<br>
+（1）一分类支持向量机（One-class SVM）：适用于数据特征较多的场景。<br>
+（2）基于PCA的异常检测（PCA-based Anomaly Detection）：适用于训练时间短的场景。</p>
+<h3 id="常见的迁移学习类算法包含：">常见的迁移学习类算法包含：</h3>
+<ul>
+<li>归纳式迁移学习（Inductive Transfer Learning）</li>
+<li>直推式迁移学习（Transductive Transfer Learning）</li>
+<li>无监督式迁移学习（Unsupervised Transfer Learning）</li>
+<li>传递式迁移学习（Transitive Transfer Learning）</li>
+<li>… …</li>
+</ul>
 
                 
               </div>
@@ -345,22 +498,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%80%83%E7%A0%94%E7%9B%B8%E5%85%B3/" class="category-chain-item">考研相关</a>
+  <a href="/categories/srtp%E7%9B%B8%E5%85%B3/" class="category-chain-item">srtp相关</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%80%83%E7%A0%94%E7%9B%B8%E5%85%B3/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="category-chain-item">数据结构</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%80%83%E7%A0%94%E7%9B%B8%E5%85%B3/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/LeetCode/" class="category-chain-item">LeetCode</a>
-  
-  
-
-  
-
   
 
       </span>
@@ -374,9 +513,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%8C%87%E9%92%88/">#指针</a>
-      
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">#数据结构</a>
+        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%AE%97%E6%B3%95/">#人工智能算法</a>
       
     </div>
   
@@ -388,8 +525,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>快慢指针</div>
-      <div>https://jin4869.github.io/2023/01/31/快慢指针/</div>
+      <div>人工智能常见算法</div>
+      <div>https://jin4869.github.io/2023/02/04/人工智能常见算法/</div>
     </div>
     <div class="license-meta">
       
@@ -401,7 +538,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年1月31日</div>
+          <div>2023年2月4日</div>
         </div>
       
       
@@ -433,9 +570,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/01/31/%E5%90%88%E5%B9%B6%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/" title="合并有序链表">
+                      <a href="/2023/02/05/BRB%E4%BE%8B%EF%BC%9A%E8%BE%93%E6%B2%B9%E7%AE%A1%E9%81%93%E6%B3%84%E6%BC%8F%E6%A3%80%E6%B5%8B/" title="BRB例：输油管道泄漏检测">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">合并有序链表</span>
+                        <span class="hidden-mobile">BRB例：输油管道泄漏检测</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -443,8 +580,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/01/29/token/" title="个人令牌">
-                        <span class="hidden-mobile">个人令牌</span>
+                      <a href="/2023/02/03/%E7%BD%AE%E4%BF%A1%E8%A7%84%E5%88%99%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="置信规则库学习笔记">
+                        <span class="hidden-mobile">置信规则库学习笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
