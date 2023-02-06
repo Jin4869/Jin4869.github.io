@@ -15,7 +15,7 @@
       
       <category>srtp相关</category>
       
-      <category>机器学习算法</category>
+      <category>机器学习算法例</category>
       
     </categories>
     
@@ -42,7 +42,7 @@
       
       <category>srtp相关</category>
       
-      <category>机器学习算法</category>
+      <category>机器学习算法例</category>
       
     </categories>
     
@@ -857,9 +857,9 @@
     
     <tags>
       
-      <tag>数据库设计</tag>
-      
       <tag>数据库</tag>
+      
+      <tag>数据库设计</tag>
       
     </tags>
     
@@ -969,11 +969,11 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>卷积神经网络</tag>
       
       <tag>神经网络</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
@@ -998,9 +998,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>神经网络</tag>
+      
+      <tag>机器学习</tag>
       
       <tag>神经网络训练</tag>
       
