@@ -16,24 +16,22 @@
   <meta name="author" content="不想长大的小孩">
   <meta name="keywords" content="">
   
-    <meta name="description" content="数据准备及数据集处理的相关问题">
+    <meta name="description" content="1、CAP理论中的C、A、P分别指的是什么？并解释  C(Consistency)：一致性：指任何一个读操作总是能读到之前完成的写操作的结果 A(Availability)：可用性：指快速获取数据，可以在确定的时间内返回操作结果，保证每个请求不管成功或失败都有响应 P(Partition Tolerance)：分区容忍性：指当出现网络分区的情况时（系统一部分结点无法和其他节点进行通信），分离的系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="实验二 聚类实验">
-<meta property="og:url" content="https://jin4869.github.io/2023/03/01/%E5%AE%9E%E9%AA%8C%E4%BA%8C%20%E8%81%9A%E7%B1%BB%E5%AE%9E%E9%AA%8C/index.html">
+<meta property="og:title" content="大数据课程概述（上）（下）作业">
+<meta property="og:url" content="https://jin4869.github.io/2023/03/04/NoSQL%E4%B8%89%E5%A4%A7%E5%9F%BA%E7%9F%B3%E3%80%81NewSQL%E4%BD%9C%E4%B8%9A/index.html">
 <meta property="og:site_name" content="小张的应试博客">
-<meta property="og:description" content="数据准备及数据集处理的相关问题">
+<meta property="og:description" content="1、CAP理论中的C、A、P分别指的是什么？并解释  C(Consistency)：一致性：指任何一个读操作总是能读到之前完成的写操作的结果 A(Availability)：可用性：指快速获取数据，可以在确定的时间内返回操作结果，保证每个请求不管成功或失败都有响应 P(Partition Tolerance)：分区容忍性：指当出现网络分区的情况时（系统一部分结点无法和其他节点进行通信），分离的系统">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jin4869.github.io/img/cover/dsjfxywj.JPG">
-<meta property="article:published_time" content="2023-03-01T12:22:57.000Z">
-<meta property="article:modified_time" content="2023-03-04T09:42:39.589Z">
+<meta property="article:published_time" content="2023-03-04T10:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-04T10:24:28.637Z">
 <meta property="article:author" content="不想长大的小孩">
-<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="大数据库系统">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jin4869.github.io/img/cover/dsjfxywj.JPG">
   
   
   
-  <title>实验二 聚类实验 - 小张的应试博客</title>
+  <title>大数据课程概述（上）（下）作业 - 小张的应试博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="实验二 聚类实验"></span>
+            <span id="subtitle" data-typed-text="大数据课程概述（上）（下）作业"></span>
           
         </div>
 
@@ -226,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-01 20:22" pubdate>
-          2023年3月1日 晚上
+        <time datetime="2023-03-04 18:00" pubdate>
+          2023年3月4日 晚上
         </time>
       </span>
     
@@ -239,7 +237,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.4k 字
+          992 字
         
       </span>
     
@@ -251,7 +249,7 @@
         
         
           <!-- compatible with older versions-->
-          20 分钟
+          9 分钟
         
       </span>
     
@@ -293,434 +291,71 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">实验二 聚类实验</h1>
+            <h1 style="display: none">大数据课程概述（上）（下）作业</h1>
             
             
               <div class="markdown-body">
                 
-                <p class="note note-success">
-    目前进度安排：在第四周实践课之前实现对数据集预处理
-</p>
-<h2 id="目的">目的</h2>
-<p>根据手机用户的APP使用情况、地理位置和手机配置信息属性，对<strong>用户所属的年龄段和性别组别</strong>进行聚类</p>
-<p class="note note-danger">
-这个时间使用这个类型的APP(is_active=1)在这个地方使用的这个类型的手机的用户的年龄段和性别是什么
-问题是：年龄段和性别是一起聚类还是分开聚类的，得到的结果图是一个还是两个？如果是一个的话怎么对年龄段和性别合起来进行数据处理？（年龄段应该是连续的，性别应该是离散的，怎么让他更好的聚类）
-</p>
-<h2 id="1、搭建拥有一个主节点和至少两个子节点的Spark集群、Hadoop集群">1、搭建拥有一个主节点和至少两个子节点的Spark集群、Hadoop集群</h2>
-<h2 id="2、数据准备">2、数据准备</h2>
-<h3 id="2-1-从原始数据文件构建数据集文件">2.1 从原始数据文件构建数据集文件</h3>
-<h4 id="2-1-1-原始数据文件">2.1.1 原始数据文件</h4>
-<table>
-<thead>
-<tr>
-<th>文件</th>
-<th>信息</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>gender_age_train.csv</td>
-<td>移动用户信息</td>
-</tr>
-<tr>
-<td>gender_age_test.csv</td>
-<td>待预测群组的用户的设备ID列表</td>
-</tr>
-<tr>
-<td>events.csv</td>
-<td>设备使用APP事件记录信息</td>
-</tr>
-<tr>
-<td>app_events.csv</td>
-<td>事件对应的APP信息</td>
-</tr>
-<tr>
-<td>app_labels.csv</td>
-<td>APP对应的标签类别</td>
-</tr>
-<tr>
-<td>label_categories.csv</td>
-<td>APP的所有标签类别</td>
-</tr>
-<tr>
-<td>phone_brand_device_model.csv</td>
-<td>设备本身的信息</td>
-</tr>
-</tbody>
-</table>
-<p><strong>gender_age_train.csv</strong></p>
-<table>
-<thead>
-<tr>
-<th>device_id</th>
-<th>gender</th>
-<th>age</th>
-<th>group</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>设备ID</td>
-<td>性别</td>
-<td>年龄</td>
-<td>用户所在的群组</td>
-</tr>
-<tr>
-<td>747721637379270000</td>
-<td>F</td>
-<td>37</td>
-<td>F33-42</td>
-</tr>
-<tr>
-<td>string</td>
-<td>string</td>
-<td>int</td>
-<td>string</td>
-</tr>
-</tbody>
-</table>
-<p>group:</p>
-<table>
-<thead>
-<tr>
-<th>M</th>
-<th>F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>22-</td>
-<td>23-</td>
-</tr>
-<tr>
-<td>23-26</td>
-<td>24-26</td>
-</tr>
-<tr>
-<td>27-28</td>
-<td>27-28</td>
-</tr>
-<tr>
-<td>29-31</td>
-<td>29-32</td>
-</tr>
-<tr>
-<td>32-38</td>
-<td>33-42</td>
-</tr>
-<tr>
-<td>39+</td>
-<td>43+</td>
-</tr>
-</tbody>
-</table>
-<p><strong>gender_age_test.csv</strong></p>
-<table>
-<thead>
-<tr>
-<th>device_id</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>设备ID</td>
-</tr>
-<tr>
-<td>1002079943728930000</td>
-</tr>
-<tr>
-<td>string</td>
-</tr>
-</tbody>
-</table>
-<p><strong>events.csv</strong></p>
-<table>
-<thead>
-<tr>
-<th>event_id</th>
-<th>device_id</th>
-<th>timestamp</th>
-<th>longitude</th>
-<th>latitude</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>事件ID</td>
-<td>设备ID</td>
-<td>APP使用时间</td>
-<td>事件发生经度</td>
-<td>事件发生纬度</td>
-</tr>
-<tr>
-<td>1</td>
-<td>29182687948017100</td>
-<td>2016/5/1 0:55:25</td>
-<td>121.38</td>
-<td>31.24</td>
-</tr>
-<tr>
-<td>int</td>
-<td>string</td>
-<td></td>
-<td>double</td>
-<td>double</td>
-</tr>
-</tbody>
-</table>
-<p><strong>app_events.csv</strong></p>
-<table>
-<thead>
-<tr>
-<th>event_id</th>
-<th>app_id</th>
-<th>is_installed</th>
-<th>is_active</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>事件ID</td>
-<td>APP ID</td>
-<td>是否下载</td>
-<td>是否激活</td>
-</tr>
-<tr>
-<td>2</td>
-<td>5927333115845830000</td>
-<td>1/0</td>
-<td>1/0</td>
-</tr>
-<tr>
-<td>int</td>
-<td>string</td>
-<td>int</td>
-<td>int</td>
-</tr>
-</tbody>
-</table>
-<p><strong>app_labels.csv</strong></p>
-<table>
-<thead>
-<tr>
-<th>app_id</th>
-<th>label_id</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>APP ID</td>
-<td>标签ID</td>
-</tr>
-<tr>
-<td>7324884708820020000</td>
-<td>251</td>
-</tr>
-<tr>
-<td>string</td>
-<td>int</td>
-</tr>
-</tbody>
-</table>
-<p><strong>label_categories.csv</strong></p>
-<table>
-<thead>
-<tr>
-<th>label_id</th>
-<th>category</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>标签ID</td>
-<td>类别</td>
-</tr>
-<tr>
-<td>2</td>
-<td>game-game type</td>
-</tr>
-<tr>
-<td>int</td>
-<td>string</td>
-</tr>
-</tbody>
-</table>
-<p><strong>phone_brand_device_model.csv</strong></p>
-<table>
-<thead>
-<tr>
-<th>device_id</th>
-<th>phone_brand</th>
-<th>device_model</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>设备ID</td>
-<td>品牌</td>
-<td>设备型号</td>
-</tr>
-<tr>
-<td>-8890648629457970000</td>
-<td>小米</td>
-<td>红米</td>
-</tr>
-<tr>
-<td>string</td>
-<td>string</td>
-<td>string</td>
-</tr>
-</tbody>
-</table>
-<h4 id="2-1-2-构建数据集文件">2.1.2 构建数据集文件</h4>
-<p>联合所有原始数据集，去除用户所在的群组(group)属性，构建一个新数据集</p>
-<p>表连接：</p>
+                <h2 id="1、CAP理论中的C、A、P分别指的是什么？并解释">1、CAP理论中的C、A、P分别指的是什么？并解释</h2>
 <ul>
-<li>a = gender_age_train.csv + events.csv (device_id)</li>
-<li>b = a + app_events.csv (event_id)</li>
-<li>c = b + app_labels.csv (app_id)</li>
-<li>d = c + label_categories (label_id)</li>
-<li>e = d + phone_brand_device_model.csv (device_id)</li>
+<li><strong>C(Consistency)：一致性</strong>：指任何一个读操作总是能读到之前完成的写操作的结果</li>
+<li><strong>A(Availability)：可用性</strong>：指快速获取数据，可以在确定的时间内返回操作结果，保证每个请求不管成功或失败<strong>都有响应</strong></li>
+<li><strong>P(Partition Tolerance)：分区容忍性</strong>：指当出现网络分区的情况时（系统一部分结点无法和其他节点进行通信），分离的系统也能正常运行</li>
 </ul>
-<h4 id="2-1-3-最终数据集">2.1.3 最终数据集</h4>
-<table>
-<thead>
-<tr>
-<th>表头</th>
-<th>表头意思</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>device_id</td>
-<td>设备ID</td>
-</tr>
-<tr>
-<td>event_id</td>
-<td>事件ID</td>
-</tr>
-<tr>
-<td>app_id</td>
-<td>APP ID</td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>APP使用时间</td>
-</tr>
-<tr>
-<td>longitude</td>
-<td>事件发生经度</td>
-</tr>
-<tr>
-<td>latitude</td>
-<td>事件发生纬度</td>
-</tr>
-<tr>
-<td>is_installed</td>
-<td>是否下载</td>
-</tr>
-<tr>
-<td>is_active</td>
-<td>是否激活</td>
-</tr>
-<tr>
-<td>label_id</td>
-<td>APP标签ID</td>
-</tr>
-<tr>
-<td>category</td>
-<td>APP类别</td>
-</tr>
-<tr>
-<td>phone_brand</td>
-<td>设备品牌</td>
-</tr>
-<tr>
-<td>device_model</td>
-<td>设备型号</td>
-</tr>
-<tr>
-<td>gender</td>
-<td>性别</td>
-</tr>
-<tr>
-<td>age</td>
-<td>年龄</td>
-</tr>
-</tbody>
-</table>
-<h3 id="2-2-将训练集和测试集文件上传到HDFS">2.2 将训练集和测试集文件上传到HDFS</h3>
-<h2 id="3、设计数据访问模块，实现以下功能">3、设计数据访问模块，实现以下功能</h2>
-<p>写代码用于输入输出数据</p>
-<p class="note note-danger">
-input.py?
-</p>
-<h3 id="3-1-从HDFS读取数据集数据">3.1 从HDFS读取数据集数据</h3>
-<h3 id="3-2-将聚类结果输出到HDFS">3.2 将聚类结果输出到HDFS</h3>
-<h2 id="4、设计数据预处理模块，实现以下功能">4、设计数据预处理模块，实现以下功能*</h2>
-<h3 id="4-1-离散属性的连续化">4.1 离散属性的连续化 *</h3>
-<p class="note note-danger">
-有哪些离散的属性需要进行连续化？
-</p>
-<h3 id="4-2-规范化">4.2 规范化</h3>
-<h4 id="4-2-1-特征的规范化">4.2.1 特征的规范化</h4>
+<h2 id="2、举例描述面对CAP问题时的三种选择">2、举例描述面对CAP问题时的三种选择</h2>
+<p><strong>一个系统不能同时满足CAP，最多同时满足两个</strong></p>
+<ol>
+<li><strong>CA</strong>：强调一致性和可用性，放弃分区容忍性
 <ul>
-<li><strong>timestamp</strong><br>
-数据是从2016/5/1开始，持续时间没有很长，也就是说，日期这一特征是没有用的，所以可以根据时间将其规范化</li>
+<li>把所有与事物相关的内容都放到同一台机器上，但这种做法会严重影响系统的可扩展性。</li>
+<li>NoSQL对分区容忍性是一定要满足的，CA模式只有关系型数据库满足</li>
 </ul>
-<p class="note note-danger">
-按照什么标准对其进行规范化？
-一开始我的想法是根据年龄对时间进行划分，聚类的精度说不定会更高，但是这个就涉及到对年龄进行分组的问题
-</p>
+</li>
+<li><strong>CP</strong>：强调一致性和分区容忍性，放弃可用性
 <ul>
-<li>
-<p><strong>longitude, latitude</strong><br>
-可以合并成一个二维(x,y)用来表示位置信息</p>
+<li>当出现网络分区时，受影响的服务需要等待数据一致，因此在等待期间无法对外提供服务</li>
+<li>MongoDB，Redis</li>
+</ul>
 </li>
-<li>
-<p><strong>is_installed, is_active</strong> *<br>
-看前面一百万条数据，is_installed都等于1<br>
-可能：</p>
+<li><strong>AP</strong>：强调可用性和分区容忍性，放弃一致性
+<ul>
+<li>即时获得数据，但数据可能存在不一致</li>
+<li>会影响用户体验，但不至于造成用户严重堵塞</li>
+</ul>
 </li>
-<li>
-<p>is_install=1, is_active=0表示这个时间点用户下载了该应用</p>
+</ol>
+<h2 id="3、BASE理论指的是什么？">3、BASE理论指的是什么？</h2>
+<ul>
+<li><strong>基本可用(Basically Available)</strong>
+<ul>
+<li>指一个分布式系统的一部分发生问题变得不可用时，其他部分仍然可以正常使用</li>
+<li>等同于允许损失部分可用性，允许响应时间更长、功能上的部分损失</li>
+</ul>
 </li>
-<li>
-<p>is_install=1, is_active=1表示这个时间用户正在使用该应用</p>
+<li><strong>软状态(Soft-State)</strong>
+<ul>
+<li>指状态可以有一段时间不同步，允许有一定的滞后性</li>
+</ul>
+</li>
+<li><strong>最终一致性(Eventually Consistency)</strong>
+<ul>
+<li>根据更新数据后个进程进行访问到数据的时间和方式的不同，可以区分为：
+<ul>
+<li><strong>因果一致性</strong>：如果进程A通知进程B它已更新了一个数据，那么进程B的后续访问将获得A写入的最新值</li>
+<li><strong>”读己之所写”一致性</strong>：当进程A自己执行一个更新操作之后，它自己总是可以访问到更新过的值，不会看到旧值</li>
+<li><strong>单调读一致性</strong>：如果进程已经看到过数据对象的某个值，任何后续访问都不会返回那个值之前的旧值</li>
+<li><strong>会话一致性</strong>：系统把访问存储系统的进程放到会话的上下文中，只要会话还在，系统就保证”读己之所写”一致性</li>
+<li><strong>单调写一致性</strong>：系统保证同一个进程的写操作顺序执行</li>
+</ul>
 </li>
 </ul>
-<p class="note note-danger">
-    <strong>不知道有没有is_install=0的数据</strong>，如果有这个数据需要舍弃吗？
-</p>
-<p>可以二者相加，=1表示下载了，=2表示下载并使用</p>
-<ul>
-<li><strong>label_id, category</strong> *</li>
+</li>
 </ul>
-<p class="note note-danger">
-    对于APP的类别没有办法量化，没有办法判断哪几个类别更接近，这一部分数据要怎么处理？
-</p>
-<ul>
-<li><strong>age</strong></li>
-</ul>
-<p class="note note-danger">
-原数据集有进行年龄段的分组，我们需要根据原年龄段进行划分等级吗？
-</p>
-<h4 id="4-2-2-数据集的规范化">4.2.2 数据集的规范化</h4>
-<p class="note note-danger">
-缺失特征直接删掉吧
-</p>
-<p class="note note-danger">
-需不需要对特征进行主成分分析？
-需不需要去除噪声？噪声要怎么去除？
-</p>
-<h2 id="5、设计数据聚类模块，根据3-2节所述，实现以下功能">5、设计数据聚类模块，根据3.2节所述，实现以下功能</h2>
-<h3 id="5-1-聚类模型构建，至少选择3个聚类算法">5.1 聚类模型构建，至少选择3个聚类算法</h3>
-<h4 id="5-1-1-关联规则">5.1.1 关联规则</h4>
-<p>对特征设置关联规则</p>
-<p class="note note-danger">
-我的看法是，对除了性别的其他特征进行关联规则的挖掘，然后再对关联规则和性别进行聚类
-</p>
+<h2 id="4、假设一个分布式系统，数据冗余节点N-5，更新节点个数W-3，读取节点个数R-2，这个系统是哪种类型的一致性？">4、假设一个分布式系统，数据冗余节点N=5，更新节点个数W=3，读取节点个数R=2，这个系统是哪种类型的一致性？</h2>
+<p>W+R = 5 = N 弱一致性</p>
+<blockquote>
+<p>N=5表示有5个节点做备份，W=3表示写3次就返回，R读取2次，可能读到没有被更新的两个节点</p>
+</blockquote>
 
                 
               </div>
@@ -739,12 +374,12 @@ input.py?
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/" class="category-chain-item">大数据分析与挖掘</a>
+  <a href="/categories/%E5%A4%A7%E4%B8%89%E4%B8%8B%E4%BD%9C%E4%B8%9A/" class="category-chain-item">大三下作业</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E5%AE%9E%E9%AA%8C/" class="category-chain-item">实验</a>
+  <a href="/categories/%E5%A4%A7%E4%B8%89%E4%B8%8B%E4%BD%9C%E4%B8%9A/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" class="category-chain-item">大数据库系统</a>
   
   
 
@@ -761,7 +396,7 @@ input.py?
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">#数据分析</a>
+        <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/">#大数据库系统</a>
       
     </div>
   
@@ -773,8 +408,8 @@ input.py?
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>实验二 聚类实验</div>
-      <div>https://jin4869.github.io/2023/03/01/实验二 聚类实验/</div>
+      <div>大数据课程概述（上）（下）作业</div>
+      <div>https://jin4869.github.io/2023/03/04/NoSQL三大基石、NewSQL作业/</div>
     </div>
     <div class="license-meta">
       
@@ -786,7 +421,7 @@ input.py?
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月1日</div>
+          <div>2023年3月4日</div>
         </div>
       
       
@@ -818,18 +453,12 @@ input.py?
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/04/NoSQL%E4%B8%89%E5%A4%A7%E5%9F%BA%E7%9F%B3%E3%80%81NewSQL%E4%BD%9C%E4%B8%9A/" title="大数据课程概述（上）（下）作业">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">大数据课程概述（上）（下）作业</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/02/27/NoSQL%E4%B8%8ERDMS%E5%B7%AE%E5%88%AB%E3%80%81NoSQL%E5%9B%9B%E5%A4%A7%E7%B1%BB%E5%9E%8B%E4%BD%9C%E4%B8%9A/" title="NoSQL与RDMS差别、NoSQL四大类型作业">
-                        <span class="hidden-mobile">NoSQL与RDMS差别、NoSQL四大类型作业</span>
+                      <a href="/2023/03/01/%E5%AE%9E%E9%AA%8C%E4%BA%8C%20%E8%81%9A%E7%B1%BB%E5%AE%9E%E9%AA%8C/" title="实验二 聚类实验">
+                        <span class="hidden-mobile">实验二 聚类实验</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
