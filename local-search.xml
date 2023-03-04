@@ -4,6 +4,87 @@
   
   
   <entry>
+    <title>实验二 聚类实验</title>
+    <link href="/2023/03/01/%E5%AE%9E%E9%AA%8C%E4%BA%8C%20%E8%81%9A%E7%B1%BB%E5%AE%9E%E9%AA%8C/"/>
+    <url>/2023/03/01/%E5%AE%9E%E9%AA%8C%E4%BA%8C%20%E8%81%9A%E7%B1%BB%E5%AE%9E%E9%AA%8C/</url>
+    
+    <content type="html"><![CDATA[<p class="note note-success">    目前进度安排：在第四周实践课之前实现对数据集预处理</p><h2 id="目的">目的</h2><p>根据手机用户的APP使用情况、地理位置和手机配置信息属性，对<strong>用户所属的年龄段和性别组别</strong>进行聚类</p><p class="note note-danger">这个时间使用这个类型的APP(is_active=1)在这个地方使用的这个类型的手机的用户的年龄段和性别是什么问题是：年龄段和性别是一起聚类还是分开聚类的，得到的结果图是一个还是两个？如果是一个的话怎么对年龄段和性别合起来进行数据处理？（年龄段应该是连续的，性别应该是离散的，怎么让他更好的聚类）</p><h2 id="1、搭建拥有一个主节点和至少两个子节点的Spark集群、Hadoop集群">1、搭建拥有一个主节点和至少两个子节点的Spark集群、Hadoop集群</h2><h2 id="2、数据准备">2、数据准备</h2><h3 id="2-1-从原始数据文件构建数据集文件">2.1 从原始数据文件构建数据集文件</h3><h4 id="2-1-1-原始数据文件">2.1.1 原始数据文件</h4><table><thead><tr><th>文件</th><th>信息</th></tr></thead><tbody><tr><td>gender_age_train.csv</td><td>移动用户信息</td></tr><tr><td>gender_age_test.csv</td><td>待预测群组的用户的设备ID列表</td></tr><tr><td>events.csv</td><td>设备使用APP事件记录信息</td></tr><tr><td>app_events.csv</td><td>事件对应的APP信息</td></tr><tr><td>app_labels.csv</td><td>APP对应的标签类别</td></tr><tr><td>label_categories.csv</td><td>APP的所有标签类别</td></tr><tr><td>phone_brand_device_model.csv</td><td>设备本身的信息</td></tr></tbody></table><p><strong>gender_age_train.csv</strong></p><table><thead><tr><th>device_id</th><th>gender</th><th>age</th><th>group</th></tr></thead><tbody><tr><td>设备ID</td><td>性别</td><td>年龄</td><td>用户所在的群组</td></tr><tr><td>747721637379270000</td><td>F</td><td>37</td><td>F33-42</td></tr><tr><td>string</td><td>string</td><td>int</td><td>string</td></tr></tbody></table><p>group:</p><table><thead><tr><th>M</th><th>F</th></tr></thead><tbody><tr><td>22-</td><td>23-</td></tr><tr><td>23-26</td><td>24-26</td></tr><tr><td>27-28</td><td>27-28</td></tr><tr><td>29-31</td><td>29-32</td></tr><tr><td>32-38</td><td>33-42</td></tr><tr><td>39+</td><td>43+</td></tr></tbody></table><p><strong>gender_age_test.csv</strong></p><table><thead><tr><th>device_id</th></tr></thead><tbody><tr><td>设备ID</td></tr><tr><td>1002079943728930000</td></tr><tr><td>string</td></tr></tbody></table><p><strong>events.csv</strong></p><table><thead><tr><th>event_id</th><th>device_id</th><th>timestamp</th><th>longitude</th><th>latitude</th></tr></thead><tbody><tr><td>事件ID</td><td>设备ID</td><td>APP使用时间</td><td>事件发生经度</td><td>事件发生纬度</td></tr><tr><td>1</td><td>29182687948017100</td><td>2016/5/1 0:55:25</td><td>121.38</td><td>31.24</td></tr><tr><td>int</td><td>string</td><td></td><td>double</td><td>double</td></tr></tbody></table><p><strong>app_events.csv</strong></p><table><thead><tr><th>event_id</th><th>app_id</th><th>is_installed</th><th>is_active</th></tr></thead><tbody><tr><td>事件ID</td><td>APP ID</td><td>是否下载</td><td>是否激活</td></tr><tr><td>2</td><td>5927333115845830000</td><td>1/0</td><td>1/0</td></tr><tr><td>int</td><td>string</td><td>int</td><td>int</td></tr></tbody></table><p><strong>app_labels.csv</strong></p><table><thead><tr><th>app_id</th><th>label_id</th></tr></thead><tbody><tr><td>APP ID</td><td>标签ID</td></tr><tr><td>7324884708820020000</td><td>251</td></tr><tr><td>string</td><td>int</td></tr></tbody></table><p><strong>label_categories.csv</strong></p><table><thead><tr><th>label_id</th><th>category</th></tr></thead><tbody><tr><td>标签ID</td><td>类别</td></tr><tr><td>2</td><td>game-game type</td></tr><tr><td>int</td><td>string</td></tr></tbody></table><p><strong>phone_brand_device_model.csv</strong></p><table><thead><tr><th>device_id</th><th>phone_brand</th><th>device_model</th></tr></thead><tbody><tr><td>设备ID</td><td>品牌</td><td>设备型号</td></tr><tr><td>-8890648629457970000</td><td>小米</td><td>红米</td></tr><tr><td>string</td><td>string</td><td>string</td></tr></tbody></table><h4 id="2-1-2-构建数据集文件">2.1.2 构建数据集文件</h4><p>联合所有原始数据集，去除用户所在的群组(group)属性，构建一个新数据集</p><p>表连接：</p><ul><li>a = gender_age_train.csv + events.csv (device_id)</li><li>b = a + app_events.csv (event_id)</li><li>c = b + app_labels.csv (app_id)</li><li>d = c + label_categories (label_id)</li><li>e = d + phone_brand_device_model.csv (device_id)</li></ul><h4 id="2-1-3-最终数据集">2.1.3 最终数据集</h4><table><thead><tr><th>表头</th><th>表头意思</th></tr></thead><tbody><tr><td>device_id</td><td>设备ID</td></tr><tr><td>event_id</td><td>事件ID</td></tr><tr><td>app_id</td><td>APP ID</td></tr><tr><td>timestamp</td><td>APP使用时间</td></tr><tr><td>longitude</td><td>事件发生经度</td></tr><tr><td>latitude</td><td>事件发生纬度</td></tr><tr><td>is_installed</td><td>是否下载</td></tr><tr><td>is_active</td><td>是否激活</td></tr><tr><td>label_id</td><td>APP标签ID</td></tr><tr><td>category</td><td>APP类别</td></tr><tr><td>phone_brand</td><td>设备品牌</td></tr><tr><td>device_model</td><td>设备型号</td></tr><tr><td>gender</td><td>性别</td></tr><tr><td>age</td><td>年龄</td></tr></tbody></table><h3 id="2-2-将训练集和测试集文件上传到HDFS">2.2 将训练集和测试集文件上传到HDFS</h3><h2 id="3、设计数据访问模块，实现以下功能">3、设计数据访问模块，实现以下功能</h2><p>写代码用于输入输出数据</p><p class="note note-danger">input.py?</p><h3 id="3-1-从HDFS读取数据集数据">3.1 从HDFS读取数据集数据</h3><h3 id="3-2-将聚类结果输出到HDFS">3.2 将聚类结果输出到HDFS</h3><h2 id="4、设计数据预处理模块，实现以下功能">4、设计数据预处理模块，实现以下功能*</h2><h3 id="4-1-离散属性的连续化">4.1 离散属性的连续化 *</h3><p class="note note-danger">有哪些离散的属性需要进行连续化？</p><h3 id="4-2-规范化">4.2 规范化</h3><h4 id="4-2-1-特征的规范化">4.2.1 特征的规范化</h4><ul><li><strong>timestamp</strong><br>数据是从2016/5/1开始，持续时间没有很长，也就是说，日期这一特征是没有用的，所以可以根据时间将其规范化</li></ul><p class="note note-danger">按照什么标准对其进行规范化？一开始我的想法是根据年龄对时间进行划分，聚类的精度说不定会更高，但是这个就涉及到对年龄进行分组的问题</p><ul><li><p><strong>longitude, latitude</strong><br>可以合并成一个二维(x,y)用来表示位置信息</p></li><li><p><strong>is_installed, is_active</strong> *<br>看前面一百万条数据，is_installed都等于1<br>可能：</p></li><li><p>is_install=1, is_active=0表示这个时间点用户下载了该应用</p></li><li><p>is_install=1, is_active=1表示这个时间用户正在使用该应用</p></li></ul><p class="note note-danger">    <strong>不知道有没有is_install=0的数据</strong>，如果有这个数据需要舍弃吗？</p><p>可以二者相加，=1表示下载了，=2表示下载并使用</p><ul><li><strong>label_id, category</strong> *</li></ul><p class="note note-danger">    对于APP的类别没有办法量化，没有办法判断哪几个类别更接近，这一部分数据要怎么处理？</p><ul><li><strong>age</strong></li></ul><p class="note note-danger">原数据集有进行年龄段的分组，我们需要根据原年龄段进行划分等级吗？</p><h4 id="4-2-2-数据集的规范化">4.2.2 数据集的规范化</h4><p class="note note-danger">缺失特征直接删掉吧</p><p class="note note-danger">需不需要对特征进行主成分分析？需不需要去除噪声？噪声要怎么去除？</p><h2 id="5、设计数据聚类模块，根据3-2节所述，实现以下功能">5、设计数据聚类模块，根据3.2节所述，实现以下功能</h2><h3 id="5-1-聚类模型构建，至少选择3个聚类算法">5.1 聚类模型构建，至少选择3个聚类算法</h3><h4 id="5-1-1-关联规则">5.1.1 关联规则</h4><p>对特征设置关联规则</p><p class="note note-danger">我的看法是，对除了性别的其他特征进行关联规则的挖掘，然后再对关联规则和性别进行聚类</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>大数据分析与挖掘</category>
+      
+      <category>实验</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据分析</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>NoSQL与RDMS差别、NoSQL四大类型作业</title>
+    <link href="/2023/02/27/NoSQL%E4%B8%8ERDMS%E5%B7%AE%E5%88%AB%E3%80%81NoSQL%E5%9B%9B%E5%A4%A7%E7%B1%BB%E5%9E%8B%E4%BD%9C%E4%B8%9A/"/>
+    <url>/2023/02/27/NoSQL%E4%B8%8ERDMS%E5%B7%AE%E5%88%AB%E3%80%81NoSQL%E5%9B%9B%E5%A4%A7%E7%B1%BB%E5%9E%8B%E4%BD%9C%E4%B8%9A/</url>
+    
+    <content type="html"><![CDATA[<h2 id="NoSQL有什么优点">NoSQL有什么优点</h2><ul><li>支持超大规模的数据存储</li><li>灵活的可扩展性</li><li>灵活的数据模型</li><li>可以很好的支持web2.0应用</li><li>具有非常好的可用性，能在短时间内迅速返回所需结果</li></ul><h2 id="列举至少5个NoSQL与RDMS差别">列举至少5个NoSQL与RDMS差别</h2><ul><li><strong>数据原理方面</strong><ul><li>关系数据库：具有完备的关系代数理论作为基础</li><li>NoSQL：缺乏理论基础</li></ul></li><li><strong>数据规模方面</strong><ul><li>关系数据库：很难实现横向扩展，纵向扩展有限</li><li>NoSQL：具有非常好的水平可扩展性（集群、分片的添加与删除），对用户透明<ul><li>很容易通过添加更多节点来支持更大规模的数据</li></ul></li></ul></li><li><strong>数据库模式方面</strong><ul><li>关系数据库：要定义严格的数据库模式，而且要严格遵守实现定义的数据库模式</li><li>NoSQL：数据模型非常灵活</li></ul></li><li><strong>查询效率方面</strong><ul><li>关系数据库：适当数量级查询效率高，数据量级增大查询效率下降</li><li>NoSQL：未构建面向复杂查询的索引，查询效率差</li></ul></li><li><strong>事物一致性方面</strong><ul><li>关系数据库：遵循ACID事务模型可以保证事物强一致性</li><li>NoSQL：不保证事务的一致性</li></ul></li><li><strong>数据完整性方面</strong><ul><li>关系数据库：具有保证完整性的完备机制<ul><li>实体完整性，域完整性，参照完整性，用户定义完整性</li></ul></li><li>NoSQL：不能实现完整性约束</li></ul></li><li><strong>可扩展性方面</strong><ul><li>关系数据库：扩展性一般比较差</li><li>NoSQL：水平扩展性非常好</li></ul></li></ul><h2 id="NoSQL的四大类型是什么">NoSQL的四大类型是什么</h2><ul><li>键值数据库</li><li>列族数据库</li><li>文档数据库</li><li>图数据库</li></ul><h2 id="简要说明键值数据库的优缺点及典型应用">简要说明键值数据库的优缺点及典型应用</h2><ul><li><strong>优点</strong><ul><li>扩展性好，灵活性好，吞吐量非常高</li></ul></li><li><strong>缺点</strong><ul><li>无法存储结构化信息，值和值之间无法反映关联关系</li><li>条件查询效率较低，可以key-&gt;value查，不能value-&gt;key查</li></ul></li></ul><p><strong>典型应用</strong>：涉及频繁读写，拥有简单数据模型的应用内容缓存，比如会话、配置文件、参数等存储配置和用户数据信息的移动应用</p><h2 id="简要说明文档数据库的优缺点及典型应用">简要说明文档数据库的优缺点及典型应用</h2><ul><li><strong>优点</strong><ul><li>性能好（高并发），灵活性高</li><li>提供嵌入式文档功能，将经常查询的数据存储在同一个文档中</li><li>既可以根据键来构建索引，也可以根据内容构建索引</li></ul></li><li><strong>缺点</strong><ul><li>查询性能不太高（相对于关系型数据库）</li><li>缺乏同一的查询语法</li></ul></li></ul><p><strong>典型应用</strong>：存储、索引并管理面向文档的数据或类似半结构化数据</p><p>比如，用于后台具有大量读写操作的网站、使用JSON数据结构的应用、使用嵌套结构等非规范化数据的应用程序</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>大三下作业</category>
+      
+      <category>大数据库系统</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>大数据库系统</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>大数据课程概述（上）（下）作业</title>
+    <link href="/2023/02/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AF%BE%E7%A8%8B%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%88%E4%B8%8B%EF%BC%89%E4%BD%9C%E4%B8%9A/"/>
+    <url>/2023/02/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AF%BE%E7%A8%8B%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%88%E4%B8%8B%EF%BC%89%E4%BD%9C%E4%B8%9A/</url>
+    
+    <content type="html"><![CDATA[<h2 id="简述Redis作为缓存接收用户读取请求后的执行过程">简述Redis作为缓存接收用户读取请求后的执行过程</h2><ol><li><strong>第一次读取数据</strong>：<ul><li>读取Redis数据会失败，此时触发程序读取数据库，把数据读取出来写入Redis</li></ul></li><li><strong>第二次及以后读取数据</strong>：<ul><li>直接读取Redis，读到数据后结束了流程</li></ul></li></ol><h2 id="简述Hive的工作流程">简述Hive的工作流程</h2><ol><li>Hive通过给用户提供的一系列交互接口，接收用户指令（HQL）<ul><li>支持各种命令，比如dfs的命令、脚本的执行</li><li>交互接口有多种，比如客户端、命令行客户端、面向用户的可视化界面</li></ul></li><li>接收指令后交给Driver的组件，结合元数据(MetaStore)，编译解析成MapReduce(Hadoop能执行的任务)</li><li>把编译出来的结果交给hadoop执行，将执行返回的结果输出到用户交互接口</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>大三下作业</category>
+      
+      <category>大数据库系统</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>大数据库系统</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>数据结构：树相关</title>
     <link href="/2023/02/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E6%A0%91%E7%9B%B8%E5%85%B3/"/>
     <url>/2023/02/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E6%A0%91%E7%9B%B8%E5%85%B3/</url>

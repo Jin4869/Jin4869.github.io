@@ -16,21 +16,34 @@
   <meta name="author" content="不想长大的小孩">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="https://jin4869.github.io/archives/page/3/index.html">
+    <meta name="description" content="简述Redis作为缓存接收用户读取请求后的执行过程  第一次读取数据：  读取Redis数据会失败，此时触发程序读取数据库，把数据读取出来写入Redis   第二次及以后读取数据：  直接读取Redis，读到数据后结束了流程    简述Hive的工作流程  Hive通过给用户提供的一系列交互接口，接收用户指令（HQL）  支持各种命令，比如dfs的命令、脚本的执行 交互接口有多种，比如客户端、命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据课程概述（上）（下）作业">
+<meta property="og:url" content="https://jin4869.github.io/2023/02/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AF%BE%E7%A8%8B%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%88%E4%B8%8B%EF%BC%89%E4%BD%9C%E4%B8%9A/index.html">
 <meta property="og:site_name" content="小张的应试博客">
+<meta property="og:description" content="简述Redis作为缓存接收用户读取请求后的执行过程  第一次读取数据：  读取Redis数据会失败，此时触发程序读取数据库，把数据读取出来写入Redis   第二次及以后读取数据：  直接读取Redis，读到数据后结束了流程    简述Hive的工作流程  Hive通过给用户提供的一系列交互接口，接收用户指令（HQL）  支持各种命令，比如dfs的命令、脚本的执行 交互接口有多种，比如客户端、命令">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-27T02:55:10.000Z">
+<meta property="article:modified_time" content="2023-02-27T11:45:52.064Z">
 <meta property="article:author" content="不想长大的小孩">
+<meta property="article:tag" content="大数据库系统">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>归档 - 小张的应试博客</title>
+  <title>大数据课程概述（上）（下）作业 - 小张的应试博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -86,7 +99,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 60vh;">
+<div class="header-inner" style="height: 70vh;">
   <nav
   id="navbar"
   class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
@@ -194,15 +207,57 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/1.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/cover/1.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="归档"></span>
+            <span id="subtitle" data-typed-text="大数据课程概述（上）（下）作业"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-27 10:55" pubdate>
+          2023年2月27日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          295 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          3 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
 
         
       </div>
@@ -222,100 +277,259 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 64 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2023</p>
-    
-    <a href="/2023/01/16/%E4%BD%BF%E7%94%A8Spark%E7%A2%B0%E5%88%B0%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/" class="list-group-item list-group-item-action">
-      <time>01-16</time>
-      <div class="list-group-item-title">使用Spark碰到内存不足</div>
-    </a>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">大数据课程概述（上）（下）作业</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="简述Redis作为缓存接收用户读取请求后的执行过程">简述Redis作为缓存接收用户读取请求后的执行过程</h2>
+<ol>
+<li><strong>第一次读取数据</strong>：
+<ul>
+<li>读取Redis数据会失败，此时触发程序读取数据库，把数据读取出来写入Redis</li>
+</ul>
+</li>
+<li><strong>第二次及以后读取数据</strong>：
+<ul>
+<li>直接读取Redis，读到数据后结束了流程</li>
+</ul>
+</li>
+</ol>
+<h2 id="简述Hive的工作流程">简述Hive的工作流程</h2>
+<ol>
+<li>Hive通过给用户提供的一系列交互接口，接收用户指令（HQL）
+<ul>
+<li>支持各种命令，比如dfs的命令、脚本的执行</li>
+<li>交互接口有多种，比如客户端、命令行客户端、面向用户的可视化界面</li>
+</ul>
+</li>
+<li>接收指令后交给Driver的组件，结合元数据(MetaStore)，编译解析成MapReduce(Hadoop能执行的任务)</li>
+<li>把编译出来的结果交给hadoop执行，将执行返回的结果输出到用户交互接口</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
   
     
-    <a href="/2023/01/15/%E4%B8%BA%E9%A1%B5%E8%84%9A%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%AB%99%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%B8%8Ebusuanzi%E8%AE%A1%E6%95%B0/" class="list-group-item list-group-item-action">
-      <time>01-15</time>
-      <div class="list-group-item-title">为页脚添加网站运行时间与busuanzi计数</div>
-    </a>
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E4%B8%89%E4%B8%8B%E4%BD%9C%E4%B8%9A/" class="category-chain-item">大三下作业</a>
   
-    
-    <a href="/2023/01/15/%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/" class="list-group-item list-group-item-action">
-      <time>01-15</time>
-      <div class="list-group-item-title">音乐播放器</div>
-    </a>
   
+    <span>></span>
     
-    <a href="/2023/01/14/%E6%96%87%E7%AB%A0%E4%BF%A1%E6%81%AF%E8%AE%BE%E7%BD%AE/" class="list-group-item list-group-item-action">
-      <time>01-14</time>
-      <div class="list-group-item-title">文章信息设置</div>
-    </a>
+  <a href="/categories/%E5%A4%A7%E4%B8%89%E4%B8%8B%E4%BD%9C%E4%B8%9A/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" class="category-chain-item">大数据库系统</a>
   
-    
-    <a href="/2023/01/14/%E7%95%99%E8%A8%80%E6%9D%BF%E7%9A%84%E5%88%B6%E4%BD%9C/" class="list-group-item list-group-item-action">
-      <time>01-14</time>
-      <div class="list-group-item-title">留言板的制作</div>
-    </a>
   
-    
-    <a href="/2023/01/14/%E9%A6%96%E9%A1%B5%E9%9A%8F%E6%9C%BA%E4%B8%80%E8%A8%80/" class="list-group-item list-group-item-action">
-      <time>01-14</time>
-      <div class="list-group-item-title">首页随机一言</div>
-    </a>
+
   
+
+      </span>
     
-    <a href="/2023/01/13/hello-world/" class="list-group-item list-group-item-action">
-      <time>01-13</time>
-      <div class="list-group-item-title">Hello World</div>
-    </a>
   
-    
-    <a href="/2023/01/05/%E4%BD%9C%E4%B8%9A4%EF%BC%9ASpark-DataFrame%E7%BC%96%E7%A8%8B/" class="list-group-item list-group-item-action">
-      <time>01-05</time>
-      <div class="list-group-item-title">作业4：Spark DataFrame编程</div>
-    </a>
+</span>
+
+    </div>
   
-    
-    <a href="/2023/01/05/%E4%BD%9C%E4%B8%9A3%EF%BC%9A%E7%BC%96%E5%86%99Spark%E7%8B%AC%E7%AB%8B%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/" class="list-group-item list-group-item-action">
-      <time>01-05</time>
-      <div class="list-group-item-title">作业3：编写Spark独立应用程序</div>
-    </a>
   
-    
-    <a href="/2023/01/05/%E4%BD%9C%E4%B8%9A2%EF%BC%9Ascala%E7%BC%96%E7%A8%8B/" class="list-group-item list-group-item-action">
-      <time>01-05</time>
-      <div class="list-group-item-title">作业2：scala编程</div>
-    </a>
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/">#大数据库系统</a>
+      
+    </div>
   
 </div>
 
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/#board">4</a><a class="page-number" href="/archives/page/5/#board">5</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/7/#board">7</a><a class="extend next" rel="next" href="/archives/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
+              
+  
 
-
-
-
-              </div>
-            </div>
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>大数据课程概述（上）（下）作业</div>
+      <div>https://jin4869.github.io/2023/02/27/大数据课程概述（上）（下）作业/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>不想长大的小孩</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
           </div>
         </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/27/NoSQL%E4%B8%8ERDMS%E5%B7%AE%E5%88%AB%E3%80%81NoSQL%E5%9B%9B%E5%A4%A7%E7%B1%BB%E5%9E%8B%E4%BD%9C%E4%B8%9A/" title="NoSQL与RDMS差别、NoSQL四大类型作业">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">NoSQL与RDMS差别、NoSQL四大类型作业</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E6%A0%91%E7%9B%B8%E5%85%B3/" title="数据结构：树相关">
+                        <span class="hidden-mobile">数据结构：树相关</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
       </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
     
 
     
@@ -440,7 +654,88 @@
     })(window, document);
   </script>
 
-   <script  src="/js/img-lazyload.js" ></script>     <script  src="/js/local-search.js" ></script>    
+   <script  src="/js/img-lazyload.js" ></script>     
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>    
 <script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
 <script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
 <script src="/js/busuanzi.pure.mini.js"></script>

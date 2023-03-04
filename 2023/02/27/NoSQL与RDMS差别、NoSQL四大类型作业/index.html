@@ -1,0 +1,832 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/3.png">
+  <link rel="icon" href="/img/3.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#88A3C3">
+  <meta name="author" content="不想长大的小孩">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="NoSQL有什么优点  支持超大规模的数据存储 灵活的可扩展性 灵活的数据模型 可以很好的支持web2.0应用 具有非常好的可用性，能在短时间内迅速返回所需结果  列举至少5个NoSQL与RDMS差别  数据原理方面  关系数据库：具有完备的关系代数理论作为基础 NoSQL：缺乏理论基础   数据规模方面  关系数据库：很难实现横向扩展，纵向扩展有限 NoSQL：具有非常好的水平可扩展性（集群、分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NoSQL与RDMS差别、NoSQL四大类型作业">
+<meta property="og:url" content="https://jin4869.github.io/2023/02/27/NoSQL%E4%B8%8ERDMS%E5%B7%AE%E5%88%AB%E3%80%81NoSQL%E5%9B%9B%E5%A4%A7%E7%B1%BB%E5%9E%8B%E4%BD%9C%E4%B8%9A/index.html">
+<meta property="og:site_name" content="小张的应试博客">
+<meta property="og:description" content="NoSQL有什么优点  支持超大规模的数据存储 灵活的可扩展性 灵活的数据模型 可以很好的支持web2.0应用 具有非常好的可用性，能在短时间内迅速返回所需结果  列举至少5个NoSQL与RDMS差别  数据原理方面  关系数据库：具有完备的关系代数理论作为基础 NoSQL：缺乏理论基础   数据规模方面  关系数据库：很难实现横向扩展，纵向扩展有限 NoSQL：具有非常好的水平可扩展性（集群、分">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-27T03:25:58.000Z">
+<meta property="article:modified_time" content="2023-02-27T11:45:36.139Z">
+<meta property="article:author" content="不想长大的小孩">
+<meta property="article:tag" content="大数据库系统">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>NoSQL与RDMS差别、NoSQL四大类型作业 - 小张的应试博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="/css/ancientPoetry.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jin4869.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","app_key":"lMcgSJZVf96W4kgugplYzNUn","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav
+  id="navbar"
+  class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小张的应试博客</strong>
+    </a>
+
+    <button
+      id="navbar-toggler-btn"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="iconfont icon-home-fill"></i>
+            <span>首页</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/archives/">
+            <i class="iconfont icon-archive-fill"></i>
+            <span>归档</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/categories/">
+            <i class="iconfont icon-category-fill"></i>
+            <span>分类</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/tags/">
+            <i class="iconfont icon-tags-fill"></i>
+            <span>标签</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/%E9%9A%8F%E7%AC%94/">
+            <i class="iconfont icon-pen"></i>
+            <span>留言板</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="iconfont icon-user-fill"></i>
+            <span>关于</span>
+          </a>
+        </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="/links/">
+            <i class="iconfont icon-link-fill"></i>
+            <span>友链</span>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="search-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            data-toggle="modal"
+            data-target="#modalSearch"
+            aria-label="Search"
+          >
+            <i class="iconfont icon-search"></i>
+          </a>
+        </li>
+          
+        <li class="nav-item" id="color-toggle-btn">
+          <a
+            class="nav-link"
+            target="_self"
+            href="javascript:;"
+            aria-label="Color Toggle"
+          >
+            <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/cover/1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="NoSQL与RDMS差别、NoSQL四大类型作业"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-27 11:25" pubdate>
+          2023年2月27日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          861 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">NoSQL与RDMS差别、NoSQL四大类型作业</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="NoSQL有什么优点">NoSQL有什么优点</h2>
+<ul>
+<li>支持超大规模的数据存储</li>
+<li>灵活的可扩展性</li>
+<li>灵活的数据模型</li>
+<li>可以很好的支持web2.0应用</li>
+<li>具有非常好的可用性，能在短时间内迅速返回所需结果</li>
+</ul>
+<h2 id="列举至少5个NoSQL与RDMS差别">列举至少5个NoSQL与RDMS差别</h2>
+<ul>
+<li><strong>数据原理方面</strong>
+<ul>
+<li>关系数据库：具有完备的关系代数理论作为基础</li>
+<li>NoSQL：缺乏理论基础</li>
+</ul>
+</li>
+<li><strong>数据规模方面</strong>
+<ul>
+<li>关系数据库：很难实现横向扩展，纵向扩展有限</li>
+<li>NoSQL：具有非常好的水平可扩展性（集群、分片的添加与删除），对用户透明
+<ul>
+<li>很容易通过添加更多节点来支持更大规模的数据</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>数据库模式方面</strong>
+<ul>
+<li>关系数据库：要定义严格的数据库模式，而且要严格遵守实现定义的数据库模式</li>
+<li>NoSQL：数据模型非常灵活</li>
+</ul>
+</li>
+<li><strong>查询效率方面</strong>
+<ul>
+<li>关系数据库：适当数量级查询效率高，数据量级增大查询效率下降</li>
+<li>NoSQL：未构建面向复杂查询的索引，查询效率差</li>
+</ul>
+</li>
+<li><strong>事物一致性方面</strong>
+<ul>
+<li>关系数据库：遵循ACID事务模型可以保证事物强一致性</li>
+<li>NoSQL：不保证事务的一致性</li>
+</ul>
+</li>
+<li><strong>数据完整性方面</strong>
+<ul>
+<li>关系数据库：具有保证完整性的完备机制
+<ul>
+<li>实体完整性，域完整性，参照完整性，用户定义完整性</li>
+</ul>
+</li>
+<li>NoSQL：不能实现完整性约束</li>
+</ul>
+</li>
+<li><strong>可扩展性方面</strong>
+<ul>
+<li>关系数据库：扩展性一般比较差</li>
+<li>NoSQL：水平扩展性非常好</li>
+</ul>
+</li>
+</ul>
+<h2 id="NoSQL的四大类型是什么">NoSQL的四大类型是什么</h2>
+<ul>
+<li>键值数据库</li>
+<li>列族数据库</li>
+<li>文档数据库</li>
+<li>图数据库</li>
+</ul>
+<h2 id="简要说明键值数据库的优缺点及典型应用">简要说明键值数据库的优缺点及典型应用</h2>
+<ul>
+<li><strong>优点</strong>
+<ul>
+<li>扩展性好，灵活性好，吞吐量非常高</li>
+</ul>
+</li>
+<li><strong>缺点</strong>
+<ul>
+<li>无法存储结构化信息，值和值之间无法反映关联关系</li>
+<li>条件查询效率较低，可以key-&gt;value查，不能value-&gt;key查</li>
+</ul>
+</li>
+</ul>
+<p><strong>典型应用</strong>：涉及频繁读写，拥有简单数据模型的应用内容缓存，比如会话、配置文件、参数等存储配置和用户数据信息的移动应用</p>
+<h2 id="简要说明文档数据库的优缺点及典型应用">简要说明文档数据库的优缺点及典型应用</h2>
+<ul>
+<li><strong>优点</strong>
+<ul>
+<li>性能好（高并发），灵活性高</li>
+<li>提供嵌入式文档功能，将经常查询的数据存储在同一个文档中</li>
+<li>既可以根据键来构建索引，也可以根据内容构建索引</li>
+</ul>
+</li>
+<li><strong>缺点</strong>
+<ul>
+<li>查询性能不太高（相对于关系型数据库）</li>
+<li>缺乏同一的查询语法</li>
+</ul>
+</li>
+</ul>
+<p><strong>典型应用</strong>：存储、索引并管理面向文档的数据或类似半结构化数据</p>
+<p>比如，用于后台具有大量读写操作的网站、使用JSON数据结构的应用、使用嵌套结构等非规范化数据的应用程序</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E4%B8%89%E4%B8%8B%E4%BD%9C%E4%B8%9A/" class="category-chain-item">大三下作业</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A4%A7%E4%B8%89%E4%B8%8B%E4%BD%9C%E4%B8%9A/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" class="category-chain-item">大数据库系统</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/">#大数据库系统</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>NoSQL与RDMS差别、NoSQL四大类型作业</div>
+      <div>https://jin4869.github.io/2023/02/27/NoSQL与RDMS差别、NoSQL四大类型作业/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>不想长大的小孩</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/01/%E5%AE%9E%E9%AA%8C%E4%BA%8C%20%E8%81%9A%E7%B1%BB%E5%AE%9E%E9%AA%8C/" title="实验二 聚类实验">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">实验二 聚类实验</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AF%BE%E7%A8%8B%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%88%E4%B8%8B%EF%BC%89%E4%BD%9C%E4%B8%9A/" title="大数据课程概述（上）（下）作业">
+                        <span class="hidden-mobile">大数据课程概述（上）（下）作业</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+<div id="valine"></div>
+
+<script type="text/javascript">
+  Fluid.utils.loadComments('#valine', function() {
+    Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+      var options = Object.assign(
+        {"appId":"DoAoHzHCu3XDbFpKBsuUZ5Uz-gzGzoHsz","appKey":"lMcgSJZVf96W4kgugplYzNUn","path":"window.location.pathname","placeholder":"小白求指教，留下你宝贵的评论吧！","avatar":"robohash","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+        {
+          el: "#valine",
+          path: window.location.pathname
+        }
+      )
+      new Valine(options);
+      Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+        var imgSelector = '#valine .vcontent img:not(.vemoji)';
+        Fluid.plugins.imageCaption(imgSelector);
+        Fluid.plugins.fancyBox(imgSelector);
+      })
+    });
+  });
+</script>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/pjax@VERSION/pjax.min.js"></script> <meting-js server="netease" type="playlist" id="8051474154" fixed="true" showlrc="false" lrc-type="0"></meting-js> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  <div class="footer-content"> <a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title="博客框架为Hexo_v5.4.0"><img src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg" srcset="/img/loading.gif" lazyload data-lazy-src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg" alt="博客框架为Hexo_v5.4.0" data-ll-status="loaded" class="entered loaded"></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank"><img src="https://img.shields.io/badge/Theme-fluid-purple.svg" srcset="/img/loading.gif" lazyload title="主题版本fluid_v1.9.4"/></a> <a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title="本站项目由Github托管"><img src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Source-Github.svg" srcset="/img/loading.gif" lazyload data-lazy-src="https://cdn1.tianli0.top/npm/anzhiyu-blog@2.1.5/img/badge/Source-Github.svg" alt="本站项目由Github托管" data-ll-status="loaded" class="entered loaded"></a> </div>
+     
+
+  <div id="days"></div>
+  <script>
+    function show_date_time() {
+      window.setTimeout("show_date_time()", 1000);
+      BirthDay = new Date("01/13/2023 20:02:02"); //修改为自己的blog建站时间
+      today = new Date();
+      timeold = today.getTime() - BirthDay.getTime();
+      sectimeold = timeold / 1000;
+      secondsold = Math.floor(sectimeold);
+      msPerDay = 24 * 60 * 60 * 1000;
+      e_daysold = timeold / msPerDay;
+      daysold = Math.floor(e_daysold);
+      e_hrsold = (e_daysold - daysold) * 24;
+      hrsold = setzero(Math.floor(e_hrsold));
+      e_minsold = (e_hrsold - hrsold) * 60;
+      minsold = setzero(Math.floor((e_hrsold - hrsold) * 60));
+      seconds = setzero(Math.floor((e_minsold - minsold) * 60));
+      document.getElementById("days").innerHTML =
+        "本站已跌跌撞撞运行" +
+        daysold +
+        "天" +
+        hrsold +
+        "小时" +
+        minsold +
+        "分" +
+        seconds +
+        "秒";
+    }
+    function setzero(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    }
+    show_date_time();
+  </script>
+
+  <script async src="/js/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span id="busuanzi_container_site_uv">
+    总访客数<span id="busuanzi_value_site_uv"></span>人
+  </span>
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+ <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script> <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> <script  src="/js/events.js" ></script> <script  src="/js/plugins.js" ></script> 
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+   <script  src="/js/img-lazyload.js" ></script>     
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>  <script>Fluid.plugins.codeWidget();</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+  <script>Fluid.plugins.imageCaption();</script>  <script  src="/js/local-search.js" ></script>    
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiantiao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/dianjichuzi.js"></script>
+<script src="/js/busuanzi.pure.mini.js"></script>
+ 
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
+</html>
