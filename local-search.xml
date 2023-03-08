@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>Redis安装</title>
+    <link href="/2023/03/08/Redis%E5%AE%89%E8%A3%85/"/>
+    <url>/2023/03/08/Redis%E5%AE%89%E8%A3%85/</url>
+    
+    <content type="html"><![CDATA[<h2 id="安装redis">安装redis</h2><p>将Redis解压至/usr/local目录下</p><p><img src="image-20230308173642382.png" alt=""></p><p>重命名</p><p><img src="image-20230308173814029.png" alt=""></p><p>redis目录的权限赋予用户：</p><p><img src="image-20230308174309116.png" alt=""></p><blockquote><p>Chown命令的作用为更改文件和文件夹拥有者，-R表示处理指定目录以及其子目录下的所有文件</p></blockquote><p>编译Redis：</p><p><img src="image-20230308174550931.png" alt=""></p><p>等待编译。。。</p><p>运行<code>make test</code>进行测试</p><p>等待<code>make test</code></p><p>出现报错</p><p><img src="image-20230308191700952.png" alt=""></p><p>搜索了一下，找到tests/unit/memefficiency.tcl，把原来的数值改为1000,1000</p><p><img src="image-20230308192904643.png" alt=""></p><p>解决</p><p><img src="image-20230308192701854.png" alt=""></p><p>安装redis:</p><p><img src="image-20230308180620250.png" alt=""></p><p>复制一份配置文件redis.conf</p><p><img src="image-20230308180758417.png" alt=""></p><blockquote><p>今后修改服务器配置文件均对/usr/local/redis/下的redis.conf进行修改，官方原版的作为备份存放在/usr/local/redis/src目录下</p></blockquote><p>redis组件如下</p><p><img src="image-20230308193231893.png" alt=""></p><h2 id="启动redis">启动redis</h2><p><img src="image-20230308193415687.png" alt=""></p><blockquote><p>redis-server后面跟的redis.conf参数表示的是开启服务器载入的是哪个配置文件</p></blockquote><h3 id="使redis服务器后台运行">使redis服务器后台运行</h3><p>Redis服务器占据前台执行不是很方便</p><p>修改<code>redis.conf</code>文件</p><p><img src="image-20230308193812519.png" alt=""></p><p>再次开启redis客户端，载入刚刚修改的redis.conf文件</p><p><img src="image-20230308194001784.png" alt=""></p><p>确定redis服务器确实在后台运行</p><p><img src="image-20230308194107282.png" alt=""></p><h3 id="使用客户端连接redis服务器">使用客户端连接redis服务器</h3><p><code>redis-cli</code>命令连接服务器</p><p>三种形式的启动命令</p><ul><li><code>./redis-cli</code>不指定启动端口</li><li><code>./redis-cli -p 6379</code>指定启动端口</li><li><code>./redis-cli -h 127.0.0.1 -p 6379</code>指定IP和启动端口</li></ul><blockquote><p>连接时<strong>报了个错</strong></p><p><img src="image-20230308194709740.png" alt=""></p><p>根据要求安装：</p><p><img src="image-20230308194735227.png" alt=""></p></blockquote><p>启动成功</p><p><img src="image-20230308194811899.png" alt=""></p><p>在客户端输入指令<code>info server</code>查询服务器信息：</p><p><img src="image-20230308195007415.png" alt=""></p><p>在客户端输入ping，服务器端回复pong</p><p><img src="image-20230308195054665.png" alt=""></p><h3 id="redis-的-hello-world">redis 的 hello world</h3><p>添加键值k1，k2</p><p><img src="image-20230308195204480.png" alt=""></p><p>使用keys命令查看所有键</p><p><img src="image-20230308195234085.png" alt=""></p><p>使用get命令获得k1和k2的内容</p><p><img src="image-20230308195308645.png" alt=""></p><h2 id="退出redis">退出redis</h2><p>关闭服务器</p><p><img src="image-20230308195532939.png" alt=""></p><p>关闭当前客户端</p><p><img src="image-20230308195602294.png" alt=""></p><p>使用ps查看redis进程</p><p><img src="image-20230308195652216.png" alt=""></p><p>redis确实被关闭了</p><h2 id="redis-benchmark工具">redis-benchmark工具</h2><p>压力测试工具，可以指定redis对某个服务器执行一定次数的读写</p><ol><li>启动服务器</li><li><img src="image-20230308200003742.png" alt=""></li></ol><p><img src="image-20230308200036559.png" alt=""></p><p><img src="image-20230308200054772.png" alt=""></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>大三下作业</category>
+      
+      <category>大数据库系统</category>
+      
+      <category>实验</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>大数据库系统</tag>
+      
+      <tag>redis</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>大数据课程概述（上）（下）作业</title>
     <link href="/2023/03/04/NoSQL%E4%B8%89%E5%A4%A7%E5%9F%BA%E7%9F%B3%E3%80%81NewSQL%E4%BD%9C%E4%B8%9A/"/>
     <url>/2023/03/04/NoSQL%E4%B8%89%E5%A4%A7%E5%9F%BA%E7%9F%B3%E3%80%81NewSQL%E4%BD%9C%E4%B8%9A/</url>
@@ -1129,11 +1160,11 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>卷积神经网络</tag>
       
       <tag>神经网络</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
@@ -1158,9 +1189,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>神经网络</tag>
+      
+      <tag>机器学习</tag>
       
       <tag>神经网络训练</tag>
       
